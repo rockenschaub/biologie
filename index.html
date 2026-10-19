@@ -1,0 +1,165 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="Lernseiten für den Biologieunterricht von Mag. Stefan Rockenschaub: Animationen, Aufgaben und Selbsttests."><title>Biologie</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+/* Hauptseite und Impressum: dunkler Kopf mit Nervennetz wie auf den Lernseiten, darunter Themen als Kartenreihen. Zuerst fürs Handy gebaut. */
+:root{
+  --bg:#F4F7F8;--card:#FFFFFF;--cool:#EEF1F2;--warm:#FBF4E4;--line:#D7DDE0;
+  --ink:#21272B;--sub:#3F484E;--muted:#5B676D;
+  --teal:#0F8C8C;--teal-d:#0A6468;--teal-s:#DDF0EE;--teal-l:#7FD0C8;
+  --amber:#E8B33C;--amber-d:#A87A12;
+  --night:#12171A;--night-2:#1E2A2E;--on-night:#EEF3F4;--on-night-sub:#C9D6D9;
+  --display:"Fraunces",Georgia,serif;--body:"Figtree","Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);--maxw:1180px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p,dl,dd{margin:0}
+h1,h2,h3{text-wrap:balance}
+a:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
+.eyebrow{font:600 12.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-d)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Kopf */
+.hero{position:relative;overflow:hidden;color:var(--on-night);background:radial-gradient(120% 90% at 70% 10%,var(--night-2) 0%,var(--night) 62%)}
+#net{position:absolute;inset:0;width:100%;height:100%;display:block;-webkit-mask-image:radial-gradient(130% 95% at 100% 0%,#000 0%,#000 32%,rgba(0,0,0,.16) 72%);mask-image:radial-gradient(130% 95% at 100% 0%,#000 0%,#000 32%,rgba(0,0,0,.16) 72%)}
+.hero-in{position:relative;display:grid;gap:18px;justify-items:start;padding-block:76px 40px}
+.hero .eyebrow{color:var(--teal-l)}
+.hero h1{font:600 clamp(64px,17vw,168px)/.9 var(--display);letter-spacing:-.03em;color:#fff;padding-bottom:.12em}
+.hero .sub{font-size:clamp(18px,2.2vw,23px);max-width:38ch;color:var(--on-night-sub)}
+.by{font:600 12px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--on-night-sub)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chips a{display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px;border-radius:999px;padding:9px 16px;background:rgba(255,255,255,.07);border:1.5px solid rgba(127,208,200,.4);transition:background .3s var(--ease),border-color .3s var(--ease)}
+.chips a:hover{background:rgba(15,140,140,.35);border-color:var(--teal-l)}
+.chips small{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-l)}
+
+/* Themen */
+.bereich{padding-block:52px 8px}
+.b-head{display:grid;gap:8px;max-width:700px;margin-bottom:22px}
+.b-head h2{font:600 clamp(34px,6vw,54px)/1.04 var(--display);letter-spacing:-.012em}
+.lead{font-size:18px;color:var(--sub)}
+.karten{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.karte{position:relative;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;min-width:0;padding:22px 22px 18px;background:var(--card);border:1.5px solid var(--line);border-radius:18px;color:inherit;text-decoration:none;transition:border-color .35s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease)}
+.karte:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(10,100,104,.45)}
+.k-kurz{font:600 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-d)}
+.karte h3{font:600 clamp(25px,3.4vw,30px)/1.1 var(--display);letter-spacing:-.01em}
+.karte p{color:var(--sub);font-size:16px}
+.k-los{display:inline-flex;align-items:center;gap:8px;justify-self:start;margin-top:6px;font-weight:700;font-size:15px;color:var(--teal-d);border-bottom:2px solid var(--teal-s);padding-bottom:2px;transition:border-color .3s}
+.k-los svg{width:18px;height:18px;transition:transform .35s var(--ease)}
+.karte:hover .k-los{border-color:var(--teal)}
+.karte:hover .k-los svg{transform:translateX(4px)}
+.bald{padding-block:40px 64px;color:var(--muted);font-size:15px}
+
+/* Impressum */
+.leiste{background:var(--night);color:var(--on-night)}
+.l-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
+.marke{font:600 26px/1 var(--display);color:#fff;text-decoration:none;letter-spacing:-.01em}
+.marke:hover{color:var(--teal-l)}
+.l-wer{font:600 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-l)}
+.recht{max-width:760px;padding-block:44px 64px;display:grid;gap:36px}
+.r-head{display:grid;gap:8px}
+.r-head h1{font:600 clamp(42px,9vw,72px)/1 var(--display);letter-spacing:-.02em}
+.recht section{display:grid;gap:12px}
+.recht h2{font:600 clamp(23px,3.4vw,28px)/1.15 var(--display);letter-spacing:-.005em}
+.recht p{color:var(--sub);max-width:65ch}
+.recht a{color:var(--teal-d);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.angaben{display:grid;gap:0;background:var(--card);border:1.5px solid var(--line);border-radius:16px;overflow:hidden}
+.angaben div{display:grid;gap:4px;padding:14px 18px;border-top:1px solid var(--line)}
+.angaben div:first-child{border-top:0}
+.angaben dt{font:600 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
+.angaben dd{font-size:18px;color:var(--ink)}
+
+@media (min-width:860px){
+  body{font-size:18px}
+  .hero-in{padding-block:120px 72px}
+  .bereich{padding-block:76px 8px}
+  .angaben div{grid-template-columns:200px 1fr;gap:16px;align-items:baseline}
+}
+@media (prefers-reduced-motion:reduce){
+  .karte,.k-los svg,.chips a{transition:none}
+  .karte:hover{transform:none}
+}
+</style>
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero-in wrap">
+    <span class="eyebrow">Lernseiten</span>
+    <h1>Biologie</h1>
+    <p class="sub">Hier findest du die Lernseiten zu unseren Biologiestunden: Animationen zum Nachschauen, Aufgaben zum Selbermachen und Selbsttests zum Üben.</p>
+    <p class="by">von Mag. Stefan Rockenschaub</p>
+    <nav class="chips" aria-label="Themen"><a href="#nervensystem">Nervensystem <small>6. Klasse</small></a></nav>
+  </div>
+</header>
+
+<main>
+<section class="bereich wrap" id="nervensystem" aria-labelledby="h-nervensystem">
+  <div class="b-head"><span class="eyebrow">6. Klasse</span><h2 id="h-nervensystem">Nervensystem</h2><p class="lead">Wie Nervenzellen Signale an die nächste Zelle weitergeben und warum derselbe Botenstoff ganz Verschiedenes bewirken kann.</p></div>
+  <div class="karten">
+    <a class="karte" href="synapse/">
+      <span class="k-kurz">Synapse</span>
+      <h3>Zweisprachige Nerven</h3>
+      <p>Wie ein Nervensignal über die chemische Synapse in die nächste Zelle gelangt: Animation, Labor und Selbsttest.</p>
+      <span class="k-los">Lernseite öffnen <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+    <a class="karte" href="rezeptoren/">
+      <span class="k-kurz">Rezeptoren</span>
+      <h3>Ein Schlüssel, viele Schlösser</h3>
+      <p>Warum derselbe Botenstoff erregen oder hemmen kann: vier Rezeptoren animiert, Rezeptor-Labor und Selbsttest.</p>
+      <span class="k-los">Lernseite öffnen <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+  </div>
+</section>
+<p class="bald wrap">Weitere Lernseiten kommen im Lauf des Schuljahres dazu.</p>
+</main>
+
+<nav class="rb-site" aria-label="Biologie-Lernseiten"><div class="rb-in"><span class="rb-wer">Biologie · Stefan Rockenschaub</span><a href="./impressum/">Impressum</a></div></nav>
+<style>.rb-site{background:#12171A;color:#C9D6D9;font:500 15px/1.4 "Figtree","Segoe UI",system-ui,sans-serif}.rb-in{max-width:1180px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px}.rb-wer{margin-right:auto;font:600 12px/1.3 "IBM Plex Mono",ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD0C8}.rb-site a{color:#fff;text-decoration:none;font-weight:600;border-bottom:1.5px solid rgba(127,208,200,.5);padding-bottom:1px}.rb-site a:hover{border-bottom-color:#7FD0C8}.rb-site a:focus-visible{outline:3px solid #E8B33C;outline-offset:3px;border-radius:2px}</style>
+<script>
+/* Hauptseite: Nervennetz im Kopf (aus der Stunde Synapse), läuft nur, solange der Kopf zu sehen ist */
+(function(){
+  'use strict';
+  var cv=document.getElementById('net');if(!cv||!cv.getContext)return;
+  var TAU=Math.PI*2;
+  function clamp(x,a,b){return x<a?a:x>b?b:x}
+  function rng(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+  var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var c=cv.getContext('2d'),W=0,H=0,dpr=1,N=[],E=[],I=[],P=[],raf=0,run=false,last=0,spawn=0,R=rng(5);
+  function build(){var w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return false;R=rng(5);dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);W=w;H=h;
+    N=[];var target=clamp(Math.round(w*h/14000),14,80),minD=Math.sqrt(w*h/target)*.62,tries=0;
+    while(N.length<target&&tries<target*80){tries++;var x=R()*w,y=R()*h,ok=true;
+      for(var i=0;i<N.length;i++)if(Math.hypot(N[i].x-x,N[i].y-y)<minD){ok=false;break}
+      if(!ok)continue;var d=[],k=3+Math.floor(R()*4);for(var j=0;j<k;j++)d.push([R()*TAU,minD*(.22+R()*.38),(R()-.5)*.9]);
+      N.push({x:x,y:y,r:2.6+R()*2.6,d:d,fl:0,out:[]})}
+    E=[];N.forEach(function(n,i){var near=N.map(function(m,j){return {j:j,d:Math.hypot(m.x-n.x,m.y-n.y)}}).filter(function(o){return o.j!==i}).sort(function(a,b){return a.d-b.d}).slice(0,3);
+      var k=1+(R()<.55?1:0);for(var q=0;q<k&&q<near.length;q++){var m=N[near[q].j],off=(R()-.5)*.5,dx=m.x-n.x,dy=m.y-n.y;
+        E.push({a:i,b:near[q].j,cx:(n.x+m.x)/2-dy*off,cy:(n.y+m.y)/2+dx*off,len:near[q].d});n.out.push(E.length-1)}});
+    I=[];P=[];return true}
+  function pt(e,u){var a=N[e.a],b=N[e.b],v=1-u;return [v*v*a.x+2*v*u*e.cx+u*u*b.x,v*v*a.y+2*v*u*e.cy+u*u*b.y]}
+  function fire(i){var n=N[i];if(!n||!n.out.length)return;var e=n.out[Math.floor(R()*n.out.length)];I.push({e:e,u:0,sp:250/Math.max(60,E[e].len)})}
+  function puff(x,y){var parts=[];for(var k=0;k<11;k++){var a=R()*TAU,v=10+R()*24;parts.push([Math.cos(a)*v,Math.sin(a)*v])}P.push({x:x,y:y,t:0,parts:parts})}
+  function paint(dt){c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);c.lineCap='round';
+    c.strokeStyle='rgba(63,169,164,.24)';c.lineWidth=1.1;
+    N.forEach(function(n){n.d.forEach(function(d){var x1=n.x+Math.cos(d[0])*d[1],y1=n.y+Math.sin(d[0])*d[1],cx=n.x+Math.cos(d[0]+d[2])*d[1]*.55,cy=n.y+Math.sin(d[0]+d[2])*d[1]*.55;
+      c.beginPath();c.moveTo(n.x,n.y);c.quadraticCurveTo(cx,cy,x1,y1);c.stroke()})});
+    c.strokeStyle='rgba(63,169,164,.36)';c.lineWidth=1.5;
+    E.forEach(function(e){var a=N[e.a],b=N[e.b];c.beginPath();c.moveTo(a.x,a.y);c.quadraticCurveTo(e.cx,e.cy,b.x,b.y);c.stroke()});
+    for(var i=I.length-1;i>=0;i--){var im=I[i],e=E[im.e];im.u+=im.sp*dt;
+      if(im.u>=1){var b=N[e.b];b.fl=1;puff(b.x,b.y);I.splice(i,1);(function(j){setTimeout(function(){if(run&&R()<.8)fire(j)},260+R()*320)})(e.b);continue}
+      for(var k=0;k<9;k++){var u=im.u-k*.02;if(u<0)break;var p=pt(e,u);c.beginPath();c.arc(p[0],p[1],3.6-k*.3,0,TAU);c.fillStyle='rgba(159,227,220,'+((1-k/8)*.95).toFixed(3)+')';c.fill()}
+      var h=pt(e,im.u),g=c.createRadialGradient(h[0],h[1],0,h[0],h[1],22);g.addColorStop(0,'rgba(159,227,220,.6)');g.addColorStop(1,'rgba(159,227,220,0)');c.fillStyle=g;c.beginPath();c.arc(h[0],h[1],22,0,TAU);c.fill()}
+    for(var q=P.length-1;q>=0;q--){var f=P[q];f.t+=dt;if(f.t>1.15){P.splice(q,1);continue}var s=f.t/1.15;
+      f.parts.forEach(function(v){c.beginPath();c.arc(f.x+v[0]*Math.sqrt(s)*1.5,f.y+v[1]*Math.sqrt(s)*1.5,2.6,0,TAU);c.fillStyle='rgba(232,179,60,'+((1-s)*.9).toFixed(3)+')';c.fill()})}
+    N.forEach(function(n){n.fl=Math.max(0,n.fl-dt*1.5);c.beginPath();c.arc(n.x,n.y,n.r+n.fl*3.2,0,TAU);
+      c.fillStyle='rgba('+(63+n.fl*130|0)+','+(169+n.fl*60|0)+','+(164+n.fl*60|0)+','+(.55+n.fl*.4).toFixed(3)+')';c.fill()})}
+  function frame(now){if(!run)return;var dt=Math.min(.05,(now-(last||now))/1000);last=now;spawn-=dt;if(spawn<=0){fire(Math.floor(R()*N.length));spawn=.45+R()*.6}paint(dt);raf=requestAnimationFrame(frame)}
+  function still(){for(var k=0;k<5;k++){var n=N[Math.floor(R()*N.length)];if(n){n.fl=.8;puff(n.x,n.y);P[P.length-1].t=.3}}paint(0)}
+  function start(){if(!W&&!build())return;if(RM){still();return}if(run)return;run=true;last=0;raf=requestAnimationFrame(frame)}
+  function stop(){run=false;cancelAnimationFrame(raf)}
+  var sichtbar=true;
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){sichtbar=es[0].isIntersecting;if(sichtbar&&!document.hidden)start();else stop()}).observe(cv)}
+  document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else if(sichtbar)start()});
+  window.addEventListener('resize',function(){var was=run;stop();W=0;if(build()){if(was||RM)start()}});
+  if(build()){paint(0);start()}
+})();
+</script>

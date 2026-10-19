@@ -1,0 +1,1283 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="Wie ein Nervensignal über die chemische Synapse in die nächste Zelle gelangt: Animation, Labor und Selbsttest."><style>body{margin:0}</style><title>Zweisprachige Nerven</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* Schülerfassung: zuerst fürs Handy gebaut, am Computer zweispaltig mit stehender Abbildung */
+:root{
+  --bg:#F4F7F8;--card:#FFFFFF;--cool:#EEF1F2;--warm:#FBF4E4;--line:#D7DDE0;
+  --ink:#21272B;--sub:#3F484E;--muted:#5B676D;
+  --teal:#0F8C8C;--teal-d:#0A6468;--teal-s:#DDF0EE;--blue:#2F5F96;--blue-s:#E3EAF2;
+  --amber:#E8B33C;--amber-d:#A87A12;--amber-ink:#8A6410;--amber-s:#FBEFD2;--verm:#C8553D;--verm-d:#A8432F;
+  --ok:#0A6468;--ok-s:#DDF0EE;--no:#A8432F;--no-s:#F8E4DE;
+  --night:#12171A;
+  --display:"Fraunces",Georgia,serif;--body:"Figtree","Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);--toc-h:50px;--maxw:1180px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-padding-top:calc(var(--toc-h) + 8px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit}
+svg text{font-family:var(--body)}
+b{font-weight:650}
+.eyebrow{font:600 12.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-d)}
+.topbar{position:fixed;left:0;top:0;right:0;height:3px;z-index:50;pointer-events:none}
+.topbar i{display:block;height:100%;width:0;background:var(--teal)}
+
+/* Kopf */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden;color:#EEF3F4;background:radial-gradient(120% 90% at 70% 10%,#1E2A2E 0%,var(--night) 62%)}
+#net{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero #net{-webkit-mask-image:radial-gradient(130% 95% at 100% 0%,#000 0%,#000 32%,rgba(0,0,0,.16) 72%);mask-image:radial-gradient(130% 95% at 100% 0%,#000 0%,#000 32%,rgba(0,0,0,.16) 72%)}
+.hero-in{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;padding:88px 20px 56px;display:grid;gap:20px;justify-items:start}
+.hero .eyebrow{color:#7FD0C8}
+.hero h1{font:600 clamp(50px,12.5vw,136px)/.92 var(--display);letter-spacing:-.022em;color:#fff;max-width:11ch}
+.hero .sub{font-size:clamp(18px,2.2vw,23px);max-width:34ch;color:#C9D6D9}
+.goal{display:grid;gap:8px;max-width:640px;background:rgba(255,255,255,.07);border:1.5px solid rgba(127,208,200,.35);border-radius:16px;padding:14px 18px;backdrop-filter:blur(6px);color:#fff}
+.goal b{font:700 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7FD0C8}
+.down{display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:10px 18px;background:var(--teal)}
+.down svg{width:18px;height:18px}
+.down:focus-visible,.toc a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* Inhaltsleiste */
+.toc{position:sticky;top:0;z-index:40;height:var(--toc-h);display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px;background:rgba(244,247,248,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;color:var(--sub);text-decoration:none;font:600 14px/1 var(--body);padding:9px 12px;border-radius:999px;transition:background .3s,color .3s}
+.toc a.t{color:var(--teal-d)}
+.toc a.on{background:var(--ink);color:#fff}
+@media (min-width:1000px){.toc{justify-content:center}}
+
+/* Abschnitte */
+.sec{padding:64px 16px 40px;max-width:var(--maxw);margin:0 auto}
+.sec-head{max-width:700px;margin:0 auto 26px;display:grid;gap:10px}
+.sec h2{font:600 clamp(32px,6vw,52px)/1.04 var(--display);letter-spacing:-.012em}
+.lead{font-size:18px;color:var(--sub)}
+.small{font-size:15px;color:var(--muted)}
+
+/* Scrollytelling */
+.scrolly{position:relative}
+.media{position:sticky;top:var(--toc-h);z-index:1;height:min(50svh,96vw);padding:8px 0}
+.mbox{position:relative;width:100%;height:100%;border-radius:18px;overflow:hidden;background:#F3F6F7;border:1px solid var(--line)}
+.mbox.light{background:#fff}
+.mbox>svg,.mbox>canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.mbox.light>svg{inset:10px;width:calc(100% - 20px);height:calc(100% - 20px)}
+.mbox .ov{position:absolute;inset:0;background:#fff;transform-origin:62% 66%}
+.mbox .ov svg{width:100%;height:100%;display:block}
+.cards{position:relative;z-index:2;padding:4svh 0 22svh}
+.card{position:relative;max-width:560px;margin:0 auto 64svh;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:0 10px 34px rgba(15,40,45,.12);display:grid;gap:10px;transition:opacity .45s,transform .6s var(--ease)}
+.card:last-child{margin-bottom:8svh}
+@media (max-width:959px){
+  .media{z-index:3;background:var(--bg);box-shadow:0 16px 16px -16px rgba(15,40,45,.28)}
+  .cards{z-index:1}
+  .scrolly[data-scrolly="loewi"] .media{height:min(46svh,calc((100vw - 32px)*.72 + 16px))}
+  .scrolly[data-scrolly="syn"] .media{height:min(52svh,calc((100vw - 32px)*.86 + 16px))}
+  .card{margin-bottom:40svh}
+}
+.card:not(.on){opacity:.5}
+.card h3{font:600 23px/1.15 var(--display)}
+.card .cno{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 14px/1 var(--body)}
+.card .m{background:var(--warm);border-radius:10px;padding:8px 12px;font-weight:600}
+.card .m::before{content:"Merke: ";color:var(--amber-ink)}
+.fact{background:var(--warm);border-radius:10px;padding:9px 12px;font-size:15.5px}
+.fact b{color:var(--amber-ink)}
+.sh{display:flex;align-items:center;gap:12px}
+.sh .no{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 20px/1 var(--body)}
+.parts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px;counter-reset:pt}
+.parts li{counter-increment:pt}
+.parts button{width:100%;height:100%;display:flex;align-items:center;gap:8px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:7px 8px;cursor:pointer;font-size:15px;line-height:1.25;hyphens:auto;transition:background .25s,border-color .25s}
+.parts button::before{content:counter(pt);flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 13px/1 var(--body)}
+.parts button[aria-pressed="true"]{background:var(--amber-s);border-color:var(--amber-d)}
+.parts button[aria-pressed="true"]::before{background:var(--amber);color:var(--ink)}
+.legend{list-style:none;margin:0;padding:10px 12px;display:grid;gap:6px;font-size:15.5px;background:var(--cool);border-radius:12px}
+.legend li{display:flex;align-items:center;gap:10px}
+.legend .d{flex:none;width:16px;height:16px;border-radius:50%}
+.d.tr{background:#E8B33C;box-shadow:inset 0 0 0 2px #A87A12}.d.ca{background:#6B757C;box-shadow:inset 0 0 0 2px #3F484E}.d.na{background:#fff;box-shadow:inset 0 0 0 2px #3F484E}
+.lbar{position:absolute;left:10px;right:10px;top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .5s var(--ease);pointer-events:none}
+.lbar.on{opacity:1;transform:none}
+.lbar span{font:700 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 0 6px;text-align:center;border-radius:8px;transition:box-shadow .4s}
+.lbar .z-el{background:rgba(221,240,238,.95);color:var(--teal-d)}
+.lbar .z-ch{background:rgba(251,239,210,.95);color:var(--amber-ink)}
+.lbar span.hot{box-shadow:inset 0 0 0 2px currentColor}
+.lbar i{position:absolute;top:-6px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 2.5px #fff;transition:left .8s var(--ease),opacity .3s}
+.replay{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:8px 14px 8px 11px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.replay svg{width:16px;height:16px}
+.replay[hidden]{display:none}
+
+@media (min-width:960px){
+  body{font-size:18px}
+  .sec{padding:96px 32px 56px}
+  .scrolly{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:52px;align-items:start}
+  .media{top:calc(var(--toc-h) + 3vh);height:calc(94vh - var(--toc-h));padding:0}
+  .scrolly[data-scrolly="loewi"] .media{height:auto;aspect-ratio:900/680;max-height:calc(94vh - var(--toc-h))}
+  .scrolly[data-scrolly="syn"] .media{height:auto;aspect-ratio:1000/860;max-height:calc(94vh - var(--toc-h))}
+  .cards{padding:26vh 0 30vh}
+  .card{margin:0 0 52vh;max-width:none}
+  .card:last-child{margin-bottom:0}
+  .card h3{font-size:26px}
+}
+
+/* Kette */
+.chainwide{display:none}
+.chainwide svg{width:100%;height:auto;display:block}
+.chainlist{max-width:520px;margin:0 auto;display:grid;gap:12px}
+.zone{position:relative;border-radius:16px;padding:30px 14px 14px;display:grid;gap:22px}
+.zone.el{background:#E3F2F0}.zone.ch{background:#FBEFD2}
+.zl{position:absolute;left:14px;top:9px;font:700 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.zone.el .zl{color:var(--teal-d)}.zone.ch .zl{color:var(--amber-ink)}
+.cl{position:relative;display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 2px 10px rgba(15,40,45,.06);opacity:0;transform:translateY(10px);transition:opacity .5s,transform .6s var(--ease)}
+.cl:not(:last-child)::after{content:"";position:absolute;left:28px;bottom:-19px;width:2px;height:16px;background:var(--ink)}
+.chainlist.in .cl{opacity:1;transform:none}
+.cn,.ci{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 15px/1 var(--body)}
+.ci{background:var(--amber);color:var(--ink)}
+.ci svg{width:18px;height:18px}
+.recy{display:flex;gap:12px;align-items:center;border:2px dashed var(--amber-d);border-radius:14px;padding:12px 14px;background:#fff}
+.recy div{display:grid;gap:2px}.recy b{color:var(--amber-ink)}.recy div span{font-size:15px;color:var(--sub)}
+.recy .cn{background:var(--amber-d)}
+@media (min-width:860px){.chainwide{display:block}.chainlist{display:none}}
+
+/* Kurven */
+.duo{display:grid;gap:16px}
+.ep{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:8px}
+.ep h3{font:600 23px/1.15 var(--display)}
+.ep.e h3{color:var(--teal-d)}.ep.h h3{color:var(--blue)}
+.ep svg{width:100%;height:auto;display:block;margin-top:4px}
+.note{max-width:700px;margin:18px auto 0;font-size:16.5px;color:var(--sub);background:var(--cool);border-radius:14px;padding:12px 16px}
+@media (min-width:760px){.duo{grid-template-columns:1fr 1fr}}
+
+/* Aufgaben */
+.task .sec-head h2{color:var(--ink)}
+.task .eyebrow{display:inline-block;justify-self:start;background:var(--teal-d);color:#fff;border-radius:999px;padding:6px 11px}
+.order{max-width:760px;margin:0 auto;display:grid;gap:16px}
+.seq{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:sq}
+.seq li{counter-increment:sq;display:flex;align-items:stretch;gap:10px}
+.seq li::before{content:counter(sq);flex:none;display:grid;place-items:center;width:34px;border-radius:10px;background:var(--teal-s);color:var(--teal-d);font:700 16px/1 var(--body)}
+.seq .sl{flex:1;min-height:48px;display:flex;align-items:center;gap:8px;border:2px dashed #C3CDD1;border-radius:12px;padding:8px 12px;color:var(--muted);font-size:15px;background:transparent;text-align:left;cursor:default}
+.seq .sl.full{border:1px solid var(--line);background:#fff;color:var(--ink);font-size:16px;cursor:pointer}
+.seq .sl.ok{border:2px solid var(--ok);background:var(--ok-s)}
+.seq .sl.no{border:2px solid var(--no);background:var(--no-s)}
+.seq .sl .mk{margin-left:auto;font-weight:700}
+.seq .sl.ok .mk{color:var(--ok)}.seq .sl.no .mk{color:var(--no)}
+.pool{display:grid;gap:8px}
+.pool button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;text-align:left;cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(15,40,45,.06);transition:transform .2s,opacity .3s}
+.pool button:active{transform:scale(.98)}
+.pool:empty{display:none}
+@media (min-width:760px){.pool{grid-template-columns:1fr 1fr}}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;background:var(--teal-d);color:#fff;padding:11px 20px;font-weight:650;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--teal-d);box-shadow:inset 0 0 0 2px var(--teal-d)}
+.btn:disabled{opacity:.45;cursor:default}
+.fb{min-height:1.5em;font-weight:600}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--no)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake .3s}
+
+.ask{font-weight:700;color:var(--teal-d);margin-top:6px}
+.opts{display:grid;gap:6px}
+.opts button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;cursor:pointer;font-size:16px}
+.opts button.ok{border:2px solid var(--ok);background:var(--ok-s)}
+.opts button.no{border:2px solid var(--no);background:var(--no-s)}
+
+/* Ablauf im Kopf: kein Knopf, sondern eine Abfolge */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font:600 16px/1.2 var(--body)}
+.flow .f{display:inline-flex;align-items:center;gap:5px}
+.flow .f svg{width:18px;height:18px}
+.flow .f.el{color:#9FE3DC}.flow .f.ch{color:#F3CB6E}
+.flow .ar{color:#8FA3A8;font-weight:400}
+
+/* Porträt in der Loewi-Karte */
+.who{display:flex;align-items:center;gap:12px}
+.who img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 3px #fff,0 4px 14px rgba(0,0,0,.18);background:#333}
+.who b{display:block;font:600 19px/1.2 var(--display)}
+.who span{font-size:14.5px;color:var(--muted)}
+
+/* Summations-Labor */
+.lab{max-width:1080px;margin:0 auto 22px;display:grid;gap:14px}
+.lab-fig{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.lab-fig svg{width:100%;height:auto;display:block;aspect-ratio:1000/600}
+.lab-side{display:grid;gap:12px;align-content:start}
+.lab-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lab-btns button{border:2px solid var(--teal-d);background:#fff;color:var(--teal-d);border-radius:12px;padding:11px 8px;font:700 15.5px/1.15 var(--body);cursor:pointer;transition:transform .15s,background .2s}
+.lab-btns button.in{border-color:var(--blue);color:var(--blue)}
+.lab-btns button.wide{grid-column:span 3;border-color:var(--ink);color:var(--ink)}
+.lab-btns button:active{transform:scale(.97);background:var(--cool)}
+.lab-scope{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 12px 8px;display:grid;gap:6px}
+.lab-scope canvas{width:100%;height:190px;display:block}
+.lab-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lab-h span{font:600 11.5px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
+.st{font:700 14px/1 var(--body);border-radius:999px;padding:5px 10px;background:var(--cool);color:var(--sub);transition:background .3s,color .3s}
+.st.ex{background:var(--teal-s);color:var(--teal-d)}.st.in{background:var(--blue-s);color:var(--blue)}.st.ap{background:var(--amber);color:var(--ink)}
+@media (min-width:860px){.lab{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}.lab-scope canvas{height:250px}}
+.heft .mk{margin:0;font-weight:650;color:var(--amber-ink);line-height:var(--row);font-size:16.5px}
+
+/* Hefteintrag */
+.heft{position:relative;max-width:820px;margin:0 auto;--row:34px;background-color:#FFFEFA;background-image:repeating-linear-gradient(180deg,transparent 0 calc(var(--row) - 1px),#E3E9EE calc(var(--row) - 1px) var(--row));background-position:0 12px;border:1px solid var(--line);border-radius:14px;padding:12px 18px 14px 50px}
+.heft::before{content:"";position:absolute;left:36px;top:0;bottom:0;border-left:2px solid #E9B9B0}
+.heft h4{font:700 12px/var(--row) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--amber-ink)}
+.heft h3{font:600 23px/var(--row) var(--display)}
+.heft ol{margin:0;padding-left:22px;list-style:none;counter-reset:hf}
+.heft li{counter-increment:hf;position:relative;line-height:var(--row);font-size:16.5px}
+.heft li::before{content:counter(hf);position:absolute;left:-25px;top:7px;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 11.5px/1 var(--body)}
+.heft li em{font-style:normal;font-weight:650;font-size:15px;color:var(--amber-ink);white-space:nowrap}
+@media (min-width:700px){.heft li em{float:right;padding-left:12px}}
+
+/* Selbsttest */
+.quiz{max-width:760px;margin:0 auto;display:grid;gap:14px;counter-reset:qq}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:10px;counter-increment:qq}
+.q h3{font:600 19px/1.3 var(--body);display:flex;gap:10px}
+.q h3::before{content:counter(qq);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--teal-s);color:var(--teal-d);font-size:14px}
+.q .opts button:disabled{cursor:default}
+.q .why{font-size:15.5px;color:var(--sub);background:var(--cool);border-radius:12px;padding:9px 12px}
+.q .why b{color:var(--ink)}
+.q .why[hidden]{display:none}
+.score{max-width:760px;margin:16px auto 0;font:600 20px/1.3 var(--display);text-align:center;min-height:1.3em}
+
+/* Wörter und Zahlen */
+.words{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.word{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.word b{font:600 23px/1.1 var(--display)}
+.word .from{font:600 12.5px/1.35 var(--mono);color:var(--teal-d)}
+.word p{font-size:15.5px;color:var(--sub)}
+.facts-h{font:600 28px/1.1 var(--display);margin:44px 0 14px}
+.facts{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.fct{border-radius:16px;padding:16px;background:var(--ink);color:#E6EEF0;display:grid;gap:6px;align-content:start}
+.fct b{font:600 30px/1.05 var(--display);color:#F3CB6E}
+.fct p{font-size:15.5px}
+.foot{max-width:var(--maxw);margin:40px auto 0;padding:24px 16px 48px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.foot a{color:inherit;text-decoration-thickness:1px;text-underline-offset:2px}
+.mbox .night{position:absolute;inset:0;background:radial-gradient(120% 95% at 78% 8%,#22313A 0%,#141B1F 68%);pointer-events:none}
+</style>
+<div class="topbar" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <span class="eyebrow">Biologie · Nervensystem</span>
+    <h1>Zweisprachige Nerven</h1>
+    <p class="sub">In der Nervenzelle läuft ein elektrisches Signal. An der Synapse muss es eine winzige Lücke überwinden, und dafür wechselt es die Sprache.</p>
+    <p class="flow" aria-label="elektrisch, dann chemisch, dann wieder elektrisch">
+      <span class="f el"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5 14h6l-1 8 8-12h-6z" fill="currentColor"/></svg>elektrisch</span><span class="ar" aria-hidden="true">→</span>
+      <span class="f ch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="8" r="3.2" fill="currentColor"/><circle cx="16" cy="6" r="2.6" fill="currentColor"/><circle cx="14" cy="15" r="3.6" fill="currentColor"/><circle cx="6" cy="18" r="2.2" fill="currentColor"/></svg>chemisch</span><span class="ar" aria-hidden="true">→</span>
+      <span class="f el"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5 14h6l-1 8 8-12h-6z" fill="currentColor"/></svg>elektrisch</span>
+    </p>
+    <p class="goal"><b>Danach kannst du</b><span>den Ablauf an einer chemischen Synapse in sieben Schritten erklären und zeigen, wo aus dem elektrischen Signal ein chemisches wird und wieder ein elektrisches.</span></p>
+    <a class="down" href="#loewi">Los geht’s <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</header>
+
+<nav class="toc" id="toc" aria-label="Inhalt">
+  <a href="#loewi">Geschichte</a><a href="#ablauf">Ablauf</a><a href="#kette">Überblick</a><a href="#erregend">Erregend, hemmend</a><a href="#ordnen" class="t">Aufgabe 1</a><a href="#labor" class="t">Aufgabe 2</a><a href="#heft">Hefteintrag</a><a href="#test" class="t">Selbsttest</a><a href="#woerter">Wörter</a>
+</nav>
+
+<main>
+
+<section class="sec" id="loewi">
+  <div class="sec-head"><span class="eyebrow">Graz, 1921</span><h2>Funken oder Suppe?</h2>
+    <p class="lead">Wie gibt ein Nerv sein Signal weiter: als elektrischen Funken oder mit einem Stoff, einer Art Suppe? Darüber stritten Forscher jahrzehntelang. Ein Traum brachte die Antwort.</p></div>
+  <div class="scrolly" data-scrolly="loewi">
+    <div class="media"><div class="mbox light"><i class="night" id="lwNight" aria-hidden="true"></i><svg id="lwSvg" role="img" aria-label="Loewis Versuch mit zwei Froschherzen" data-photo="data:image/jpeg;base64,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"></svg></div></div>
+    <div class="cards">
+      <article class="card"><div class="who"><div><b>Otto Loewi</b><span>1873 bis 1961, Pharmakologe in Graz</span></div></div><span class="cno">1</span><p>Ostern 1921: Der Grazer Forscher Otto Loewi wacht nachts mit einer Idee auf und kritzelt sie auf einen Zettel. Am Morgen kann er sie nicht mehr lesen. In der nächsten Nacht kommt die Idee zurück, diesmal geht er sofort ins Labor.</p></article>
+      <article class="card"><span class="cno">2</span><p>Er reizt den Nerv, der zum Herzen eines Frosches führt. Das Herz schlägt langsamer.</p></article>
+      <article class="card"><span class="cno">3</span><p>Dann gibt er etwas von der Flüssigkeit, in der dieses Herz liegt, zu einem zweiten Froschherzen ohne Nerv. Was wird passieren?</p></article>
+      <article class="card"><span class="cno">4</span><p>Auch das zweite Herz schlägt langsamer. Der Nerv hat also einen <b>Stoff</b> abgegeben: Suppe, nicht Funke! Loewi nannte ihn Vagusstoff, heute heißt er Acetylcholin. 1936 bekam er dafür den Nobelpreis.</p>
+        <p class="fact"><b>Übrigens:</b> 1938 vertrieben die Nationalsozialisten Loewi aus Graz. Sein Nobelpreisgeld musste er vorher abgeben.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="ablauf">
+  <div class="sec-head"><span class="eyebrow">Die Synapse</span><h2>Der Ablauf in sieben Schritten</h2>
+    <p class="lead">Scroll langsam weiter. Die Abbildung zeigt immer, was gerade passiert.</p></div>
+  <div class="scrolly" data-scrolly="syn">
+    <div class="media"><div class="mbox syn">
+      <canvas id="synCv" role="img" aria-label="Animierte chemische Synapse"></canvas>
+      <div class="ov" id="ovBox"><svg id="ovSvg" role="img" aria-label="Zwei Nervenzellen, die sich an einer Synapse berühren"></svg></div>
+      <div class="lbar" id="lbar" aria-hidden="true"><span class="z-el" id="z0">elektrisch</span><span class="z-ch" id="z1">chemisch</span><span class="z-el" id="z2">elektrisch</span><i id="lbarDot"></i></div>
+      <button class="replay" id="synReplay" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Nochmal</button>
+    </div></div>
+    <div class="cards">
+      <article class="card"><h3>Ein Spalt in der Leitung</h3><p>Ein Nervenimpuls rast mit bis zu <b>120 Metern pro Sekunde</b> über das Axon, das sind über 400 km/h. Am Ende des Axons sitzt die Synapse, die Kontaktstelle zur nächsten Zelle.</p></article>
+      <article class="card"><h3>Der synaptische Spalt</h3><p>Zwischen den beiden Zellen bleibt eine Lücke: der <b>synaptische Spalt</b>, 20 bis 40 Nanometer breit, rund 2000-mal dünner als ein Haar. Ein elektrischer Funke springt hier nicht über.</p></article>
+      <article class="card"><h3>Die Bauteile</h3><p class="small">Tippe auf einen Namen, dann leuchtet er in der Abbildung auf.</p>
+        <ol class="parts" id="parts">
+          <li><button type="button" data-i="0">Endknöpfchen</button></li><li><button type="button" data-i="1">Mitochondrium</button></li><li><button type="button" data-i="2">präsynaptische Membran</button></li>
+          <li><button type="button" data-i="3">Bläschen mit Transmittern</button></li><li><button type="button" data-i="4">Calciumkanal</button></li><li><button type="button" data-i="5">synaptischer Spalt</button></li>
+          <li><button type="button" data-i="6">postsynaptische Membran</button></li><li><button type="button" data-i="7">Rezeptor</button></li><li><button type="button" data-i="8">Enzym</button></li>
+        </ol></article>
+      <article class="card"><h3>Sieben Schritte, zwei Übersetzungen</h3><p>In Schritt 3 wird aus dem elektrischen Signal ein chemisches, in Schritt 6 wieder ein elektrisches. Die Leiste über der Abbildung zeigt, welche Sprache gerade gilt.</p>
+        <ul class="legend"><li><i class="d tr"></i>Transmitter</li><li><i class="d ca"></i>Calciumionen (Ca²⁺)</li><li><i class="d na"></i>Natriumionen (Na⁺)</li></ul></article>
+      <article class="card step"><div class="sh"><span class="no">1</span><h3>Calcium strömt ein</h3></div><p>Der elektrische Impuls erreicht das Endknöpfchen. Calciumkanäle öffnen sich, Calciumionen (Ca²⁺) strömen hinein.</p></article>
+      <article class="card step"><div class="sh"><span class="no">2</span><h3>Bläschen verschmelzen</h3></div><p>Das Calcium ist das Startsignal: Bläschen voller Transmitter wandern zur präsynaptischen Membran und verschmelzen mit ihr.</p></article>
+      <article class="card step"><div class="sh"><span class="no">3</span><h3>Transmitter in den Spalt</h3></div><p>Die Bläschen öffnen sich zum synaptischen Spalt hin. Tausende Transmittermoleküle gelangen hinaus.</p><p class="m">Aus dem elektrischen Signal wird ein chemisches.</p></article>
+      <article class="card step"><div class="sh"><span class="no">4</span><h3>Bindung am Rezeptor</h3></div><p>Die Transmitter wandern durch den Spalt und binden an Rezeptoren der postsynaptischen Membran. Sie passen wie ein Schlüssel ins Schloss.</p></article>
+      <article class="card step"><div class="sh"><span class="no">5</span><h3>Ionenkanäle öffnen sich</h3></div><p>Die Rezeptoren sind zugleich Ionenkanäle. Bindet ein Transmitter, öffnet sich der Kanal, und Natriumionen (Na⁺) strömen in die Zelle. Bei manchen Rezeptoren schließen sich dagegen Kanäle.</p></article>
+      <article class="card step"><div class="sh"><span class="no">6</span><h3>Neuer Impuls oder keiner</h3></div><p>Öffnen sich genug Natriumkanäle, entsteht in der nächsten Zelle ein neuer Impuls: erregende Synapse. An einer hemmenden Synapse entsteht keiner.</p><p class="m">Aus dem chemischen Signal wird wieder ein elektrisches.</p></article>
+      <article class="card step"><div class="sh"><span class="no">7</span><h3>Abbau und Recycling</h3></div><p>Enzyme zerlegen die Transmitter, die Kanäle schließen sich wieder. Die Bausteine wandern zurück ins Endknöpfchen und werden zu neuen Transmittern.</p><p class="m">Ohne Abbau bliebe die nächste Zelle dauernd erregt.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kette">
+  <div class="sec-head"><span class="eyebrow">Zusammengefasst</span><h2>Die Übersetzung auf einen Blick</h2></div>
+  <div class="chainwide"><svg id="chainSvg" role="img" aria-label="Kette: Impuls, Calcium, Bläschen, Transmitter, Rezeptor, Ionenkanal, neuer Impuls, dazu Abbau und Recycling"></svg></div>
+  <div class="chainlist" id="chainList">
+    <div class="zone el"><span class="zl">elektrisch</span>
+      <div class="cl"><span class="ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5 14h6l-1 8 8-12h-6z" fill="currentColor"/></svg></span><b>Impuls kommt an</b></div>
+      <div class="cl"><span class="cn">1</span><b>Ca²⁺ strömt ein</b></div>
+      <div class="cl"><span class="cn">2</span><b>Bläschen verschmelzen</b></div></div>
+    <div class="zone ch"><span class="zl">chemisch</span>
+      <div class="cl"><span class="cn">3</span><b>Transmitter im Spalt</b></div>
+      <div class="cl"><span class="cn">4</span><b>Bindung an den Rezeptor</b></div>
+      <div class="cl"><span class="cn">5</span><b>Kanäle öffnen sich</b></div></div>
+    <div class="zone el"><span class="zl">elektrisch</span>
+      <div class="cl"><span class="cn">6</span><b>neuer Impuls</b></div></div>
+    <div class="recy"><span class="cn">7</span><div><b>Abbau und Recycling</b><span>Die Bausteine der Transmitter wandern zurück ins Endknöpfchen.</span></div></div>
+  </div>
+</section>
+
+<section class="sec" id="erregend">
+  <div class="sec-head"><span class="eyebrow">Schritt 5 und 6 genauer</span><h2>Erregend oder hemmend?</h2></div>
+  <div class="duo">
+    <div class="ep e"><h3>Erregende Synapse</h3><p>Der Transmitter öffnet Kanäle für Natriumionen (Na⁺). Die Spannung steigt. Erreicht sie die Schwelle, entsteht ein neuer Impuls.</p><svg id="trE" role="img" aria-label="Spannungskurve mit neuem Impuls"></svg></div>
+    <div class="ep h"><h3>Hemmende Synapse</h3><p>Andere Transmitter öffnen Kanäle für Chloridionen (Cl⁻). Die Spannung sinkt: kein Impuls.</p><svg id="trH" role="img" aria-label="Spannungskurve ohne Impuls"></svg></div>
+  </div>
+  <p class="note">Eine Nervenzelle kann über 10 000 Synapsen haben. Sie verrechnet alle Signale: Nur wenn die erregenden überwiegen und die Schwelle erreicht wird, feuert sie.</p>
+</section>
+
+<section class="sec task" id="ordnen">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 1</span><h2>Bring den Ablauf in Ordnung</h2>
+    <p class="lead">Tippe die sieben Schritte in der richtigen Reihenfolge an. Mit „Prüfen“ siehst du, was schon stimmt. Einen falschen Schritt tippst du einfach wieder an.</p></div>
+  <div class="order">
+    <ol class="seq" id="seq"></ol>
+    <div class="pool" id="pool"></div>
+    <div class="actions"><button type="button" class="btn" id="ordCheck">Prüfen</button><button type="button" class="btn ghost" id="ordReset">Neu mischen</button></div>
+    <p class="fb" id="ordFb" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="sec task" id="labor">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 2</span><h2>Wann feuert die Zelle?</h2>
+    <p class="lead">Diese Nervenzelle bekommt Signale von drei Synapsen: A und B sind erregend, H ist hemmend. Löse die Synapsen aus und beobachte die Spannung am Axonhügel. Dann beantworte die Fragen darunter.</p></div>
+  <div class="lab">
+    <div class="lab-fig"><svg id="sumSvg" role="img" aria-label="Nervenzelle mit den erregenden Synapsen A und B und der hemmenden Synapse H"></svg></div>
+    <div class="lab-side">
+      <div class="lab-scope"><div class="lab-h"><span>Spannung am Axonhügel</span><b id="sumSt" class="st">Ruhe</b></div><canvas id="sumCv" role="img" aria-label="Spannungsverlauf am Axonhügel"></canvas>
+        <p class="small">Impulse bisher: <b id="sumN">0</b> · Die Zeit läuft stark verlangsamt.</p></div>
+      <div class="lab-btns" id="labBtns">
+        <button type="button" data-f="a" class="ex">A feuert</button><button type="button" data-f="b" class="ex">B feuert</button><button type="button" data-f="h" class="in">H feuert</button>
+        <button type="button" data-f="ab" class="ex wide">A und B zugleich</button><button type="button" data-f="abh" class="wide">A, B und H zugleich</button>
+      </div>
+    </div>
+  </div>
+  <div class="quiz" id="labQuiz"></div>
+  <p class="score" id="labScore" aria-live="polite"></p>
+</section>
+
+<section class="sec" id="heft">
+  <div class="sec-head"><span class="eyebrow">Zum Nachlesen</span><h2>Hefteintrag</h2></div>
+  <div class="heft">
+    <h4>Hefteintrag</h4>
+    <h3>Die chemische Synapse</h3>
+    <ol>
+      <li>Impuls erreicht das Endknöpfchen, Ca²⁺ strömt ein.</li>
+      <li>Bläschen verschmelzen mit der präsynaptischen Membran.</li>
+      <li>Transmitter gelangen in den Spalt. <em>elektrisch → chemisch</em></li>
+      <li>Transmitter binden an Rezeptoren der postsynaptischen Membran.</li>
+      <li>Ionenkanäle öffnen oder schließen sich.</li>
+      <li>Erregend: neuer Impuls, hemmend: keiner. <em>chemisch → elektrisch</em></li>
+      <li>Enzyme bauen den Transmitter ab, die Teile werden recycelt.</li>
+    </ol>
+    <p class="mk">Merke: Die Zelle verrechnet alle Signale (Summation).</p>
+  </div>
+</section>
+
+<section class="sec task" id="test">
+  <div class="sec-head"><span class="eyebrow">Wer fertig ist</span><h2>Selbsttest</h2>
+    <p class="lead">Acht Fragen. Nach jeder Antwort siehst du sofort, ob sie stimmt, und warum.</p></div>
+  <div class="quiz" id="quiz"></div>
+  <p class="score" id="score" aria-live="polite"></p>
+</section>
+
+<section class="sec" id="woerter">
+  <div class="sec-head"><span class="eyebrow">Latein und Griechisch</span><h2>Wörter mit Geschichte</h2>
+    <p class="lead">Viele Fachwörter verraten schon, was sie bedeuten.</p></div>
+  <div class="words">
+    <div class="word"><b>Synapse</b><span class="from">griechisch synapsis, die Verbindung</span><p>Aus syn, zusammen, und haptein, berühren. Der englische Forscher Charles Sherrington führte das Wort 1897 ein.</p></div>
+    <div class="word"><b>Transmitter</b><span class="from">lateinisch transmittere, hinüberschicken</span><p>Aus trans, hinüber, und mittere, schicken. Der Transmitter wird über den Spalt geschickt.</p></div>
+    <div class="word"><b>Rezeptor</b><span class="from">lateinisch recipere, aufnehmen</span><p>Der Rezeptor nimmt den Transmitter auf, er ist der Empfänger.</p></div>
+    <div class="word"><b>Vesikel</b><span class="from">lateinisch vesicula, Bläschen</span><p>Die Verkleinerung von vesica, Blase. So heißen die Bläschen im Fachbuch.</p></div>
+    <div class="word"><b>prä- und postsynaptisch</b><span class="from">lateinisch prae, vor, und post, nach</span><p>Die präsynaptische Membran liegt vor dem Spalt, die postsynaptische dahinter.</p></div>
+    <div class="word"><b>Enzym</b><span class="from">griechisch en, in, und zyme, Sauerteig</span><p>Der Name erinnert an die Hefe, in der man Enzyme zuerst untersucht hat.</p></div>
+  </div>
+  <h3 class="facts-h">Zum Staunen</h3>
+  <div class="facts">
+    <div class="fct"><b>100 Billionen</b><p>Synapsen hat ein menschliches Gehirn, hunderte Male mehr, als die Milchstraße Sterne hat.</p></div>
+    <div class="fct"><b>0,5 ms</b><p>dauert es, bis ein Signal eine chemische Synapse überquert hat: eine halbe Millisekunde.</p></div>
+    <div class="fct"><b>25 000</b><p>Transmittermoleküle kann ein einziges Enzym im Spalt pro Sekunde zerlegen.</p></div>
+    <div class="fct"><b>über 400 km/h</b><p>So schnell ist ein Nervenimpuls in den schnellsten Nervenfasern: 120 Meter pro Sekunde.</p></div>
+  </div>
+</section>
+
+</main>
+<footer class="foot">Alle Abbildungen und Animationen auf dieser Seite sind selbst gezeichnet. Ausnahme: Das Foto von Otto Loewi (Urheber unbekannt) stammt aus <a href="https://commons.wikimedia.org/wiki/File:Otto_Loewi.jpg">Wikimedia Commons</a> und steht unter der Lizenz <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>. Es wurde zugeschnitten und in Graustufen umgewandelt.</footer>
+
+<nav class="rb-site" aria-label="Biologie-Lernseiten"><div class="rb-in"><span class="rb-wer">Biologie · Stefan Rockenschaub</span><a href="../">Alle Lernseiten</a><a href="../impressum/">Impressum</a></div></nav>
+<style>.rb-site{background:#12171A;color:#C9D6D9;font:500 15px/1.4 "Figtree","Segoe UI",system-ui,sans-serif}.rb-in{max-width:1180px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px}.rb-wer{margin-right:auto;font:600 12px/1.3 "IBM Plex Mono",ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD0C8}.rb-site a{color:#fff;text-decoration:none;font-weight:600;border-bottom:1.5px solid rgba(127,208,200,.5);padding-bottom:1px}.rb-site a:hover{border-bottom-color:#7FD0C8}.rb-site a:focus-visible{outline:3px solid #E8B33C;outline-offset:3px;border-radius:2px}</style>
+
+<script>
+/* ===== Grafiken rund um die Synapse: Nervennetz, Übersicht mit Zoom, Loewis Versuch, Übersetzungskette, Spannungskurven ===== */
+var FIG=(function(){
+  'use strict';
+  var NS='http://www.w3.org/2000/svg',TAU=Math.PI*2;
+  var ANTH='#21272B',TEAL='#0F8C8C',TEAL_D='#0A6468',BLUE='#2F5F96',AMBER='#E8B33C',AMBER_D='#A87A12',VERM='#C8553D',GREY='#6B757C',SUB='#3F484E';
+  function hx(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+  function mix(h,t){return 'rgb('+hx(h).map(function(v){return Math.round(v+(255-v)*t)}).join(',')+')'}
+  function el(tag,a,p){var e=document.createElementNS(NS,tag);if(a)for(var k in a){if(a[k]!=null)e.setAttribute(k,a[k])}if(p)p.appendChild(e);return e}
+  function tx(p,x,y,s,a){var t=el('text',Object.assign({x:x,y:y},a||{}),p);t.textContent=s;return t}
+  function clamp(x,a,b){return x<a?a:x>b?b:x}
+  function sm(a,b,t){var x=clamp((t-a)/(b-a),0,1);return x*x*(3-2*x)}
+  function lerp(a,b,t){return a+(b-a)*t}
+  function r2(x){return Math.round(x*100)/100}
+  function rng(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+  var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var FONT='Figtree, "Segoe UI", system-ui, sans-serif';
+
+  /* ---------- Nervennetz im Titel: elektrische Impulse auf den Fasern, chemische Wölkchen an den Kontakten ---------- */
+  function net(cv,opt){
+    opt=opt||{};
+    var c=cv.getContext('2d'),W=0,H=0,dpr=1,N=[],E=[],I=[],P=[],raf=0,run=false,last=0,spawn=0,R=rng(opt.seed||5);
+    function build(){var w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return false;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);W=w;H=h;
+      N=[];var target=clamp(Math.round(w*h/(opt.density||17000)),14,80),minD=Math.sqrt(w*h/target)*.62,tries=0;
+      while(N.length<target&&tries<target*80){tries++;var x=R()*w,y=R()*h,ok=true;
+        for(var i=0;i<N.length;i++)if(Math.hypot(N[i].x-x,N[i].y-y)<minD){ok=false;break}
+        if(!ok)continue;var d=[],k=3+Math.floor(R()*4);for(var j=0;j<k;j++)d.push([R()*TAU,minD*(.22+R()*.38),(R()-.5)*.9]);
+        N.push({x:x,y:y,r:2.6+R()*2.6,d:d,fl:0,out:[]})}
+      E=[];N.forEach(function(n,i){var near=N.map(function(m,j){return {j:j,d:Math.hypot(m.x-n.x,m.y-n.y)}}).filter(function(o){return o.j!==i}).sort(function(a,b){return a.d-b.d}).slice(0,3);
+        var k=1+(R()<.55?1:0);for(var q=0;q<k&&q<near.length;q++){var m=N[near[q].j],off=(R()-.5)*.5,dx=m.x-n.x,dy=m.y-n.y;
+          E.push({a:i,b:near[q].j,cx:(n.x+m.x)/2-dy*off,cy:(n.y+m.y)/2+dx*off,len:near[q].d});n.out.push(E.length-1)}});
+      I=[];P=[];return true}
+    function pt(e,u){var a=N[e.a],b=N[e.b],v=1-u;return [v*v*a.x+2*v*u*e.cx+u*u*b.x,v*v*a.y+2*v*u*e.cy+u*u*b.y]}
+    function fire(i){var n=N[i];if(!n||!n.out.length)return;var e=n.out[Math.floor(R()*n.out.length)];I.push({e:e,u:0,sp:(opt.speed||250)/Math.max(60,E[e].len)})}
+    function puff(x,y){var parts=[];for(var k=0;k<11;k++){var a=R()*TAU,v=10+R()*24;parts.push([Math.cos(a)*v,Math.sin(a)*v])}P.push({x:x,y:y,t:0,parts:parts})}
+    function paint(dt){c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);c.lineCap='round';
+      c.strokeStyle='rgba(63,169,164,.24)';c.lineWidth=1.1;
+      N.forEach(function(n){n.d.forEach(function(d){var x1=n.x+Math.cos(d[0])*d[1],y1=n.y+Math.sin(d[0])*d[1],cx=n.x+Math.cos(d[0]+d[2])*d[1]*.55,cy=n.y+Math.sin(d[0]+d[2])*d[1]*.55;
+        c.beginPath();c.moveTo(n.x,n.y);c.quadraticCurveTo(cx,cy,x1,y1);c.stroke()})});
+      c.strokeStyle='rgba(63,169,164,.36)';c.lineWidth=1.5;
+      E.forEach(function(e){var a=N[e.a],b=N[e.b];c.beginPath();c.moveTo(a.x,a.y);c.quadraticCurveTo(e.cx,e.cy,b.x,b.y);c.stroke()});
+      for(var i=I.length-1;i>=0;i--){var im=I[i],e=E[im.e];im.u+=im.sp*dt;
+        if(im.u>=1){var b=N[e.b];b.fl=1;puff(b.x,b.y);I.splice(i,1);(function(j){setTimeout(function(){if(run&&R()<.8)fire(j)},260+R()*320)})(e.b);continue}
+        for(var k=0;k<9;k++){var u=im.u-k*.02;if(u<0)break;var p=pt(e,u);c.beginPath();c.arc(p[0],p[1],3.6-k*.3,0,TAU);c.fillStyle='rgba(159,227,220,'+((1-k/8)*.95).toFixed(3)+')';c.fill()}
+        var h=pt(e,im.u),g=c.createRadialGradient(h[0],h[1],0,h[0],h[1],22);g.addColorStop(0,'rgba(159,227,220,.6)');g.addColorStop(1,'rgba(159,227,220,0)');c.fillStyle=g;c.beginPath();c.arc(h[0],h[1],22,0,TAU);c.fill()}
+      for(var q=P.length-1;q>=0;q--){var f=P[q];f.t+=dt;if(f.t>1.15){P.splice(q,1);continue}var s=f.t/1.15;
+        f.parts.forEach(function(v){c.beginPath();c.arc(f.x+v[0]*Math.sqrt(s)*1.5,f.y+v[1]*Math.sqrt(s)*1.5,2.6,0,TAU);c.fillStyle='rgba(232,179,60,'+((1-s)*.9).toFixed(3)+')';c.fill()})}
+      N.forEach(function(n){n.fl=Math.max(0,n.fl-dt*1.5);c.beginPath();c.arc(n.x,n.y,n.r+n.fl*3.2,0,TAU);
+        c.fillStyle='rgba('+(63+n.fl*130|0)+','+(169+n.fl*60|0)+','+(164+n.fl*60|0)+','+(.55+n.fl*.4).toFixed(3)+')';c.fill()})}
+    function frame(now){if(!run)return;var dt=Math.min(.05,(now-(last||now))/1000);last=now;spawn-=dt;if(spawn<=0){fire(Math.floor(R()*N.length));spawn=.45+R()*.6}paint(dt);raf=requestAnimationFrame(frame)}
+    function start(){if(!W&&!build())return;if(RM){for(var k=0;k<5;k++){var n=N[Math.floor(R()*N.length)];if(n){n.fl=.8;puff(n.x,n.y);P[P.length-1].t=.3}}paint(0);return}
+      if(run)return;run=true;last=0;raf=requestAnimationFrame(frame)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    window.addEventListener('resize',function(){var was=run;stop();W=0;if(build()){if(was||RM)start()}});
+    return {start:start,stop:stop}}
+
+  /* ---------- Übersicht: zwei Nervenzellen, Zoom in den Spalt ---------- */
+  function grow(x,y,ang,len,w,depth,R,out,wig){var n=7,step=len/n,a=ang,px=x,py=y;wig=wig==null?.26:wig;
+    for(var i=0;i<n;i++){a+=(R()-.5)*wig;var nx=px+Math.cos(a)*step,ny=py+Math.sin(a)*step;out.push([px,py,nx,ny,w*(1-.4*(i+1)/n)]);px=nx;py=ny}
+    if(depth>0){var sp=.36+R()*.3;grow(px,py,a-sp,len*.62,w*.6,depth-1,R,out,wig);grow(px,py,a+sp,len*.62,w*.6,depth-1,R,out,wig)}}
+  function cubP(P,t){var u=1-t;return [u*u*u*P[0][0]+3*u*u*t*P[1][0]+3*u*t*t*P[2][0]+t*t*t*P[3][0],u*u*u*P[0][1]+3*u*u*t*P[1][1]+3*u*t*t*P[2][1]+t*t*t*P[3][1]]}
+  function overview(svg){
+    svg.setAttribute('viewBox','0 0 1600 900');
+    var R=rng(17),segs=[],gOut=el('g',{fill:'none','stroke-linecap':'round'},svg),gFill=el('g',{fill:'none','stroke-linecap':'round'},svg);
+    var cellF=mix(TEAL,.82),cellF2=mix(TEAL,.78);
+    var SA=[360,250],SB=[1140,772];
+    [[Math.PI,170],[Math.PI*1.22,150],[Math.PI*1.47,150],[Math.PI*1.7,120],[Math.PI*.8,150],[Math.PI*.55,120],[Math.PI*1.92,90]].forEach(function(d){grow(SA[0]+Math.cos(d[0])*38,SA[1]+Math.sin(d[0])*38,d[0],d[1],14,2,R,segs)});
+    /* Zelle 2: Dendriten nur weg vom Endknöpfchen, damit kein falscher Kontakt entsteht */
+    var segsB=[];
+    [[-0.95,150],[-0.15,170],[0.55,150],[1.25,120],[2.05,130]].forEach(function(d){grow(SB[0]+Math.cos(d[0])*44,SB[1]+Math.sin(d[0])*44,d[0],d[1],15,2,R,segsB)});
+    /* der empfangende Dendrit: gebogen, verjüngt, mit Seitenast und kleinem Köpfchen unter dem Endknöpfchen */
+    var DEN=[[1106,738],[1084,704],[1046,682],[1037,650]];
+    for(var i=0;i<12;i++){var p0=cubP(DEN,i/12),p1=cubP(DEN,(i+1)/12);segsB.push([p0[0],p0[1],p1[0],p1[1],lerp(20,11,i/11)])}
+    var mid=cubP(DEN,.38);grow(mid[0],mid[1],2.62,64,9,1,R,segsB,.18);
+    function addSeg(s,col){el('line',{x1:r2(s[0]),y1:r2(s[1]),x2:r2(s[2]),y2:r2(s[3]),'stroke-width':r2(s[4]+5.2),stroke:TEAL},gOut);
+      el('line',{x1:r2(s[0]),y1:r2(s[1]),x2:r2(s[2]),y2:r2(s[3]),'stroke-width':r2(s[4]),stroke:col},gFill)}
+    segs.forEach(function(s){addSeg(s,cellF)});segsB.forEach(function(s){addSeg(s,cellF2)});
+    el('ellipse',{cx:1036,cy:643,rx:18.6,ry:11.6,fill:TEAL},gOut);el('ellipse',{cx:1036,cy:643,rx:16,ry:9,fill:cellF2},gFill);
+    var AX='M392 276C560 344 770 300 905 410C990 480 1030 520 1036 566';
+    el('path',{d:AX,'stroke-width':17.2,stroke:TEAL},gOut);el('path',{d:AX,'stroke-width':12,stroke:cellF},gFill);
+    var axB='M1176 806C1230 846 1290 860 1380 900';
+    el('path',{d:axB,'stroke-width':17.2,stroke:TEAL},gOut);el('path',{d:axB,'stroke-width':12,stroke:cellF2},gFill);
+    /* ein Endknöpfchen */
+    el('path',{d:'M1036 560L1036 582','stroke-width':12.2,stroke:TEAL},gOut);el('path',{d:'M1036 560L1036 582','stroke-width':7,stroke:cellF},gFill);
+    el('circle',{cx:1036,cy:604,r:26.6,fill:TEAL},gOut);el('circle',{cx:1036,cy:604,r:24,fill:cellF},gFill);
+    var somaA=el('circle',{cx:SA[0],cy:SA[1],r:46.6,fill:TEAL},gOut);el('circle',{cx:SA[0],cy:SA[1],r:44,fill:cellF},gFill);
+    el('circle',{cx:SB[0],cy:SB[1],r:52.6,fill:TEAL},gOut);var somaB=el('circle',{cx:SB[0],cy:SB[1],r:50,fill:cellF2},gFill);
+    [[SA,16],[SB,18]].forEach(function(n){el('circle',{cx:n[0][0]-6,cy:n[0][1]-4,r:n[1],fill:mix(TEAL,.6),stroke:TEAL_D,'stroke-width':2},svg);el('circle',{cx:n[0][0]-10,cy:n[0][1]-8,r:4,fill:TEAL_D},svg)});
+    [[1028,598],[1044,608],[1034,614]].forEach(function(p){el('circle',{cx:p[0],cy:p[1],r:4,fill:'#fff',stroke:TEAL_D,'stroke-width':1.2},svg)});
+    /* Myelin entlang des Axons */
+    var pth=el('path',{d:AX,fill:'none',stroke:'none'},svg),L=pth.getTotalLength(),gM=el('g',null,svg);
+    for(var s=70;s<L-150;s+=104){var a=pth.getPointAtLength(s),b=pth.getPointAtLength(s+86),m=pth.getPointAtLength(s+43),ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;
+      el('rect',{x:r2(m.x-43),y:r2(m.y-15),width:86,height:30,rx:15,fill:mix(AMBER,.62),stroke:AMBER_D,'stroke-width':2.2,transform:'rotate('+r2(ang)+' '+r2(m.x)+' '+r2(m.y)+')'},gM)}
+    /* Beschriftung mit hellem Rand, damit sie auf Linien lesbar bleibt */
+    var gL=el('g',{'font-family':FONT,'font-size':44,fill:ANTH,style:'paint-order:stroke;stroke:#FFFFFF;stroke-width:12px;stroke-linejoin:round'},svg);
+    tx(gL,470,420,'Nervenzelle 1',{'text-anchor':'start'});
+    tx(gL,1250,470,'Nervenzelle 2',{'text-anchor':'start'});
+    tx(gL,760,236,'Axon mit Myelinscheide',{'text-anchor':'middle'});
+    el('circle',{cx:1036,cy:622,r:64,fill:'none',stroke:AMBER_D,'stroke-width':3,'stroke-dasharray':'9 7'},gL);
+    tx(gL,950,672,'Synapse',{'text-anchor':'end','font-weight':600,fill:AMBER_D});
+    el('line',{x1:956,y1:660,x2:978,y2:646,stroke:AMBER_D,'stroke-width':2.4},gL);
+    /* Impuls: Axon, Spalt, Dendrit von Zelle 2, Axon von Zelle 2 */
+    var gI=el('g',null,svg),glow=el('circle',{r:26,fill:'rgba(15,140,140,.22)'},gI),dot=el('circle',{r:9,fill:TEAL,stroke:TEAL_D,'stroke-width':2},gI);
+    var gP=el('g',null,svg),puffs=[];for(var k=0;k<10;k++)puffs.push(el('circle',{r:3.8,fill:AMBER,stroke:AMBER_D,'stroke-width':1,opacity:0},gP));
+    var denP=el('path',{d:'M1037 650C1046 682 1084 704 1106 738',fill:'none',stroke:'none'},svg),denL=denP.getTotalLength();
+    var axBp=el('path',{d:axB,fill:'none',stroke:'none'},svg),axBL=axBp.getTotalLength();
+    var z=0,raf=0,run=false,t0=0,LOOP=5.6;
+    function setZoom(p){z=p;var w0=1600,w1=230,w=Math.exp(lerp(Math.log(w0),Math.log(w1),p)),h=w*9/16,cx=lerp(800,1036,sm(0,.55,p)),cy=lerp(450,622,sm(0,.55,p));
+      svg.setAttribute('viewBox',r2(cx-w/2)+' '+r2(cy-h/2)+' '+r2(w)+' '+r2(h));gL.setAttribute('opacity',r2(1-sm(.05,.3,p)))}
+    function put(p,rr){if(!p){dot.setAttribute('opacity',0);glow.setAttribute('opacity',0);return}dot.setAttribute('opacity',1);glow.setAttribute('opacity',1);
+      dot.setAttribute('cx',r2(p.x));dot.setAttribute('cy',r2(p.y));glow.setAttribute('cx',r2(p.x));glow.setAttribute('cy',r2(p.y));glow.setAttribute('r',r2(rr||20))}
+    function tick(now){if(!run)return;var T=((now-t0)/1000)%LOOP;
+      if(T<2.6){var s=L*(T/2.6);put(pth.getPointAtLength(s),20+8*Math.abs(Math.sin(s/104*Math.PI)))}
+      else if(T>=3.2&&T<3.9)put(denP.getPointAtLength(denL*sm(3.2,3.9,T)),18);
+      else if(T>=4.05&&T<5.1)put(axBp.getPointAtLength(axBL*(T-4.05)/1.05),18);
+      else put(null);
+      var pp=sm(2.6,3.4,T),on=T>2.6&&T<3.6?1:0;puffs.forEach(function(c2,i){var a=i/(puffs.length-1)*Math.PI,d=6+pp*20;
+        c2.setAttribute('cx',r2(1036+Math.cos(a)*d*1.1));c2.setAttribute('cy',r2(634+Math.sin(a)*d*.12));c2.setAttribute('opacity',r2(on*(1-sm(3.1,3.55,T))))});
+      var f=sm(3.75,3.95,T)*(1-sm(4.1,4.6,T));somaB.setAttribute('fill',f>.01?'rgb('+Math.round(lerp(196,250,f))+','+Math.round(lerp(228,236,f))+','+Math.round(lerp(226,196,f))+')':cellF2);
+      raf=requestAnimationFrame(tick)}
+    function start(){if(run||RM)return;run=true;t0=performance.now();raf=requestAnimationFrame(tick)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    setZoom(0);
+    return {zoom:setZoom,start:start,stop:stop}}
+
+  /* ---------- Loewis Versuch: zwei Froschherzen ---------- */
+  /* Froschherz von vorn: zwei Vorhöfe, eine Kammer, Truncus arteriosus mit zwei Bögen */
+  function frogHeart(p,x,y){
+    var h=el('g',{transform:'translate('+x+' '+y+')'},p),dark='#93351F',mid=mix(VERM,.42),lite=mix(VERM,.58);
+    var TR='M10 -14C14 -36 22 -52 30 -62';
+    el('path',{d:TR,fill:'none',stroke:dark,'stroke-width':19,'stroke-linecap':'round'},h);
+    el('path',{d:'M30 -62C22 -76 8 -84 -6 -86M30 -62C38 -76 50 -82 62 -82',fill:'none',stroke:dark,'stroke-width':13,'stroke-linecap':'round'},h);
+    el('path',{d:'M30 -62C22 -76 8 -84 -6 -86M30 -62C38 -76 50 -82 62 -82',fill:'none',stroke:lite,'stroke-width':8,'stroke-linecap':'round'},h);
+    el('ellipse',{cx:-26,cy:-26,rx:33,ry:26,fill:lite,stroke:dark,'stroke-width':3},h);
+    el('ellipse',{cx:24,cy:-30,rx:25,ry:20,fill:lite,stroke:dark,'stroke-width':3},h);
+    el('path',{d:TR,fill:'none',stroke:mid,'stroke-width':13,'stroke-linecap':'round'},h);
+    el('path',{d:'M-48 -8C-52 28 -22 62 6 80C28 62 52 28 48 -10C30 -24 -28 -26 -48 -8Z',fill:mid,stroke:dark,'stroke-width':3,'stroke-linejoin':'round'},h);
+    el('path',{d:'M-2 -12C-8 18 -2 48 6 76',fill:'none',stroke:dark,'stroke-width':1.6,opacity:.45},h);
+    el('path',{d:'M-34 4Q-34 -8 -20 -12',fill:'none',stroke:'#fff','stroke-width':5,'stroke-linecap':'round',opacity:.6},h);
+    return h}
+  function loewi(svg,opt){
+    opt=opt||{};svg.setAttribute('viewBox','0 0 900 640');
+    var g=el('g',{'font-family':FONT},svg),SPEED=.36;
+    /* Nacht: Zettel und Mond */
+    var gN=el('g',null,g),ph=!!opt.photo;
+    /* mit Foto: Zettel etwas kleiner und nach rechts, das Sofortbild überlappt ihn leicht */
+    var NZ=ph?{x:350,y:176,w:276,h:330,cx:488,cy:341,lx:378,ly:224,dy:35}:{x:300,y:150,w:320,h:390,cx:460,cy:345,lx:335,ly:205,dy:40};
+    if(opt.night)[[70,74,2.6],[176,36,2],[300,92,1.8],[410,40,2.4],[560,70,2],[640,150,1.8],[868,236,2.4],[842,402,2],[760,520,2.6],[860,590,1.8],[44,470,2],[150,560,2.2]].forEach(function(s){el('circle',{cx:s[0],cy:s[1],r:s[2],fill:'#F3E3B0',opacity:.75},gN)});
+    el('rect',{x:NZ.x,y:NZ.y,width:NZ.w,height:NZ.h,rx:10,fill:'#FFFDF5',stroke:'#C9BFA6','stroke-width':2.4,transform:'rotate(-5 '+NZ.cx+' '+NZ.cy+')'},gN);
+    var sc=el('g',{fill:'none',stroke:SUB,'stroke-width':2.6,'stroke-linecap':'round',transform:'rotate(-5 '+NZ.cx+' '+NZ.cy+')'},gN);
+    for(var i=0;i<8;i++){var y=NZ.ly+i*NZ.dy,d='M'+NZ.lx+' '+y;for(var k=0;k<11;k++){d+=' q 7 '+((k%2?1:-1)*(6+((i*7+k*3)%5)*2))+' 14 0'}el('path',{d:d,opacity:i===7?.5:1},sc)}
+    el('path',{d:'M760 70a52 52 0 1 0 52 74a42 42 0 1 1 -52 -74z',fill:mix(AMBER,.35),stroke:AMBER_D,'stroke-width':2.4},gN);
+    /* Foto von Loewi wie ein angeklebtes Sofortbild neben dem Zettel */
+    if(ph){var pf=el('g',{transform:'translate(32 0) rotate(4 182 300)'},gN);
+      el('rect',{x:46,y:132,width:272,height:336,rx:6,fill:'#FFFFFF',stroke:'#C9BFA6','stroke-width':2.4},pf);
+      el('image',{href:opt.photo,x:64,y:150,width:236,height:236,preserveAspectRatio:'xMidYMid slice'},pf);
+      el('rect',{x:64,y:150,width:236,height:236,fill:'none',stroke:'#D9D2BF','stroke-width':1.2},pf);
+      tx(pf,182,436,'Otto Loewi',{'text-anchor':'middle','font-size':34,'font-weight':600,fill:SUB});
+      el('rect',{x:140,y:116,width:84,height:28,fill:mix(AMBER,.55),opacity:.8,transform:'rotate(-7 182 130)'},pf)}
+    tx(gN,ph?496:460,600,'Ostern 1921',{'text-anchor':'middle','font-size':40,'font-weight':600,fill:opt.night?'#DDE6E8':SUB});
+    /* Labor */
+    var gLab=el('g',{opacity:0},g);
+    function beaker(x,label){var b=el('g',null,gLab);
+      el('path',{d:'M'+(x-118)+' 250V520Q'+(x-118)+' 560 '+(x-78)+' 560H'+(x+78)+'Q'+(x+118)+' 560 '+(x+118)+' 520V250',fill:'none',stroke:GREY,'stroke-width':3},b);
+      var liq=el('path',{d:'M'+(x-115)+' 330V518Q'+(x-115)+' 557 '+(x-78)+' 557H'+(x+78)+'Q'+(x+115)+' 557 '+(x+115)+' 518V330Z',fill:'#DCEBF0'},b);
+      el('line',{x1:x-115,y1:330,x2:x+115,y2:330,stroke:'#9FC3CF','stroke-width':2},b);
+      tx(b,x,612,label,{'text-anchor':'middle','font-size':40,fill:SUB});
+      return liq}
+    var liq1=beaker(230,'Herz 1 mit Nerv'),liq2=beaker(670,'Herz 2 ohne Nerv');
+    /* Vagusnerv, er endet im Vorhof von Herz 1 (das Herz liegt darüber) */
+    var NERVE='M230 60C230 140 262 200 240 296C230 340 208 380 204 420';
+    el('path',{d:NERVE,fill:'none',stroke:TEAL,'stroke-width':10,'stroke-linecap':'round'},gLab);
+    el('path',{d:NERVE,fill:'none',stroke:mix(TEAL,.7),'stroke-width':5,'stroke-linecap':'round'},gLab);
+    var h1=frogHeart(gLab,230,446),h2=frogHeart(gLab,670,446);
+    tx(gLab,212,84,'Vagusnerv',{'text-anchor':'end','font-size':40,fill:TEAL_D,'font-weight':600});
+    var zap=el('g',{opacity:0},gLab);
+    el('line',{x1:312,y1:84,x2:243,y2:116,stroke:SUB,'stroke-width':6,'stroke-linecap':'round'},zap);
+    el('path',{d:'M342 14l-22 34h18l-20 34',fill:'none',stroke:AMBER_D,'stroke-width':5,'stroke-linecap':'round','stroke-linejoin':'round'},zap);
+    /* Herzschläge pro Minute an den Seiten, weg vom Weg der Pipette */
+    var r1=tx(gLab,54,262,'',{'text-anchor':'middle','font-size':44,'font-weight':700,fill:ANTH}),r2t=tx(gLab,847,262,'',{'text-anchor':'middle','font-size':44,'font-weight':700,fill:ANTH});
+    tx(gLab,54,298,'/min',{'text-anchor':'middle','font-size':30,fill:SUB});tx(gLab,847,298,'/min',{'text-anchor':'middle','font-size':30,fill:SUB});
+    var pip=el('g',{opacity:0},gLab);
+    el('rect',{x:-9,y:-150,width:18,height:150,rx:9,fill:'#F4F7F8',stroke:GREY,'stroke-width':2.6},pip);
+    el('path',{d:'M-9 -150h18v-30a9 9 0 0 0 -18 0z',fill:SUB},pip);
+    var pliq=el('rect',{x:-6,y:-60,width:12,height:58,rx:6,fill:mix(AMBER,.45)},pip);
+    var drop=el('circle',{r:9,fill:AMBER,stroke:AMBER_D,'stroke-width':2,opacity:0},gLab);
+    var state=0,cur=0,raf=0,run=false,last=0,ph1=0,ph2=0,rate1=60,rate2=60;
+    function beat(ph){var f=ph%1;return Math.exp(-Math.pow(f*7,2))+.45*Math.exp(-Math.pow((f-.16)*9,2))}
+    function frame(now){if(!run)return;var dt=Math.min(.05,(now-(last||now))/1000);last=now;
+      cur+=clamp(state-cur,-dt*SPEED,dt*SPEED);
+      var nOp=1-sm(.15,.6,cur);gN.setAttribute('opacity',r2(nOp));if(opt.night)opt.night.style.opacity=r2(nOp);gLab.setAttribute('opacity',r2(sm(.35,.85,cur)));
+      var stim=sm(.55,.9,cur)*(1-sm(1.02,1.16,cur));zap.setAttribute('opacity',r2(stim*(.55+.45*Math.abs(Math.sin(now/90)))));
+      var tgt1=lerp(60,24,sm(.7,1,cur)),tgt2=lerp(60,24,sm(2.45,2.95,cur));rate1+=(tgt1-rate1)*Math.min(1,dt*1.6);rate2+=(tgt2-rate2)*Math.min(1,dt*1.6);
+      ph1+=dt*rate1/60;ph2+=dt*rate2/60;
+      [[h1,ph1,230],[h2,ph2,670]].forEach(function(q){var s=1.12*(1+.11*beat(q[1]));q[0].setAttribute('transform','translate('+q[2]+' 446) scale('+r2(s)+')')});
+      r1.textContent='♥ '+Math.round(rate1);r2t.textContent='♥ '+Math.round(rate2);
+      /* Pipette: eintauchen, heben, hinübertragen, senken, tropfen */
+      var pa=sm(1.1,1.22,cur)*(1-sm(2.08,2.32,cur)),pu=sm(1.18,1.98,cur),px=296,py=300;
+      if(pu<.15)py=lerp(300,362,sm(0,.15,pu));
+      else if(pu<.3)py=lerp(362,236,sm(.15,.3,pu));
+      else if(pu<.76){var u=sm(.3,.76,pu);px=lerp(296,606,u);py=236-14*Math.sin(Math.PI*u)}
+      else if(pu<.86){px=606;py=lerp(236,302,sm(.76,.86,pu))}
+      else{px=606;py=302}
+      pip.setAttribute('opacity',r2(pa));pip.setAttribute('transform','translate('+r2(px)+' '+r2(py)+')');
+      var lf=sm(.04,.14,pu)*(1-sm(.87,.97,pu));pliq.setAttribute('height',r2(58*lf));pliq.setAttribute('y',r2(-2-58*lf));
+      var dp=sm(.86,1,pu);drop.setAttribute('cx',606);drop.setAttribute('cy',r2(lerp(306,346,dp)));drop.setAttribute('opacity',dp>0&&dp<1?1:0);
+      liq2.setAttribute('fill',dp>.5||cur>2.1?'#E9E3C8':'#DCEBF0');liq1.setAttribute('fill',cur>.9?'#E9E3C8':'#DCEBF0');
+      raf=requestAnimationFrame(frame)}
+    function set(s){state=s;if(RM){cur=s;run=true;last=0;frame(performance.now());run=false}}
+    function start(){if(run||RM)return;run=true;last=0;raf=requestAnimationFrame(frame)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    return {set:set,start:start,stop:stop}}
+
+  /* ---------- Übersetzungskette ---------- */
+  function chain(svg){
+    svg.setAttribute('viewBox','0 0 1600 600');
+    var g=el('g',{'font-family':FONT},svg),X=function(i){return 125+i*225},Y=250,parts=[];
+    [[0,2,'elektrisch',TEAL],[3,5,'chemisch',AMBER_D],[6,6,'elektrisch',TEAL]].forEach(function(z){
+      var x0=X(z[0])-100,x1=X(z[1])+100,gz=el('g',null,g);
+      el('rect',{x:x0,y:120,width:x1-x0,height:330,rx:30,fill:z[3]===TEAL?mix(TEAL,.9):mix(AMBER,.82)},gz);
+      tx(gz,(x0+x1)/2,100,z[2].toUpperCase(),{'text-anchor':'middle','font-size':30,'font-weight':700,'letter-spacing':4,fill:z[3]===TEAL?TEAL_D:AMBER_D});gz._t=z[0]*.12;parts.push(gz)});
+    var LAB=[['Impuls','kommt an'],['Ca²⁺','strömt ein'],['Bläschen','verschmelzen'],['Transmitter','im Spalt'],['Bindung an','Rezeptor'],['Kanäle','öffnen sich'],['neuer','Impuls']];
+    function bolt(p,x,y){el('path',{d:'M'+(x+8)+' '+(y-40)+'l-30 46h22l-14 38l34 -50h-22z',fill:AMBER,stroke:AMBER_D,'stroke-width':3,'stroke-linejoin':'round'},p)}
+    function prot(p,x,y,open,h){h=h||64;var gg=open?12:2;[-1,1].forEach(function(s){el('rect',{x:r2(x+s*(gg/2+9)-9),y:y-h/2,width:18,height:h,rx:8,fill:mix(BLUE,.74),stroke:BLUE,'stroke-width':2.4},p)});if(open)el('rect',{x:x-gg/2,y:y-h/2+5,width:gg,height:h-10,fill:'#fff'},p)}
+    function mem(p,x,y,w){el('line',{x1:x-w/2,y1:y,x2:x+w/2,y2:y,stroke:TEAL,'stroke-width':6},p)}
+    function trd(p,x,y,r){el('circle',{cx:x,cy:y,r:r||7,fill:AMBER,stroke:AMBER_D,'stroke-width':1.8},p)}
+    function ion(p,x,y,ca){el('circle',{cx:x,cy:y,r:7,fill:ca?GREY:'#fff',stroke:SUB,'stroke-width':1.8},p)}
+    var ICON=[
+      function(p,x){bolt(p,x,Y)},
+      function(p,x){mem(p,x,Y,110);prot(p,x,Y,true);ion(p,x,Y+40);ion(p,x-1,Y+4,true);ion(p,x+26,Y-38,true)},
+      function(p,x){mem(p,x,Y+28,120);el('path',{d:'M'+(x-36)+' '+(Y+28)+'A30 30 0 1 1 '+(x+36)+' '+(Y+28),fill:'#fff',stroke:TEAL_D,'stroke-width':3},p);[[-12,-6],[8,-14],[12,6],[-4,10],[-18,10]].forEach(function(d){trd(p,x+d[0],Y+d[1],6.4)})},
+      function(p,x){[[-30,-20],[-6,-34],[22,-18],[-26,14],[4,0],[30,16],[-6,30],[20,38]].forEach(function(d){trd(p,x+d[0],Y+d[1])})},
+      function(p,x){mem(p,x,Y+18,120);prot(p,x,Y+18,false,70);trd(p,x-21,Y-10,7.4);trd(p,x+21,Y-10,7.4)},
+      function(p,x){mem(p,x,Y+12,120);prot(p,x,Y+12,true,70);ion(p,x,Y-30);ion(p,x,Y+10);ion(p,x+2,Y+48)},
+      function(p,x){bolt(p,x,Y)}];
+    for(var i=0;i<7;i++){var gi=el('g',{class:'cn'},g),x=X(i);
+      el('circle',{cx:x,cy:Y,r:74,fill:'#fff',stroke:i===0||i===6?TEAL:'#C9D2D6','stroke-width':i===0||i===6?3:2},gi);
+      ICON[i](gi,x);
+      if(i>0){el('circle',{cx:x+56,cy:Y-56,r:22,fill:TEAL_D},gi);tx(gi,x+56,Y-47,String(i),{'text-anchor':'middle','font-size':26,'font-weight':700,fill:'#fff'})}
+      LAB[i].forEach(function(s,k){tx(gi,x,Y+124+k*42,s,{'text-anchor':'middle','font-size':37,fill:ANTH,'font-weight':k?400:600})});
+      gi._t=i*.12;parts.push(gi);
+      if(i<6){var ga=el('g',null,g);el('line',{x1:x+80,y1:Y,x2:X(i+1)-92,y2:Y,stroke:ANTH,'stroke-width':3},ga);el('path',{d:'M'+(X(i+1)-96)+' '+(Y-9)+'l14 9l-14 9z',fill:ANTH},ga);ga._t=i*.12+.07;parts.push(ga)}}
+    var gR=el('g',null,g);
+    el('path',{d:'M'+X(4)+' 474V520H'+X(2)+'V478',fill:'none',stroke:AMBER_D,'stroke-width':3.4,'stroke-dasharray':'10 8'},gR);
+    el('path',{d:'M'+(X(2)-10)+' 490l10 -16l10 16z',fill:AMBER_D},gR);
+    el('circle',{cx:X(3)-128,cy:556,r:22,fill:TEAL_D},gR);tx(gR,X(3)-128,565,'7',{'text-anchor':'middle','font-size':26,'font-weight':700,fill:'#fff'});
+    tx(gR,X(3)-96,568,'Abbau und Recycling',{'font-size':37,fill:AMBER_D,'font-weight':600});
+    gR._t=.82;parts.push(gR);
+    function set(p){parts.forEach(function(q){q.setAttribute('opacity',r2(sm(q._t,q._t+.1,p)))})}
+    set(1);return {set:set}}
+
+  /* ---------- Spannungskurven: erregend und hemmend ---------- */
+  function trace(svg,kind){
+    svg.setAttribute('viewBox','0 0 760 392');
+    var g=el('g',{'font-family':FONT},svg);
+    function Y(v){return 330-(v+90)*2.3}
+    el('line',{x1:100,y1:22,x2:100,y2:330,stroke:'#AEB8BD','stroke-width':2},g);el('line',{x1:100,y1:330,x2:744,y2:330,stroke:'#AEB8BD','stroke-width':2},g);
+    tx(g,114,46,'mV',{'font-size':38,fill:SUB});tx(g,744,380,'Zeit',{'text-anchor':'end','font-size':38,fill:SUB});
+    [[-70,'−70'],[30,'+30']].forEach(function(q){tx(g,90,r2(Y(q[0])+13),q[1],{'text-anchor':'end','font-size':38,fill:SUB})});
+    el('line',{x1:100,y1:Y(-70),x2:744,y2:Y(-70),stroke:'#AEB8BD','stroke-width':2,'stroke-dasharray':'6 8'},g);
+    el('line',{x1:100,y1:Y(-55),x2:744,y2:Y(-55),stroke:AMBER_D,'stroke-width':2.6,'stroke-dasharray':'12 8'},g);
+    tx(g,744,r2(Y(-55)-14),'Schwelle',{'text-anchor':'end','font-size':40,'font-weight':600,fill:AMBER_D});
+    var pts=[],N=160;
+    for(var i=0;i<=N;i++){var u=i/N,v=-70;
+      if(kind==='e'){if(u<.16)v=-70;else if(u<.36)v=lerp(-70,-55,sm(.16,.36,u));else if(u<.43)v=lerp(-55,30,sm(.36,.43,u));else if(u<.56)v=lerp(30,-82,sm(.43,.56,u));else v=lerp(-82,-70,sm(.56,.86,u))}
+      else{if(u<.16)v=-70;else if(u<.36)v=lerp(-70,-80,sm(.16,.36,u));else v=lerp(-80,-70,sm(.36,.82,u))}
+      pts.push(r2(104+u*636)+' '+r2(Y(v)))}
+    var line=el('path',{d:'M'+pts.join('L'),fill:'none',stroke:kind==='e'?TEAL:BLUE,'stroke-width':6,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+    var L=line.getTotalLength();line.setAttribute('stroke-dasharray',L+' '+L);
+    var note=kind==='e'?tx(g,412,r2(Y(30)+14),'neuer Impuls',{'font-size':42,'font-weight':700,fill:TEAL_D}):tx(g,300,150,'kein Impuls',{'font-size':42,'font-weight':700,fill:BLUE});
+    function set(p){line.setAttribute('stroke-dashoffset',r2(L*(1-p)));note.setAttribute('opacity',r2(sm(.55,.75,p)))}
+    set(1);return {set:set}}
+
+  /* ---------- Summation: eine Nervenzelle mit zwei erregenden (A, B) und einer hemmenden Synapse (H) ---------- */
+  function rrect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+  function summ(svg,cv,opt){
+    opt=opt||{};
+    svg.setAttribute('viewBox','0 0 1000 600');
+    var R=rng(9),gOut=el('g',{fill:'none','stroke-linecap':'round'},svg),gFill=el('g',{fill:'none','stroke-linecap':'round'},svg);
+    var cellF=mix(TEAL,.8),preF=mix(TEAL,.86),inhF=mix(BLUE,.82),SO=[600,318];
+    function seg(a,b,w,col,out,gO,gF){el('line',{x1:r2(a[0]),y1:r2(a[1]),x2:r2(b[0]),y2:r2(b[1]),'stroke-width':r2(w+5.2),stroke:out},gO||gOut);
+      el('line',{x1:r2(a[0]),y1:r2(a[1]),x2:r2(b[0]),y2:r2(b[1]),'stroke-width':r2(w),stroke:col},gF||gFill)}
+    function tube(P,w0,w1){for(var i=0;i<14;i++)seg(cubP(P,i/14),cubP(P,(i+1)/14),lerp(w0,w1,i/13),cellF,TEAL)}
+    var DA=[[548,272],[492,232],[412,198],[334,180]],DB=[[548,364],[492,404],[412,438],[334,456]];
+    tube(DA,30,13);tube(DB,30,13);
+    var ex=[];grow(634,252,-1.1,118,14,1,R,ex,.2);grow(570,250,-1.95,86,12,1,R,ex,.2);grow(572,386,1.85,96,12,1,R,ex,.2);
+    ex.forEach(function(s){seg([s[0],s[1]],[s[2],s[3]],s[4],cellF,TEAL)});
+    /* präsynaptische Axone und Endknöpfchen */
+    var gPre=el('g',{fill:'none','stroke-linecap':'round'},svg);
+    var PA='M0 66C110 66 214 94 288 138',PB='M0 570C110 570 214 542 288 498',PH='M548 600C566 540 600 474 636 430';
+    [[PA,TEAL,preF],[PB,TEAL,preF],[PH,BLUE,inhF]].forEach(function(q){el('path',{d:q[0],stroke:q[1],'stroke-width':17.2},gPre);el('path',{d:q[0],stroke:q[2],'stroke-width':12},gPre)});
+    var BA=[304,154],BB=[304,482],BH=[645,410];
+    [[BA,TEAL,preF,28],[BB,TEAL,preF,28],[BH,BLUE,inhF,26]].forEach(function(q){el('circle',{cx:q[0][0],cy:q[0][1],r:q[3]+2.6,fill:q[1]},gPre);el('circle',{cx:q[0][0],cy:q[0][1],r:q[3],fill:q[2]},gPre)});
+    /* Axonhügel und Axon */
+    var gAx=el('g',null,svg);
+    el('path',{d:'M664 294L730 310V326L664 342Z',fill:TEAL},gAx);el('path',{d:'M666 297.6L727.4 312.4V323.6L666 338.4Z',fill:cellF},gAx);
+    el('line',{x1:728,y1:318,x2:1004,y2:318,stroke:TEAL,'stroke-width':18.2},gAx);el('line',{x1:728,y1:318,x2:1004,y2:318,stroke:cellF,'stroke-width':13},gAx);
+    [[792,870],[896,974]].forEach(function(m){el('rect',{x:m[0],y:303,width:m[1]-m[0],height:30,rx:15,fill:mix(AMBER,.62),stroke:AMBER_D,'stroke-width':2.2},gAx)});
+    var hill=el('path',{d:'M664 294L730 310V326L664 342Z',fill:AMBER,opacity:0},svg);
+    var axGlow=el('line',{x1:728,y1:318,x2:1004,y2:318,stroke:AMBER,'stroke-width':13,'stroke-linecap':'round',opacity:0},svg);
+    /* Zellkörper */
+    el('circle',{cx:SO[0],cy:SO[1],r:74.6,fill:TEAL},svg);var soma=el('circle',{cx:SO[0],cy:SO[1],r:72,fill:cellF},svg);
+    el('circle',{cx:586,cy:310,r:25,fill:mix(TEAL,.6),stroke:TEAL_D,'stroke-width':2},svg);el('circle',{cx:580,cy:304,r:5,fill:TEAL_D},svg);
+    /* Beschriftung */
+    var gT=el('g',{'font-family':FONT,'font-size':40,fill:ANTH,style:'paint-order:stroke;stroke:#FFFFFF;stroke-width:10px;stroke-linejoin:round'},svg);
+    [[BA,'A',TEAL_D],[BB,'B',TEAL_D],[BH,'H',BLUE]].forEach(function(q){tx(svg,q[0][0],q[0][1]+12,q[1],{'text-anchor':'middle','font-size':34,'font-weight':700,fill:q[2],'font-family':FONT})});
+    tx(gT,128,148,'erregend',{'text-anchor':'middle',fill:TEAL_D,'font-weight':600});
+    tx(gT,128,516,'erregend',{'text-anchor':'middle',fill:TEAL_D,'font-weight':600});
+    tx(gT,690,478,'hemmend',{'text-anchor':'start',fill:BLUE,'font-weight':600});
+    el('line',{x1:770,y1:244,x2:712,y2:304,stroke:ANTH,'stroke-width':2.4},svg);el('circle',{cx:712,cy:306,r:5,fill:ANTH},svg);
+    tx(gT,776,236,'Axonhügel',{'text-anchor':'start'});
+    tx(gT,996,374,'Axon',{'text-anchor':'end',fill:SUB});
+    /* bewegte Teile */
+    var gM=el('g',null,svg),pathEl={a:el('path',{d:PA,fill:'none',stroke:'none'},svg),b:el('path',{d:PB,fill:'none',stroke:'none'},svg),h:el('path',{d:PH,fill:'none',stroke:'none'},svg)};
+    var LEN={a:pathEl.a.getTotalLength(),b:pathEl.b.getTotalLength(),h:pathEl.h.getTotalLength()};
+    var DEND={a:DA.slice().reverse(),b:DB.slice().reverse(),h:[[632,386],[634,372],[640,356],[646,342]]};
+    var CONTACT={a:[319,168],b:[319,468],h:[636,392]};
+    var AMP={a:10,b:10,h:-9},DUR={a:.62,b:.62,h:.84},DT={a:.42,b:.42,h:.2},RATE=opt.rate||14,THR=-55,REST=-70;
+    var t=0,ev=[],ap=null,lastAP=-1e9,buf=[],pulses=[],glows=[],puffs=[],sched=[],apGlow=0,apDot=-1,nAP=0,ctx=cv.getContext('2d'),w=0,h=0,dpr=1;
+    var dots=[];for(var i=0;i<16;i++)dots.push(el('circle',{r:10,opacity:0},gM));
+    var gls=[];for(var j=0;j<8;j++)gls.push(el('circle',{r:20,opacity:0},gM));
+    var pfs=[];for(var q=0;q<36;q++)pfs.push(el('circle',{r:4.2,fill:AMBER,stroke:AMBER_D,'stroke-width':1,opacity:0},gM));
+    var apC=el('circle',{r:11,fill:AMBER,stroke:AMBER_D,'stroke-width':2,opacity:0},gM);
+    function psp(x){return x<=0?0:(x/5)*Math.exp(1-x/5)}
+    function apw(x){if(x<.6)return lerp(THR,30,x/.6);if(x<2.4)return lerp(30,-80,(x-.6)/1.8);if(x<7)return lerp(-80,REST,(x-2.4)/4.6);return null}
+    function V(){if(ap!==null){var a=apw(t-ap);if(a!==null)return a;ap=null}var v=REST;for(var i=0;i<ev.length;i++)v+=ev[i].a*psp(t-ev[i].t);return v}
+    function fire(k){if(k==='aaa'){[0,.32,.64].forEach(function(d){sched.push({k:'a',d:d})});return}
+      k.split('').forEach(function(c){pulses.push({k:c,u:0})})}
+    function resize(){dpr=Math.min(window.devicePixelRatio||1,2);w=cv.clientWidth||300;h=cv.clientHeight||150;cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr)}
+    function reset(){ev=[];ap=null;buf=[];pulses=[];glows=[];puffs=[];sched=[];apGlow=0;apDot=-1}
+    function status(v){if(apGlow>.2)return ['Impuls!','ap'];if(v>REST+.6)return ['erregt','ex'];if(v<REST-.6)return ['gehemmt','in'];return ['Ruhe','']}
+    function step(dt){
+      t+=dt*RATE;
+      sched.forEach(function(s){s.d-=dt;if(s.d<=0&&!s.done){s.done=true;pulses.push({k:s.k,u:0})}});sched=sched.filter(function(s){return !s.done});
+      pulses.forEach(function(p){p.u+=dt/DUR[p.k];if(p.u>=1&&!p.done){p.done=true;puffs.push({k:p.k,u:0});glows.push({k:p.k,u:0})}});pulses=pulses.filter(function(p){return !p.done});
+      puffs.forEach(function(p){p.u+=dt/.6});puffs=puffs.filter(function(p){return p.u<1});
+      glows.forEach(function(g){g.u+=dt/DT[g.k];if(g.u>=1&&!g.done){g.done=true;ev.push({t:t,a:AMP[g.k]})}});glows=glows.filter(function(g){return !g.done});
+      ev=ev.filter(function(e){return t-e.t<60});
+      var v=V();
+      if(ap===null&&v>=THR&&t-lastAP>9){ap=t;lastAP=t;ev=[];nAP++;apGlow=1;apDot=0;v=THR}
+      apGlow=Math.max(0,apGlow-dt*.9);if(apDot>=0){apDot+=dt/1.1;if(apDot>1)apDot=-1}
+      buf.push([t,v]);while(buf.length&&t-buf[0][0]>102)buf.shift();
+      /* Zeichnen im Bild */
+      dots.forEach(function(d,i){var p=pulses[i];if(!p){d.setAttribute('opacity',0);return}var P=pathEl[p.k].getPointAtLength(Math.min(1,p.u)*LEN[p.k]);
+        d.setAttribute('cx',r2(P.x));d.setAttribute('cy',r2(P.y));d.setAttribute('fill',p.k==='h'?BLUE:TEAL);d.setAttribute('stroke',p.k==='h'?'#1D3B5E':TEAL_D);d.setAttribute('stroke-width',2);d.setAttribute('opacity',1)});
+      gls.forEach(function(g,i){var G=glows[i];if(!G){g.setAttribute('opacity',0);return}var P=cubP(DEND[G.k],Math.min(1,G.u));
+        g.setAttribute('cx',r2(P[0]));g.setAttribute('cy',r2(P[1]));g.setAttribute('r',G.k==='h'?18:22);g.setAttribute('fill',G.k==='h'?'rgba(47,95,150,.55)':'rgba(15,140,140,.5)');g.setAttribute('opacity',1)});
+      var pi=0;puffs.forEach(function(p){var C=CONTACT[p.k];for(var m=0;m<6&&pi<pfs.length;m++,pi++){var a=m/6*TAU+.4,d=4+18*Math.sqrt(p.u),c2=pfs[pi];
+        c2.setAttribute('cx',r2(C[0]+Math.cos(a)*d));c2.setAttribute('cy',r2(C[1]+Math.sin(a)*d*.7));c2.setAttribute('fill',p.k==='h'?mix(BLUE,.35):AMBER);c2.setAttribute('stroke',p.k==='h'?BLUE:AMBER_D);c2.setAttribute('opacity',r2(1-p.u))}});
+      for(;pi<pfs.length;pi++)pfs[pi].setAttribute('opacity',0);
+      hill.setAttribute('opacity',r2(.85*apGlow));axGlow.setAttribute('opacity',r2(.7*apGlow));
+      if(apDot>=0){apC.setAttribute('cx',r2(lerp(730,1000,apDot)));apC.setAttribute('cy',318);apC.setAttribute('opacity',1)}else apC.setAttribute('opacity',0);
+      soma.setAttribute('fill',apGlow>.05?'rgb('+Math.round(lerp(207,248,apGlow))+','+Math.round(lerp(232,231,apGlow))+','+Math.round(lerp(232,190,apGlow))+')':cellF);
+      draw(v);
+      if(opt.onStatus){var s=status(v);opt.onStatus(s[0],s[1],Math.round(v),nAP)}}
+    function draw(v){if(!w)resize();var c=ctx,fs=opt.fs?opt.fs(w,h):14;c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+      var L=fs*3.1,Rr=w-fs*.6,top=fs*1.1,bot=h-fs*2.1,pw=Rr-L;function Y(x){return top+(38-x)/128*(bot-top)}
+      c.font='500 '+fs+'px '+FONT;c.textBaseline='middle';
+      [[30,'+30'],[0,'0'],[THR,''],[REST,'−70']].forEach(function(g){var y=Y(g[0]),th=g[0]===THR,rs=g[0]===REST;
+        c.strokeStyle=th?AMBER_D:rs?'#9AA6AB':'#E1E7EA';c.lineWidth=th?2.4:1.4;c.setLineDash(th?[9,6]:rs?[5,6]:[]);c.beginPath();c.moveTo(L,y);c.lineTo(Rr,y);c.stroke();c.setLineDash([]);
+        if(g[1]){c.textAlign='right';c.fillStyle=SUB;c.fillText(g[1],L-fs*.35,y)}});
+      c.textAlign='left';c.fillStyle=SUB;c.fillText('mV',L+fs*.35,top-fs*.42);
+      var sx=Rr-pw/10;c.strokeStyle=ANTH;c.lineWidth=2;c.beginPath();c.moveTo(sx,h-fs*.7);c.lineTo(Rr,h-fs*.7);c.stroke();c.textAlign='right';c.fillStyle=ANTH;c.fillText('10 ms',sx-fs*.4,h-fs*.7);
+      c.save();c.beginPath();c.rect(L,0,pw,h);c.clip();c.lineJoin='round';c.lineCap='round';
+      function line(col,lw,cond){c.strokeStyle=col;c.lineWidth=lw;c.beginPath();var on=false;
+        for(var i=0;i<buf.length;i++){var b=buf[i],x=Rr-(t-b[0])/100*pw,y=Y(b[1]),ok=cond(b[1],buf[i-1]);if(ok){if(on)c.lineTo(x,y);else{c.moveTo(x,y);on=true}}else on=false}c.stroke()}
+      line(TEAL,fs*.22,function(){return true});
+      line(AMBER_D,fs*.3,function(v1,p){return v1>THR+.5||(p&&p[1]>THR+.5)});
+      var last=buf[buf.length-1];if(last){c.fillStyle=last[1]>THR?AMBER_D:TEAL;c.beginPath();c.arc(Rr,Y(last[1]),fs*.3,0,TAU);c.fill()}
+      c.restore();
+      function tag(txt,x,y,col,wt){c.font=wt+' '+fs+'px '+FONT;var tw=c.measureText(txt).width;c.fillStyle='rgba(255,255,255,.88)';rrect(c,x-fs*.3,y-fs*.68,tw+fs*.6,fs*1.36,fs*.3);c.fill();c.fillStyle=col;c.textAlign='left';c.fillText(txt,x,y)}
+      tag('Schwelle −55',L+fs*.5,Y(THR)-fs*.85,AMBER_D,'600');tag('Ruhe',L+fs*.5,Y(REST)+fs*.9,SUB,'500');
+      if(apGlow>.05&&opt.overlay){c.globalAlpha=Math.min(1,apGlow*1.6);c.font='700 '+(fs*1.25)+'px '+FONT;c.textAlign='right';c.fillStyle=AMBER_D;c.fillText('Impuls!',Rr-fs*.3,top+fs*.6);c.globalAlpha=1}}
+    return {fire:fire,step:step,resize:resize,reset:reset,count:function(){return nAP}}}
+
+  return {net:net,overview:overview,loewi:loewi,chain:chain,trace:trace,summ:summ,sm:sm,RM:RM}
+})();
+
+/* ===== Synapse im feinen Abbildungsstil =====
+   Die Szene ist eine reine Funktion des Ablaufs tau von 0 bis 7, Schritt k endet bei tau = k (sieben Schritte wie im Hefteintrag).
+   Gesamtbild 1700 x 840 mit Rand für Beschriftungen, die Synapse selbst liegt in x 350 bis 1350.
+   Palette und Linienstärken wie im Abbildungsprojekt: Zellen türkis, Botenstoffe bernstein, Membranproteine tiefblau. */
+var SYN=(function(){
+  'use strict';
+  var TAU=Math.PI*2,W=1700,H=840,OX=350;
+  var ANTH='#21272B',TEAL='#0F8C8C',TEAL_D='#0A6468',BLUE='#2F5F96',AMBER='#E8B33C',AMBER_D='#A87A12',VERM='#C8553D',GREY='#6B757C',SUB='#3F484E';
+  function hx(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+  function mix(h,t){return 'rgb('+hx(h).map(function(v){return Math.round(v+(255-v)*t)}).join(',')+')'}
+  function rgba(h,a){return 'rgba('+hx(h).join(',')+','+Math.max(0,Math.min(1,a)).toFixed(3)+')'}
+  var C={bg:'#F3F6F7',pre:mix(TEAL,.85),post:mix(TEAL,.80),band:mix(TEAL,.64),inner:mix(TEAL,.30),
+    vesI:mix(TEAL_D,.55),prot:mix(BLUE,.74),enz:mix(BLUE,.5),trans:mix(BLUE,.86),
+    fragB:'#BEC5CA',mito:mix(GREY,.86),mitoI:mix(GREY,.45),mt:mix(TEAL,.55)};
+  /* Strichfassung zum Ausmalen: schwarze Linien, weiße Flächen, keine Schimmer */
+  var INK=false,INKW=1.45;
+  function setInk(){INK=true;ANTH=TEAL=TEAL_D=BLUE=AMBER_D=GREY=SUB='#000000';AMBER='#FFFFFF';
+    ['bg','pre','post','band','prot','enz','trans','fragB','mito'].forEach(function(k){C[k]='#FFFFFF'});C.inner='#000000';C.mitoI='#000000'}
+  function clamp(x,a,b){return x<a?a:x>b?b:x}
+  function sm(a,b,t){var x=clamp((t-a)/(b-a),0,1);return x*x*(3-2*x)}
+  function lerp(a,b,t){return a+(b-a)*t}
+  function mixp(p,q,t){return [p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t]}
+  function rng(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+  function cub(a,b,c,d,t){var u=1-t,uu=u*u,tt=t*t;return [uu*u*a[0]+3*uu*t*b[0]+3*u*tt*c[0]+tt*t*d[0],uu*u*a[1]+3*uu*t*b[1]+3*u*tt*c[1]+tt*t*d[1]]}
+  function seg(a,b){return [a,[a[0]+(b[0]-a[0])/3,a[1]+(b[1]-a[1])/3],[a[0]+2*(b[0]-a[0])/3,a[1]+2*(b[1]-a[1])/3],b]}
+  function trace(c,S){c.moveTo(S[0][0][0],S[0][0][1]);S.forEach(function(s){c.bezierCurveTo(s[1][0],s[1][1],s[2][0],s[2][1],s[3][0],s[3][1])})}
+  function sample(S,step){var pts=[];S.forEach(function(s,i){for(var k=i?1:0;k<=40;k++)pts.push(cub(s[0],s[1],s[2],s[3],k/40))});
+    var out=[],acc=0,next=0;
+    for(var i=1;i<pts.length;i++){var a=pts[i-1],b=pts[i],dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy);if(!d)continue;
+      while(next<=acc+d){var t=(next-acc)/d;out.push({x:a[0]+dx*t,y:a[1]+dy*t,tx:dx/d,ty:dy/d});next+=step}acc+=d}
+    return out}
+  function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+  function disc(c,x,y,r,f,s,lw){c.beginPath();c.arc(x,y,r,0,TAU);c.fillStyle=f;c.fill();if(s){c.lineWidth=lw||1.2;c.strokeStyle=s;c.stroke()}}
+
+  /* ---------- Geometrie (Kernkoordinaten 0 bis 1000) ---------- */
+  var BULB=[seg([430,-60],[430,90]),[[430,90],[430,165],[208,168],[176,270]],[[176,270],[150,350],[150,420],[178,462]],
+    [[178,462],[196,490],[222,500],[256,500]],seg([256,500],[744,500]),[[744,500],[778,500],[804,490],[822,462]],
+    [[822,462],[850,420],[850,350],[824,270]],[[824,270],[792,168],[570,165],[570,90]],seg([570,90],[570,-60])];
+  var POST=[[[-10,860],[8,660],[48,600],[128,600]],seg([128,600],[872,600]),[[872,600],[952,600],[992,660],[1010,860]]];
+  var YP=500,YQ=600;
+  var CA=[312,428,572,688],DOCK=[370,500,630],TRANS=[262,738],REC=[296,418,582,704],ENZ=[357,500,643];
+  var MITO=[{x:262,y:318,w:140,h:54,r:-.62},{x:744,y:316,w:132,h:52,r:.62}];
+  var RES=[[420,300],[530,272],[640,302],[470,372],[588,372],[350,378],[686,384]];
+  var bulbS=sample(BULB,6),postS=sample(POST,6);
+  bulbS.forEach(function(p){var nx=-p.ty,ny=p.tx;if((500-p.x)*nx+(300-p.y)*ny<0){nx=-nx;ny=-ny}p.nx=nx;p.ny=ny});
+  /* Calciumkanäle sitzen an der Flanke des Endknöpfchens, so bleibt der Spalt übersichtlich */
+  function wallPt(side,y){var b=null;bulbS.forEach(function(p){if((side<0&&p.x<300)||(side>0&&p.x>700)){if(!b||Math.abs(p.y-y)<Math.abs(b.y-y))b=p}});return b}
+  var CAS=[wallPt(-1,388),wallPt(-1,442),wallPt(1,388),wallPt(1,442)].map(function(p){return {x:p.x,y:p.y,nx:p.nx,ny:p.ny,ang:Math.atan2(p.nx,-p.ny)}});
+  postS.forEach(function(p){var nx=-p.ty,ny=p.tx;if(ny<0){nx=-nx;ny=-ny}p.nx=nx;p.ny=ny});
+
+  /* ---------- Ablauf ---------- */
+  function caOpen(t,tox){return sm(.5,.62,t)-sm(2.35,2.6,t)}
+  function dockY(v,t){return lerp(440,YP-32,sm(1.05+.06*v,1.5+.06*v,t))}
+  function fuse(v,t,tox){return tox==='botox'?0:sm(1.55+.06*v,1.95+.06*v,t)}
+  function collapse(v,t,tox){return tox==='botox'?0:sm(2.3+.05*v,2.85+.05*v,t)}
+  function reform(v,t,tox){return (tox==='botox'||tox==='gas')?0:sm(6.5+.06*v,6.95+.04*v,t)}
+  function recOpen(t,tox){if(tox==='botox'||tox==='curare')return 0;if(tox==='gas')return sm(4,4.25,t);return sm(4,4.25,t)-sm(6.05,6.3,t)}
+  function postG(t,tox){if(tox==='botox'||tox==='curare')return 0;if(tox==='gas')return sm(4.35,5,t);return sm(4.35,5,t)-sm(6.15,6.8,t)}
+  function vesNow(v,t,tox){var x=DOCK[v],e=reform(v,t,tox);
+    if(e>0)return {x:x,y:lerp(476,440,e),r:30*e,w:0,a:1,free:true};
+    var f=fuse(v,t,tox),k=collapse(v,t,tox);
+    if(f<=0)return {x:x,y:dockY(v,t),r:30,w:0,a:1,free:true};
+    var R=lerp(30,3,k),W=R*lerp(.72*f,.98,k);
+    return {x:x,y:YP-Math.sqrt(Math.max(0,R*R-W*W)),r:R,w:W,f:f,a:1-sm(.88,1,k),free:false}}
+  function siteP(k,t,tox){var r=k>>1,s=k%2?1:-1,g=2+13*recOpen(t,tox);return [REC[r]+s*(g/2+21),574]}
+  function nearest(arr,x){var b=0;arr.forEach(function(v,i){if(Math.abs(v-x)<Math.abs(arr[b]-x))b=i});return b}
+
+  /* Moleküle und Ionen, reproduzierbar zufällig */
+  var R=rng(23),MOL=[],SITE={0:0,2:1,4:2,7:3,8:4,10:5,13:6,15:7};
+  for(var v=0;v<3;v++)for(var k=0;k<6;k++){
+    var j=v*6+k,ang=k*TAU/6+.4,o=[14*Math.cos(ang),14*Math.sin(ang)],site=SITE[j];
+    var m={v:v,o:o,site:site,d:R()*.1,ph:R()*TAU,
+      Rp:[DOCK[v]+(R()-.5)*44,518+R()*16],Wp:[clamp(DOCK[v]+(R()-.5)*240,250,750),524+R()*34],
+      c1:[(R()-.5)*60,14],c2:[(R()-.5)*40,-20]};
+    var ex=site!==undefined?REC[site>>1]+(site%2?21:-21):m.Wp[0];
+    m.enz=nearest(ENZ,ex);m.tri=nearest(TRANS,ENZ[m.enz]);
+    m.cut=[(R()-.5)*26,-12-R()*10];m.away=[(R()-.5)*120,8+R()*12];m.tr=6.42+R()*.16;
+    MOL.push(m)}
+  var NAF=[];for(var q=0;q<8;q++){var rr2=q%4,sd=q<4?-1:1;NAF.push({r:rr2,d:q*.04,ph:R()*TAU,
+    N0:[REC[rr2]+sd*(34+R()*10),540+R()*18],I:[REC[rr2]+(R()-.5)*70,668+R()*60]})}
+  var CAI=[];for(var i2=0;i2<8;i2++){var cc=i2%4,P=CAS[cc],vv=cc<2?(i2<4?0:1):(i2<4?2:1),tg=[-P.ny,P.nx],jj=(R()-.5)*34,dd=58+R()*22;
+    CAI.push({c:cc,d:(i2>>2)*.08+R()*.05,ph:R()*TAU,C0:[P.x-P.nx*dd+tg[0]*jj,P.y-P.ny*dd+tg[1]*jj],M:[P.x-P.nx*38,P.y-P.ny*38],X:[P.x+P.nx*40,P.y+P.ny*40],
+      T:[DOCK[vv]+(R()-.5)*56,432+(R()-.5)*24]})}
+  var NA_DECO=[[70,60],[130,330],[40,450],[880,80],[930,180],[956,330],[880,420],[960,470],[26,492],[968,580]].map(function(p){return {p:p,ph:R()*TAU}});
+  var CA_DECO=[[160,100],[60,250],[920,260],[860,350],[120,470],[930,560]].map(function(p){return {p:p,ph:R()*TAU}});
+  var RESV=RES.map(function(p){return {p:p,ph:R()*TAU,rot:R()*TAU}});
+  function jit(p,ph,now,a){a=a||2;return [p[0]+a*Math.sin(now*1.6+ph),p[1]+a*.85*Math.cos(now*1.25+ph*1.3)]}
+
+  /* Molekülzustand */
+  function molState(m,t,now,tox){
+    var vs=vesNow(m.v,t,tox),k=vs.r/30,inV=[vs.x+m.o[0]*k,vs.y+m.o[1]*k];
+    var A={p:inV,a:1,cut:0};
+    if(tox==='botox')return A;
+    var t0=2.05+.06*m.v+m.d;
+    if(t<t0)return A;
+    var vs0=vesNow(m.v,t0,tox),k0=vs0.r/30,f0=[vs0.x+m.o[0]*k0,vs0.y+m.o[1]*k0];
+    if(t<2.5+m.d){A.p=mixp(f0,m.Rp,sm(t0,2.5+m.d,t));return A}
+    function wig(u){return [5*Math.sin(u*9+m.ph)*(1-u),4*Math.cos(u*7+m.ph)*(1-u)]}
+    var Wp=m.Wp,binder=m.site!==undefined,p;
+    if(t<2.95+m.d){A.p=mixp(m.Rp,Wp,sm(2.5+m.d,2.95+m.d,t));return A}
+    function drift(tt){return [Wp[0]+8*Math.sin(tt*2.1+m.ph)+2*Math.sin(now*.9+m.ph),Wp[1]+4*Math.cos(tt*1.8+m.ph)+1.5*Math.cos(now+m.ph)]}
+    if(binder&&tox!=='curare'){
+      var tb=3.85+m.d,S=siteP(m.site,t,tox);
+      if(t<tb){var u=sm(3.05+m.d,tb,t),w=wig(u);p=cub(Wp,[Wp[0]+m.c1[0],Wp[1]+m.c1[1]],[S[0]+m.c2[0],S[1]+m.c2[1]],S,u);A.p=[p[0]+w[0],p[1]+w[1]];return A}
+      if(tox==='gas'){var hop=Math.max(0,Math.sin((t-tb)*6+m.ph));A.p=[S[0],S[1]-hop*6];return A}
+      var tu=6+m.d;if(t<tu){A.p=S;return A}
+      var E=[ENZ[m.enz],568],tc=6.3+m.d*.5;if(t<tc){A.p=mixp(S,E,sm(tu,tc,t));return A}
+      return cleave(m,tc,t,now,tox,E)}
+    if(binder&&tox==='curare'){var S2=siteP(m.site,t,tox),near=[S2[0],S2[1]-16];
+      if(t<3.7+m.d){var u2=sm(3.05+m.d,3.7+m.d,t),w2=wig(u2);p=cub(Wp,[Wp[0],Wp[1]+10],[near[0],near[1]-10],near,u2);A.p=[p[0]+w2[0],p[1]+w2[1]];return A}
+      if(t<4.3+m.d){A.p=mixp(near,drift(4.3+m.d),sm(3.7+m.d,4.3+m.d,t));return A}
+      A.p=drift(t);return A}
+    if(tox==='gas'||t<6+m.d){A.p=drift(t);return A}
+    var E2=[ENZ[m.enz],568],tc2=6.3+m.d*.5;
+    if(t<tc2){A.p=mixp(drift(6+m.d),E2,sm(6+m.d,tc2,t));return A}
+    return cleave(m,tc2,t,now,tox,E2)}
+  function cleave(m,tc,t,now,tox,E){
+    var s=sm(tc,tc+.12,t),A={cut:s,a:1};
+    A.pb=mixp(E,[E[0]+m.away[0],E[1]+m.away[1]],sm(tc,tc+.5,t));A.ab=1-sm(tc+.25,tc+.55,t);
+    var hold=[E[0]+m.cut[0],E[1]+m.cut[1]],T=TRANS[m.tri],tr=m.tr;
+    if(t<tr)A.pa=mixp(E,hold,sm(tc,tc+.12,t));
+    else if(t<tr+.12)A.pa=mixp(hold,[T,522],sm(tr,tr+.12,t));
+    else if(t<tr+.22)A.pa=mixp([T,522],[T,476],sm(tr+.12,tr+.22,t));
+    else{var vs=vesNow(m.v,t,tox),k=vs.r/30||0;A.pa=mixp([T,476],[vs.x+m.o[0]*Math.max(k,.5),vs.y+m.o[1]*Math.max(k,.5)],sm(tr+.22,6.93,t))}
+    A.whole=sm(6.9,6.98,t);
+    return A}
+
+  /* ---------- Zeichenbausteine ---------- */
+  function drawMito(c,m,glow){c.save();c.translate(m.x,m.y);c.rotate(m.r);var w=m.w,h=m.h;
+    if(glow>.01&&!INK){rr(c,-w/2-7,-h/2-7,w+14,h+14,h/2+7);c.fillStyle=rgba(AMBER,.35*glow);c.fill()}
+    rr(c,-w/2,-h/2,w,h,h/2);c.fillStyle=C.mito;c.fill();c.lineWidth=2;c.strokeStyle=GREY;c.stroke();
+    rr(c,-w/2+6,-h/2+6,w-12,h-12,h/2-6);c.lineWidth=1;c.strokeStyle=C.mitoI;c.stroke();
+    var n=Math.round(w/20);c.lineWidth=1.2;c.strokeStyle=C.mitoI;c.lineCap='round';
+    for(var i=0;i<n;i++){var x=-w/2+20+i*(w-40)/(n-1),top=i%2===0,y0=top?-h/2+6:h/2-6,y1=top?6:-6;c.beginPath();c.moveTo(x,y0);c.lineTo(x,y1);c.stroke()}
+    c.restore()}
+  function drawCa(c,x,o){var g=2+12*o,y0=470,h=60;
+    if(o>.05){c.fillStyle='rgba(255,255,255,'+(.95*o).toFixed(3)+')';c.fillRect(x-g/2,y0+5,g,h-10)}
+    [-1,1].forEach(function(s){var cx=x+s*(g/2+9);rr(c,cx-9,y0,18,h,8);c.fillStyle=C.prot;c.fill();c.lineWidth=1.8;c.strokeStyle=BLUE;c.stroke()})}
+  function drawRec(c,x,o){var g=2+13*o,y0=566,h=74;
+    if(o>.05){c.fillStyle='rgba(255,255,255,'+(.95*o).toFixed(3)+')';c.fillRect(x-g/2,y0+6,g,h-12)}
+    [-1,1].forEach(function(s){var cx=x+s*(g/2+10.5);rr(c,cx-10.5,y0,21,h,9);c.fillStyle=C.prot;c.fill();c.lineWidth=1.8;c.strokeStyle=BLUE;c.stroke();
+      c.beginPath();c.arc(cx+s*10.5,y0+9,7.6,0,TAU);c.fillStyle=C.bg;c.fill();
+      c.beginPath();c.arc(cx+s*10.5,y0+9,7.6,s>0?Math.PI/2:-Math.PI/2,s>0?Math.PI*1.5:Math.PI/2);c.lineWidth=1.6;c.strokeStyle=BLUE;c.stroke()})}
+  function drawEnz(c,x,mouth,off){var y=570;
+    c.beginPath();c.moveTo(x,y+12);c.lineTo(x,YQ);c.lineWidth=2;c.strokeStyle=BLUE;c.stroke();
+    c.beginPath();c.moveTo(x,y);c.arc(x,y,15,-Math.PI/2+mouth/2,-Math.PI/2-mouth/2+TAU);c.closePath();
+    c.fillStyle=off?'#C9CED2':C.enz;c.fill();c.lineWidth=1.8;c.strokeStyle=off?GREY:BLUE;c.stroke()}
+  function drawTrans(c,x){rr(c,x-9,472,18,56,8);c.fillStyle=C.trans;c.fill();c.lineWidth=1.8;c.strokeStyle=BLUE;c.stroke();
+    c.beginPath();c.setLineDash([4,4]);c.moveTo(x,478);c.lineTo(x,522);c.lineWidth=1.2;c.stroke();c.setLineDash([])}
+  function drawVes(c,x,y,r,gap,a){if(r<1||a<.01)return;c.save();c.globalAlpha=a;
+    c.beginPath();c.arc(x,y,r,0,TAU);c.fillStyle='#FFFFFF';c.fill();
+    var a0=Math.PI/2+gap/2,a1=Math.PI/2-gap/2+TAU;
+    c.lineWidth=2.4;c.strokeStyle=TEAL_D;c.beginPath();c.arc(x,y,r,a0,a1);c.stroke();
+    if(r>10&&!INK){c.lineWidth=1;c.strokeStyle=C.vesI;c.beginPath();c.arc(x,y,r-5.5,a0+.12,a1-.12);c.stroke()}
+    c.restore()}
+  /* Verschmelzung: Bläschenmembran und Zellmembran bilden eine durchgehende Omega-Form */
+  function drawFused(c,s){if(s.a<.01||s.r<1)return;var x=s.x,R=s.r,W=s.w,yc=s.y,kk=Math.min(9,R*.35)+4*(s.f||1);
+    var phi=Math.atan2(YP-yc,Math.max(W,.01)),d=Math.min(.6,kk/R),aL=Math.PI-phi+d,aR=phi-d;
+    var pL=[x+R*Math.cos(aL),yc+R*Math.sin(aL)],xL=x-W-kk,xR=x+W+kk;
+    function outline(){c.moveTo(xL,YP);c.quadraticCurveTo(x-W,YP,pL[0],pL[1]);c.arc(x,yc,R,aL,aR+TAU,false);c.quadraticCurveTo(x+W,YP,xR,YP)}
+    c.save();c.globalAlpha=s.a;
+    c.beginPath();outline();c.lineTo(xR,YP+2.4);c.lineTo(xL,YP+2.4);c.closePath();c.fillStyle=C.bg;c.fill();
+    c.beginPath();outline();c.lineWidth=6.5;c.strokeStyle=C.band;c.stroke();
+    c.beginPath();outline();c.lineWidth=2.5;c.strokeStyle=TEAL_D;c.stroke();
+    c.restore()}
+  function drawCaW(c,P,o){c.save();c.translate(P.x,P.y);c.rotate(P.ang);var g=2+12*o,h=60,y0=-30;
+    if(o>.05){c.fillStyle='rgba(255,255,255,'+(.95*o).toFixed(3)+')';c.fillRect(-g/2,y0+5,g,h-10)}
+    [-1,1].forEach(function(s2){var cx=s2*(g/2+9);rr(c,cx-9,y0,18,h,8);c.fillStyle=C.prot;c.fill();c.lineWidth=1.8;c.strokeStyle=BLUE;c.stroke()});c.restore()}
+  function drawTr(c,x,y,a,r){if(a<.01)return;c.globalAlpha=a;disc(c,x,y,r||6.4,AMBER,AMBER_D,1.4);c.globalAlpha=1}
+  function drawNa(c,x,y,a){if(a<.01)return;c.globalAlpha=a;
+    if(INK){disc(c,x,y,8.2,'#FFFFFF','#000000',1.3);c.lineWidth=1.2;c.strokeStyle='#000000';c.lineCap='round';c.beginPath();c.moveTo(x-3.8,y);c.lineTo(x+3.8,y);c.moveTo(x,y-3.8);c.lineTo(x,y+3.8);c.stroke()}
+    else disc(c,x,y,6,'#FFFFFF',SUB,1.6);c.globalAlpha=1}
+  function drawCaI(c,x,y,a){if(a<.01)return;c.globalAlpha=a;disc(c,x,y,INK?6.2:6.8,GREY,SUB,1.2);c.globalAlpha=1}
+  function hexa(c,x,y,r){c.beginPath();for(var i=0;i<6;i++){var a=i*TAU/6+Math.PI/6;c[i?'lineTo':'moveTo'](x+r*Math.cos(a),y+r*Math.sin(a))}c.closePath();c.fillStyle=VERM;c.fill();c.lineWidth=1.4;c.strokeStyle='#7A2E1F';c.stroke()}
+  function plus(c,x,y,s,a){if(a<.02)return;c.globalAlpha=a;c.strokeStyle=AMBER_D;c.lineWidth=2.4;c.lineCap='round';c.beginPath();c.moveTo(x-s,y);c.lineTo(x+s,y);c.moveTo(x,y-s);c.lineTo(x,y+s);c.stroke();c.globalAlpha=1}
+  function arrowDown(c,x,y0,y1,a){if(a<.02)return;c.globalAlpha=a;c.strokeStyle=AMBER_D;c.fillStyle=AMBER_D;c.lineWidth=3;c.lineCap='round';
+    c.beginPath();c.moveTo(x,y0);c.lineTo(x,y1-14);c.stroke();c.beginPath();c.moveTo(x-11,y1-18);c.lineTo(x,y1);c.lineTo(x+11,y1-18);c.closePath();c.fill();c.globalAlpha=1}
+
+  /* Beschriftung: Gesamtkoordinaten. side: 'l' rechtsbündig vor der Synapse, 'r' linksbündig dahinter */
+  var LABELS=[
+    {g:1,side:'l',y:150,t:['Endknöpfchen'],to:[258,196]},
+    {g:1,side:'l',y:292,t:['Mitochondrium'],to:[215,350]},
+    {g:1,side:'l',y:462,t:['präsynaptische','Membran'],to:[238,500]},
+    {g:1,side:'r',y:236,t:['Bläschen mit','Transmittern'],to:[668,302]},
+    {g:1,side:'r',y:420,t:['Calciumkanal'],to:[700,486]},
+    {g:2,side:'l',y:556,t:['synaptischer','Spalt'],to:[205,540]},
+    {g:2,side:'l',y:690,t:['postsynaptische','Membran'],to:[60,628]},
+    {g:2,side:'r',y:600,t:['Rezeptor'],to:[727,612]},
+    {g:2,side:'c',y:742,t:['Enzym'],to:[500,586]}];
+  /* nummerierte Marken statt Randbeschriftung (für kleine Bildschirme), Kernkoordinaten der Marke */
+  LABELS[4].to=[CAS[3].x-CAS[3].nx*16,CAS[3].y-CAS[3].ny*16];
+  var PINS=[[176,128],[96,300],[298,428],[772,236],[922,480],[112,552],[118,716],[812,684],[500,700]];
+  /* kleine Hinweise während der Schritte, Kernkoordinaten */
+  var TAGS={1:[{t:'Ca²⁺',at:[22,566],to:[CAS[1].x-CAS[1].nx*36,CAS[1].y-CAS[1].ny*36+8]}],3:[{t:'Transmitter',at:[988,530],to:[652,548]}],4:[{t:'Rezeptor',at:[988,700],to:[727,618]}],
+    5:[{t:'Na⁺',at:[40,720],to:[272,684]}],7:[{t:'Enzym',at:[988,530],to:[658,572]}]};
+  /* Schrittmarken, Kernkoordinaten */
+  var MARK=[null,[112,330],[436,430],[500,440],[357,676],[640,700],[420,772],[792,556]];
+
+  function make(canvas,cfg){
+    cfg=cfg||{};if(cfg.ink)setInk();
+    var view={x:0,y:0,w:W,h:H},vp=null,ctx=canvas.getContext('2d'),dpr=1,font=cfg.font||'Figtree, "Segoe UI", system-ui, sans-serif';
+    if(INK){var LWd=Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype,'lineWidth');
+      Object.defineProperty(ctx,'lineWidth',{configurable:true,get:function(){return LWd.get.call(this)/INKW},set:function(v){LWd.set.call(this,v*INKW)}})}
+    function css(){return [canvas.clientWidth||300,canvas.clientHeight||300]}
+    function resize(){var s=css();dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(s[0]*dpr);canvas.height=Math.round(s[1]*dpr)}
+    function setView(v,port){view=v;vp=port||null}
+    function geom(){var s=css(),P=vp||{x:0,y:0,w:s[0],h:s[1]},sc=Math.min(P.w/view.w,P.h/view.h);
+      return {P:P,sc:sc,ox:P.x+(P.w-view.w*sc)/2,oy:P.y+(P.h-view.h*sc)/2}}
+    function text(c,s,x,y,size,weight,col,align){c.font=(weight||400)+' '+size+'px '+font;c.fillStyle=col||ANTH;c.textAlign=align||'left';c.textBaseline='alphabetic';c.fillText(s,x,y)}
+    function lead(c,x0,y0,x1,y1,a){c.globalAlpha=a;c.strokeStyle=ANTH;c.lineWidth=1.6;c.beginPath();c.moveTo(x0,y0);c.lineTo(x1,y1);c.stroke();disc(c,x1,y1,3.4,ANTH);c.globalAlpha=1}
+    function draw(t,now,o){
+      o=o||{};var tox=o.tox||null,c=ctx,G=geom(),TO=o.T||null;
+      /* Standbild: einzelne Teile können eigene Zeitpunkte bekommen, so zeigt ein Bild alle Schritte zugleich */
+      function T(k,i){if(!TO||TO[k]==null)return t;var v=TO[k];return Array.isArray(v)?v[i]:v}
+      c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,canvas.width,canvas.height);
+      c.save();c.setTransform(dpr,0,0,dpr,0,0);rr(c,G.P.x,G.P.y,G.P.w,G.P.h,o.radius||0);c.fillStyle=C.bg;c.fill();c.clip();
+      c.setTransform(dpr*G.sc,0,0,dpr*G.sc,dpr*(G.ox-view.x*G.sc),dpr*(G.oy-view.y*G.sc));
+      c.save();c.translate(OX,0);
+      /* postsynaptische Zelle */
+      c.beginPath();trace(c,POST);c.lineTo(1100,920);c.lineTo(-100,920);c.closePath();c.fillStyle=C.post;c.fill();
+      c.save();c.beginPath();trace(c,POST);c.lineTo(1100,920);c.lineTo(-100,920);c.closePath();c.clip();
+      var pg=postG(T('post'),tox);
+      if(pg>.01&&!INK){var g2=c.createRadialGradient(500,620,10,500,640,330);g2.addColorStop(0,rgba(AMBER,.42*pg));g2.addColorStop(1,rgba(AMBER,0));c.fillStyle=g2;c.fillRect(0,600,1000,300)}
+      c.beginPath();trace(c,POST);c.lineWidth=15.2;c.strokeStyle=C.inner;c.stroke();c.beginPath();trace(c,POST);c.lineWidth=13;c.strokeStyle=C.band;c.stroke();
+      c.restore();
+      c.beginPath();trace(c,POST);c.lineWidth=2.6;c.strokeStyle=TEAL;c.stroke();
+      /* Endknöpfchen */
+      c.beginPath();trace(c,BULB);c.closePath();c.fillStyle=C.pre;c.fill();
+      c.save();c.beginPath();trace(c,BULB);c.closePath();c.clip();
+      if(!INK)c.strokeStyle=C.mt,c.lineWidth=1.4,[462,482,518,538].forEach(function(x,i){c.beginPath();c.moveTo(x,-60);c.bezierCurveTo(x,90,x+(i-1.5)*18,150,x+(i-1.5)*52,226);c.stroke()});
+      var glowM=(tox==='botox'||tox==='gas')?0:sm(6.45,6.7,T('mito'))*(1-sm(6.9,7,T('mito')));
+      MITO.forEach(function(m){drawMito(c,m,glowM)});
+      c.beginPath();trace(c,BULB);c.lineWidth=15.2;c.strokeStyle=C.inner;c.stroke();c.beginPath();trace(c,BULB);c.lineWidth=13;c.strokeStyle=C.band;c.stroke();
+      /* Aktionspotenzial läuft herab */
+      var tA=T('ap'),yw=lerp(-70,505,sm(.02,.55,tA)),apA=sm(.02,.08,tA)*(1-sm(.62,.95,tA));
+      if(apA>.01&&!INK){c.save();c.beginPath();c.rect(-20,yw-200,1040,205);c.clip();
+        var g=c.createLinearGradient(0,yw-200,0,yw);g.addColorStop(0,rgba(AMBER,0));g.addColorStop(1,rgba(AMBER,.7*apA));
+        c.beginPath();trace(c,BULB);c.strokeStyle=g;c.lineWidth=40;c.stroke();c.restore();
+        bulbS.forEach(function(p,i){if(i%4)return;var d=yw-p.y;if(d<0||d>110)return;plus(c,p.x+p.nx*20,p.y+p.ny*20,5,apA*(1-d/110))})}
+      var az=sm(.45,.62,tA)-sm(1.2,1.7,tA);
+      if(az>.01){if(!INK){c.save();c.beginPath();c.rect(110,350,780,160);c.clip();c.beginPath();trace(c,BULB);c.strokeStyle=rgba(AMBER,.55*az);c.lineWidth=34;c.stroke();c.restore()}
+        bulbS.forEach(function(p,i){if(i%5||p.y<372)return;plus(c,p.x+p.nx*20,p.y+p.ny*20,4.6,az*.9)})}
+      c.restore();
+      c.beginPath();trace(c,BULB);c.lineWidth=2.6;c.strokeStyle=TEAL;c.stroke();
+      /* Calcium als Auslöser: Schimmer um die angedockten Bläschen */
+      var trig=sm(1.0,1.3,T('trig'))-sm(1.95,2.3,T('trig'));
+      if(!INK&&trig>.01)DOCK.forEach(function(x,v){var vs=vesNow(v,T('ves',v),tox),rg=c.createRadialGradient(vs.x,vs.y,16,vs.x,vs.y,54);rg.addColorStop(0,rgba(AMBER,.32*trig));rg.addColorStop(1,rgba(AMBER,0));c.fillStyle=rg;c.beginPath();c.arc(vs.x,vs.y,54,0,TAU);c.fill()});
+      /* Bläschen im Vorrat */
+      RESV.forEach(function(r){var p=jit(r.p,r.ph,now*.5,1.6);drawVes(c,p[0],p[1],30,0,1);
+        for(var k=0;k<6;k++){var a=k*TAU/6+r.rot+.18*Math.sin(now*.7+k);drawTr(c,p[0]+14*Math.cos(a),p[1]+14*Math.sin(a),1)}});
+      /* angedockte Bläschen: Verschmelzen, Entleeren, Neubildung */
+      DOCK.forEach(function(x,v){var s=vesNow(v,T('ves',v),tox);if(s.free)drawVes(c,s.x,s.y,s.r,0,s.a);else drawFused(c,s);
+        if(TO&&TO.fill&&TO.fill[v]&&s.free&&s.r>20)for(var k=0;k<6;k++){var a=k*TAU/6+.4;drawTr(c,s.x+14*Math.cos(a),s.y+14*Math.sin(a),1)}});
+      /* Proteine in den Membranen */
+      var oCa=caOpen(T('ca'),tox);CAS.forEach(function(P){drawCaW(c,P,oCa)});
+      TRANS.forEach(function(x){drawTrans(c,x)});
+      REC.forEach(function(x,i){drawRec(c,x,recOpen(T('rec',i),tox))});
+      var tE=T('enz'),act=tox!=='gas'&&tox!=='botox'&&tox!=='curare'&&tE>6.15&&tE<6.7;
+      ENZ.forEach(function(x,i){drawEnz(c,x,tox==='gas'?.35:(act?.5+.6*Math.abs(Math.sin(now*9+i*1.7)):.8),tox==='gas')});
+      /* Transmitter */
+      MOL.forEach(function(m){var S=molState(m,T('mol',m.v),now,tox);
+        if(!S.cut&&S.pa===undefined){drawTr(c,S.p[0],S.p[1],S.a);return}
+        if(S.cut<1){var mid=S.pa?mixp(S.pa,S.pb,.5):S.p;drawTr(c,mid[0],mid[1],1-S.cut)}
+        if(S.ab>.01){c.globalAlpha=S.ab*S.cut;disc(c,S.pb[0],S.pb[1],4.4,C.fragB,GREY,1.2);c.globalAlpha=1}
+        c.globalAlpha=S.cut;disc(c,S.pa[0],S.pa[1],lerp(4.6,6.4,S.whole),AMBER,AMBER_D,1.2);c.globalAlpha=1});
+      /* Ionen */
+      if(!INK)NA_DECO.forEach(function(n){var p=jit(n.p,n.ph,now);drawNa(c,p[0],p[1],1)});
+      if(!INK)CA_DECO.forEach(function(n){var p=jit(n.p,n.ph,now,1.6);drawCaI(c,p[0],p[1],1)});
+      NAF.forEach(function(n,k){var p,a=1,t0=4.18+n.d,t1=t0+.5,t=T('na',n.r);
+        function path(u){var top=[REC[n.r],560],bt=[REC[n.r],646];if(u<.4)return mixp(n.N0,top,u/.4);if(u<.68)return mixp(top,bt,(u-.4)/.28);return mixp(bt,n.I,(u-.68)/.32)}
+        if(tox==='gas'&&t>=4.18){var ph=((t-4.18)/.9+k*.083)%1;p=path(ph);a=Math.min(1,ph*6)*(1-sm(.82,1,ph))}
+        else if(tox==='botox'||tox==='curare'||t<t0)p=jit(n.N0,n.ph,now,1.6);
+        else if(t<t1)p=path(sm(t0,t1,t));
+        else if(t<6.75){p=[n.I[0]+2*Math.sin(now+n.ph),n.I[1]+30*sm(6,6.7,t)];a=1-sm(6.1,6.7,t)}
+        else{p=n.N0;a=sm(6.75,7,t)}
+        drawNa(c,p[0],p[1],a)});
+      CAI.forEach(function(q){var p,a=1,t0=.62+q.d,t1=t0+.5,t=T('ca');
+        function path(u){if(u<.28)return mixp(q.C0,q.M,u/.28);if(u<.48)return mixp(q.M,q.X,(u-.28)/.2);return mixp(q.X,q.T,(u-.48)/.52)}
+        if(t<t0)p=jit(q.C0,q.ph,now,1.4);else if(t<t1)p=path(sm(t0,t1,t));
+        else if(t<6.5){p=jit(q.T,q.ph,now,1.4);a=1-sm(2.9,3.5,t)}else{p=q.C0;a=sm(6.5,7,t)}
+        drawCaI(c,p[0],p[1],a)});
+      /* neuer Impuls in der postsynaptischen Zelle */
+      if(pg>.01)postS.forEach(function(p,i){if(i%5||p.x<150||p.x>850)return;plus(c,p.x+p.nx*22,p.y+p.ny*22,4.6,pg*.85)});
+      var tP=T('post'),wv=(tox==='botox'||tox==='curare')?0:(tox==='gas'?((t>=5.2)?((t-5.2)/1.1)%1:0):sm(5.2,5.95,tP)),wa=(tox==='gas'?(t>=5.2?1:0):1-sm(5.95,6.3,tP));
+      if(wv>0&&wa>.01&&!INK){c.save();c.beginPath();trace(c,POST);c.lineTo(1100,920);c.lineTo(-100,920);c.closePath();c.clip();
+        [-1,1].forEach(function(s){var xc=500+s*lerp(60,560,wv);c.beginPath();trace(c,POST);c.save();c.beginPath();c.rect(xc-70,580,140,280);c.clip();c.beginPath();trace(c,POST);c.strokeStyle=rgba(AMBER,.75*wa*(1-wv*.4));c.lineWidth=36;c.stroke();c.restore()});
+        c.restore()}
+      arrowDown(c,TO&&TO.arrowX?TO.arrowX:500,690,808,(tox==='botox'||tox==='curare')?0:(tox==='gas'?sm(5.2,5.5,t):(sm(5.3,5.6,tP)-sm(6.05,6.35,tP))));
+      /* Gifte */
+      if(tox==='botox')DOCK.forEach(function(x){var s=vesNow(DOCK.indexOf(x),t,tox);hexa(c,s.x-26,YP-12,8);hexa(c,s.x+26,YP-12,8)});
+      if(tox==='curare')for(var si=0;si<8;si++){var S=siteP(si,t,tox);hexa(c,S[0],S[1],7.4)}
+      if(tox==='gas')ENZ.forEach(function(x){hexa(c,x,563,8)});
+      /* Spalt hervorheben */
+      var ga=o.gap||0;
+      if(ga>.01){c.fillStyle=rgba(AMBER,.22*ga);c.fillRect(232,503,536,94);
+        c.globalAlpha=ga;c.strokeStyle=AMBER_D;c.fillStyle=AMBER_D;c.lineWidth=3;c.beginPath();c.moveTo(70,512);c.lineTo(70,588);c.stroke();
+        [[512,1],[588,-1]].forEach(function(q){c.beginPath();c.moveTo(60,q[0]+q[1]*12);c.lineTo(70,q[0]);c.lineTo(80,q[0]+q[1]*12);c.stroke()});
+        c.font='700 40px '+font;c.textAlign='left';c.fillText('20–40',86,545);c.fillText('nm',86,587);c.globalAlpha=1}
+      /* Schrittmarken */
+      if(TO&&TO.marks){var msc=TO.ms||1;TO.marks.forEach(function(M,i){if(!M)return;disc(c,M[0],M[1],24*msc,TEAL_D,'#FFFFFF',3);text(c,String(i),M[0],M[1]+9.5*msc,26*msc,700,'#FFFFFF','center')})}
+      else if(o.markers!==false)for(var mk=1;mk<=7;mk++){var ma=sm(mk-.8,mk-.55,t)*(1-sm(mk+.2,mk+.45,t));if(tox)ma=0;
+        if(ma>.01){var M=MARK[mk];c.globalAlpha=ma;disc(c,M[0],M[1],24,TEAL_D);text(c,String(mk),M[0],M[1]+9,26,700,'#FFFFFF','center');c.globalAlpha=1}}
+      /* kleine Hinweise */
+      if(o.tags!==false&&!tox&&!TO)for(var tg in TAGS){var ta=sm(+tg-.7,+tg-.45,t)*(1-sm(+tg+.2,+tg+.45,t));
+        if(ta>.01)TAGS[tg].forEach(function(T2){var right=T2.at[0]>500;c.font='600 42px '+font;var tw=c.measureText(T2.t).width;
+          lead(c,right?T2.at[0]-tw-12:T2.at[0]+tw+12,T2.at[1]-13,T2.to[0],T2.to[1],ta);
+          c.globalAlpha=ta;text(c,T2.t,T2.at[0],T2.at[1],42,600,ANTH,right?'right':'left');c.globalAlpha=1})}
+      /* nummerierte Marken */
+      var pa=o.pins||0;
+      if(pa>.01)LABELS.forEach(function(L,i){var P=PINS[i],T=L.to,hi=o.pinHi===i,r=hi?34:28;c.globalAlpha=pa;
+        c.strokeStyle=ANTH;c.lineWidth=2.4;c.beginPath();c.moveTo(T[0],T[1]);c.lineTo(P[0],P[1]);c.stroke();disc(c,T[0],T[1],5,ANTH);
+        if(hi){c.fillStyle=rgba(AMBER,.35);c.beginPath();c.arc(P[0],P[1],r+12+4*Math.sin(now*5),0,TAU);c.fill()}
+        disc(c,P[0],P[1],r,hi?AMBER:TEAL_D,'#FFFFFF',3);text(c,String(i+1),P[0],P[1]+(hi?12:10.5),hi?34:29,700,hi?ANTH:'#FFFFFF','center');c.globalAlpha=1});
+      c.restore();
+      /* Beschriftung in den Rändern */
+      var la1=o.labels||0,la2=o.labels2||0;
+      if(la1>.01||la2>.01)LABELS.forEach(function(L0,li){var a=L0.g===1?la1:la2;if(a<.01)return;
+        var L=(o.lab&&o.lab[li])?Object.assign({},L0,o.lab[li]):L0;
+        var n=L.t.length,ty=L.y-(n-1)*24;
+        if(L.side==='c'){var cx=L.to[0]+OX;lead(c,cx,L.y-40,cx,L.to[1],a);c.globalAlpha=a;text(c,L.t[0],cx,L.y,40,400,ANTH,'center');c.globalAlpha=1;return}
+        var xT=L.side==='l'?330:1370,ax=L.side==='l'?xT+12:xT-12;lead(c,ax,L.y-14,L.to[0]+OX,L.to[1],a);
+        c.globalAlpha=a;L.t.forEach(function(s,i){text(c,s,xT,ty+i*48,40,400,ANTH,L.side==='l'?'right':'left')});c.globalAlpha=1});
+      c.restore();
+    }
+    return {resize:resize,setView:setView,draw:draw,view:function(){return view},css:css};
+  }
+  return {make:make,W:W,H:H,OX:OX,FULL:{x:0,y:0,w:W,h:H},CORE:{x:OX,y:0,w:1000,h:H},sm:sm,postG:postG};
+})();
+
+/* ===== Schülerfassung: Scrollytelling, Aufgaben, Selbsttest ===== */
+(function(){
+'use strict';
+function $(id){return document.getElementById(id)}
+var RM=FIG.RM,sm=SYN.sm,NB=' ';
+function clamp(x,a,b){return x<a?a:x>b?b:x}
+function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+var FONT=(getComputedStyle(document.documentElement).getPropertyValue('--body')||'').trim()||'Figtree, sans-serif';
+function wide(){return window.innerWidth>=960}
+function seen(node,cb,th){if(!('IntersectionObserver' in window)){cb(true);return}
+  new IntersectionObserver(function(es){es.forEach(function(e){cb(e.isIntersecting)})},{threshold:th||0}).observe(node)}
+
+/* ---------- Kopf ---------- */
+var net=FIG.net($('net'),{density:14000});
+seen($('top'),function(v){if(v)net.start();else net.stop()});
+
+/* ---------- Inhaltsleiste und Fortschritt ---------- */
+var tocA=[].slice.call(document.querySelectorAll('.toc a')),secs=tocA.map(function(a){return $(a.getAttribute('href').slice(1))}),tocOn=-1;
+function tocUpd(){var y=window.innerHeight*.35,k=-1;secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<y)k=i});
+  if(k!==tocOn){tocOn=k;tocA.forEach(function(a,i){a.classList.toggle('on',i===k)});if(k>=0){var a=tocA[k],bar=$('toc');
+    var l=a.offsetLeft-bar.clientWidth/2+a.clientWidth/2;try{bar.scrollTo({left:l,behavior:RM?'auto':'smooth'})}catch(e){bar.scrollLeft=l}}}
+  var max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);$('progress').style.width=(clamp(window.pageYOffset/max,0,1)*100).toFixed(2)+'%'}
+
+/* ---------- Scrollytelling ---------- */
+var CTL={};
+var lw=FIG.loewi($('lwSvg'),{photo:$('lwSvg').getAttribute('data-photo'),night:$('lwNight')});
+CTL.loewi={show:function(){lw.start()},hide:function(){lw.stop()},stop:function(k){lw.set(k)}};
+
+var SY={cv:$('synCv'),ovBox:$('ovBox'),ovSvg:$('ovSvg'),tau:0,tgt:0,p:0,k:0,hi:-1,ovOn:false};
+SY.ov=FIG.overview(SY.ovSvg);SY.E=SYN.make(SY.cv,{font:FONT});SY.E.setView(SYN.CORE,null);
+/* am Handy: größere Beschriftung der Übersicht, Start etwas näher dran */
+var SMALL=!wide(),ovLab=SY.ovSvg.querySelector('g[font-size="44"]');
+if(SMALL&&ovLab){ovLab.setAttribute('font-size','62');[].slice.call(ovLab.querySelectorAll('text')).forEach(function(t){if(t.textContent==='Nervenzelle 2'){t.setAttribute('x','1440');t.setAttribute('text-anchor','end')}if(t.textContent==='Axon mit Myelinscheide')t.setAttribute('x','860')})}
+/* Übersicht an das Seitenverhältnis des Bildfelds anpassen */
+function ovZoom(z){SY.ov.zoom(z);var b=SY.ovSvg.viewBox.baseVal,W=SY.ovBox.clientWidth||16,H=SY.ovBox.clientHeight||9,A=W/H;
+  if(b&&A<16/9-.01){var h=b.width/A;SY.ovSvg.setAttribute('viewBox',b.x.toFixed(2)+' '+(b.y-(h-b.height)/2).toFixed(2)+' '+b.width.toFixed(2)+' '+h.toFixed(2))}
+  if(SMALL&&ovLab)ovLab.setAttribute('opacity',(1-sm(.3,.52,z)).toFixed(3))}
+function lbar(k){var st=k-3,seg=(st===1||st===2)?0:(st>=3&&st<=5)?1:st===6?2:-1,d=$('lbarDot');
+  $('lbar').classList.toggle('on',k>=3);[0,1,2].forEach(function(i){$('z'+i).classList.toggle('hot',i===seg)});
+  d.style.opacity=seg<0?0:1;if(seg>=0)d.style.left=((seg+.5)/3*100).toFixed(2)+'%'}
+CTL.syn={show:function(){SY.E.resize()},hide:function(){if(SY.ovOn){SY.ov.stop();SY.ovOn=false}},
+  stop:function(k){var t=Math.max(0,k-3);SY.k=k;
+    if(t<SY.tau-1e-3)SY.tau=Math.max(0,t-1);else if(t-SY.tau>1)SY.tau=t-1;SY.tgt=t;if(RM)SY.tau=t;
+    if(k!==2)setHi(-1);lbar(k);$('synReplay').hidden=k<4},
+  scrub:function(p){SY.p=p},
+  frame:function(now,dt){var p=SY.p;
+    if(SY.tau<SY.tgt)SY.tau=Math.min(SY.tgt,SY.tau+dt*.32);
+    var xf=sm(.6,.98,p);
+    if(p<1.02){ovZoom(SMALL?.15+.85*ease(sm(.2,1,p)):ease(sm(.2,1,p)));if(!SY.ovOn){SY.ov.start();SY.ovOn=true}}else if(SY.ovOn){SY.ov.stop();SY.ovOn=false}
+    SY.ovBox.style.opacity=(1-xf).toFixed(3);SY.ovBox.style.transform=xf>0?'scale('+(1+.5*xf).toFixed(4)+')':'';SY.ovBox.style.visibility=xf>.995?'hidden':'';
+    if(xf<.002)return;
+    SY.E.draw(SY.tau,now/1000,{gap:sm(.75,1,p)*(1-sm(1.35,1.8,p)),pins:sm(1.45,1.9,p)*(1-sm(2.75,2.98,p)),pinHi:SY.hi})}};
+$('synReplay').addEventListener('click',function(){if(SY.tgt>0)SY.tau=SY.tgt-1});
+var partBtns=[].slice.call(document.querySelectorAll('#parts button'));
+function setHi(i){SY.hi=i;partBtns.forEach(function(b,j){b.setAttribute('aria-pressed',String(j===i))})}
+partBtns.forEach(function(b){b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){var i=+b.dataset.i;setHi(SY.hi===i?-1:i)})});
+
+var BLOCKS=[].slice.call(document.querySelectorAll('.scrolly')).map(function(e){return {el:e,id:e.dataset.scrolly,cards:[].slice.call(e.querySelectorAll('.card')),k:-1,p:0,vis:false}});
+function blocksUpd(){var vh=window.innerHeight,L=vh*(wide()?.56:.72);
+  BLOCKS.forEach(function(B){var r=B.el.getBoundingClientRect(),vis=r.bottom>0&&r.top<vh,c=CTL[B.id];
+    if(vis!==B.vis){B.vis=vis;if(c){if(vis&&c.show)c.show();if(!vis&&c.hide)c.hide()}}
+    if(!vis&&B.k>=0)return;
+    var tops=B.cards.map(function(x){return x.getBoundingClientRect().top}),k=0;
+    for(var i=0;i<tops.length;i++)if(tops[i]<L)k=i;
+    var p=k;if(tops[0]<L&&k<tops.length-1)p=k+clamp((L-tops[k])/Math.max(1,tops[k+1]-tops[k]),0,1);
+    B.p=p;if(c&&c.scrub)c.scrub(p);
+    if(k!==B.k){B.k=k;B.cards.forEach(function(x,i){x.classList.toggle('on',i===k)});if(c&&c.stop)c.stop(k)}})}
+
+/* ---------- Übersetzungskette ---------- */
+var CH=FIG.chain($('chainSvg')),chT=-1,chDone=false;CH.set(RM?1:0);
+seen($('kette'),function(v){if(v&&!chDone){chDone=true;$('chainList').classList.add('in');if(!RM)chT=0}},.25);
+[].slice.call(document.querySelectorAll('#chainList .cl')).forEach(function(c,i){c.style.transitionDelay=(i*.16)+'s'});
+
+/* ---------- Spannungskurven ---------- */
+var TE=FIG.trace($('trE'),'e'),TH=FIG.trace($('trH'),'h'),trT=-1,trDone=false;if(!RM){TE.set(0);TH.set(0)}
+seen($('erregend'),function(v){if(v&&!trDone){trDone=true;if(!RM)trT=0}},.3);
+
+/* ---------- Aufgabe 1: Reihenfolge ---------- */
+var ORDER=['Calciumkanäle öffnen sich, Ca²⁺ strömt ins Endknöpfchen.','Bläschen verschmelzen mit der präsynaptischen Membran.','Transmitter gelangen in den synaptischen Spalt.',
+  'Transmitter binden an Rezeptoren der postsynaptischen Membran.','Ionenkanäle öffnen sich, Na⁺ strömt in die Zelle.','In der nächsten Zelle entsteht ein neuer Impuls.',
+  'Enzyme bauen den Transmitter ab, die Bausteine werden wiederverwendet.'];
+var seq=[],seqEl=$('seq'),poolEl=$('pool'),ordFb=$('ordFb');
+function ordRender(){seqEl.innerHTML='';for(var i=0;i<7;i++){var li=el('li'),v=seq[i],b=el('button','sl'+(v!=null?' full':''));b.type='button';
+    if(v!=null){b.innerHTML='<span>'+ORDER[v]+'</span><span class="mk" aria-hidden="true"></span>';b.setAttribute('aria-label','Platz '+(i+1)+': '+ORDER[v]+'. Antippen zum Zurücklegen');(function(i){b.addEventListener('click',function(){seq[i]=null;ordFb.textContent='';ordFb.className='fb';ordRender()})})(i)}
+    else{b.textContent='Schritt '+(i+1)+' fehlt noch';b.disabled=true}
+    li.appendChild(b);seqEl.appendChild(li)}
+  poolEl.innerHTML='';pool.forEach(function(v){if(seq.indexOf(v)>=0)return;var b=el('button',null,ORDER[v]);b.type='button';
+    b.addEventListener('click',function(){var i=seq.indexOf(null);if(i<0)i=seq.length;if(i>6)return;seq[i]=v;ordFb.textContent='';ordFb.className='fb';ordRender()});poolEl.appendChild(b)});
+  $('ordCheck').disabled=seq.filter(function(v){return v!=null}).length===0}
+var pool=[];function ordNew(){pool=shuffle([0,1,2,3,4,5,6]);seq=[null,null,null,null,null,null,null];ordFb.textContent='';ordFb.className='fb';ordRender()}
+$('ordCheck').addEventListener('click',function(){var n=0,f=0,sl=seqEl.querySelectorAll('.sl');
+  seq.forEach(function(v,i){if(v==null)return;f++;var ok=v===i;if(ok)n++;sl[i].classList.add(ok?'ok':'no');sl[i].querySelector('.mk').textContent=ok?'✓':'✗'});
+  if(n===7){ordFb.className='fb ok';ordFb.textContent='Perfekt! So läuft die Übertragung an der Synapse ab.'}
+  else{ordFb.className='fb no';ordFb.textContent=n+' von 7 stehen schon richtig.'+(f<7?' Es fehlen noch '+(7-f)+'.':'')+' Tippe falsche Schritte an, um sie zurückzulegen.';seqEl.classList.remove('shake');void seqEl.offsetWidth;seqEl.classList.add('shake')}});
+$('ordReset').addEventListener('click',ordNew);ordNew();
+
+/* ---------- Aufgabe 2: Wann feuert die Zelle? ---------- */
+var nAP=0,SU=FIG.summ($('sumSvg'),$('sumCv'),{fs:function(w,h){return Math.max(12,Math.min(15,w*.034))},overlay:true,
+  onStatus:function(txt,cls,v,n){var e=$('sumSt');if(e.textContent!==txt){e.textContent=txt;e.className='st'+(cls?' '+cls:'')}if(n!==nAP){nAP=n;$('sumN').textContent=n}}});
+var labVis=false;seen($('labor'),function(v){labVis=v;if(v)SU.resize()});
+[].slice.call(document.querySelectorAll('#labBtns button')).forEach(function(b){b.addEventListener('click',function(){SU.fire(b.dataset.f)})});
+
+/* ---------- Selbsttest ---------- */
+var QUIZ=[
+  ['Was löst die Ausschüttung der Transmitter aus?',['Calciumionen, die ins Endknöpfchen strömen','Natriumionen, die in die nächste Zelle strömen','das Enzym im synaptischen Spalt'],0,'Calcium ist das Startsignal: Erst wenn Ca²⁺ einströmt, verschmelzen die Bläschen mit der Membran.'],
+  ['Wo wird aus dem elektrischen Signal ein chemisches?',['im Axon, kurz vor der Synapse','dort, wo die Transmitter in den synaptischen Spalt gelangen','in der postsynaptischen Membran'],1,'Ab Schritt 3 trägt ein Stoff die Information über den Spalt: der Transmitter.'],
+  ['Warum bindet ein Transmitter nur an bestimmte Rezeptoren?',['Weil der Spalt so schmal ist','Weil Transmitter und Rezeptor zueinander passen wie Schlüssel und Schloss','Weil der Transmitter elektrisch geladen ist'],1,'Jeder Rezeptor hat eine Bindestelle, in die nur sein Transmitter passt.'],
+  ['Was passiert an einer hemmenden Synapse?',['Es entsteht ein besonders starker Impuls.','Die Bläschen verschmelzen nicht.','Die Spannung sinkt, ein neuer Impuls wird unwahrscheinlicher.'],2,'Hier öffnen Transmitter Kanäle für Chloridionen (Cl⁻). Die Zelle ist dann schwerer zu erregen.'],
+  ['Warum muss der Transmitter wieder abgebaut werden?',['Sonst bliebe die nächste Zelle dauernd erregt.','Sonst würde der Spalt verstopfen.','Sonst könnte kein Calcium mehr einströmen.'],0,'Erst der Abbau beendet das Signal.'],
+  ['Ein Medikament bremst das Enzym im Spalt ein wenig. Was folgt daraus?',['Es wird weniger Transmitter ausgeschüttet.','Der Transmitter wirkt länger, schwache Signale werden verstärkt.','Die Bläschen verschmelzen nicht mehr.'],1,'So wirken manche Medikamente gegen Alzheimer: Sie verstärken die geschwächten Signale.'],
+  ['Wie lange braucht ein Signal, um eine chemische Synapse zu überqueren?',['etwa eine halbe Millisekunde','etwa eine Sekunde','gar keine Zeit, es springt sofort über'],0,'Diese kurze Pause heißt synaptische Verzögerung. Ein elektrischer Funke wäre schneller.'],
+  ['Was zeigte Otto Loewis Versuch mit den zwei Froschherzen?',['Froschherzen schlagen ohne Nerv nicht.','Der Nerv leitet Strom direkt ins Herz.','Der Nerv gibt sein Signal mit einem Stoff weiter.'],2,'Die Flüssigkeit allein bremste auch das zweite Herz. Der Stoff war Acetylcholin.']];
+function makeQuiz(box,scoreEl,ITEMS){var res=ITEMS.map(function(){return null});
+  ITEMS.forEach(function(Q,i){var d=el('div','q'),h=el('h3',null,Q[0]),op=el('div','opts'),why=el('p','why');why.hidden=true;d.appendChild(h);d.appendChild(op);d.appendChild(why);
+    Q[1].forEach(function(t,j){var b=el('button',null,t);b.type='button';b.addEventListener('click',function(){if(res[i]!=null)return;res[i]=j===Q[2];
+      [].slice.call(op.children).forEach(function(x,m){x.disabled=true;if(m===Q[2])x.classList.add('ok');else if(m===j)x.classList.add('no')});
+      why.hidden=false;why.innerHTML='<b>'+(j===Q[2]?'Richtig. ':'Leider nicht. ')+'</b>'+Q[3];sc()});op.appendChild(b)});
+    box.appendChild(d)});
+  function sc(){var n=res.filter(function(r){return r!=null}).length,ok=res.filter(function(r){return r}).length;
+    scoreEl.textContent=n<ITEMS.length?ok+' von '+n+' richtig':'Geschafft: '+ok+' von '+ITEMS.length+' richtig.'+(ok===ITEMS.length?' Stark!':' Schau dir die Erklärungen noch einmal an.')}}
+makeQuiz($('quiz'),$('score'),QUIZ);
+makeQuiz($('labQuiz'),$('labScore'),[
+  ['Löse A allein aus. Was passiert?',['Die Spannung steigt, bleibt aber unter der Schwelle.','Es entsteht ein neuer Impuls.','Die Spannung sinkt.'],0,'Eine einzelne erregende Synapse hebt die Spannung nur ein Stück an.'],
+  ['Löse A und B zugleich aus. Was passiert?',['Die beiden Signale heben sich gegenseitig auf.','Die Wirkungen addieren sich, die Schwelle wird erreicht: Die Zelle feuert.','Die Spannung sinkt unter den Ruhewert.'],1,'Gleichzeitige Signale verschiedener Synapsen werden zusammengezählt. Das heißt räumliche Summation.'],
+  ['Löse H allein aus. Was zeigt die Kurve?',['Die Spannung sinkt unter den Ruhewert.','Die Zelle feuert sofort.','Nichts, H ist mit der Zelle nicht verbunden.'],0,'H öffnet Kanäle für Chloridionen (Cl⁻). Die Zelle wird schwerer erregbar.'],
+  ['Löse jetzt A, B und H zugleich aus. Was passiert?',['Die Zelle feuert zweimal.','Kein Impuls: H senkt die Spannung, die Schwelle wird nicht erreicht.','H hat keinen Einfluss, die Zelle feuert wie bei A und B.'],1,'Die Zelle verrechnet erregende und hemmende Signale. Hier überwiegt die Erregung nicht genug.'],
+  ['Schaffst du es mit A allein, wenn du ganz schnell dreimal tippst?',['Nein, eine einzelne Synapse reicht nie.','Ja: Kurz hintereinander addieren sich die Wirkungen ebenfalls.'],1,'Das heißt zeitliche Summation. Probier aus, wie schnell du tippen musst.']]);
+
+/* ---------- gemeinsamer Takt ---------- */
+var lastT=0,ticking=false;
+function loop(now){var dt=Math.min(.05,(now-(lastT||now))/1000);lastT=now;
+  BLOCKS.forEach(function(B){var c=CTL[B.id];if(B.vis&&c&&c.frame)c.frame(now,dt)});
+  if(labVis)SU.step(dt);
+  if(chT>=0){chT=Math.min(1,chT+dt/6);CH.set(chT);if(chT>=1)chT=-1}
+  if(trT>=0){trT=Math.min(2,trT+dt/1.6);TE.set(Math.min(1,trT));TH.set(clamp(trT-1,0,1));if(trT>=2)trT=-1}
+  requestAnimationFrame(loop)}
+function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;blocksUpd();tocUpd()})}}
+window.addEventListener('scroll',onScroll,{passive:true});
+/* am Computer die stehende Abbildung senkrecht mittig halten */
+var medias=[].slice.call(document.querySelectorAll('.media'));
+function centerMedia(){var toc=$('toc').offsetHeight||50;medias.forEach(function(m){if(!wide()){m.style.top='';return}var h=m.offsetHeight;m.style.top=Math.round(Math.max(toc+8,(window.innerHeight-toc-h)/2+toc))+'px'})}
+window.addEventListener('resize',function(){centerMedia();SY.E.resize();SU.resize();onScroll()});
+centerMedia();blocksUpd();tocUpd();requestAnimationFrame(loop);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(onScroll);
+window.__stu={sy:function(){return {p:SY.p,k:SY.k,tau:SY.tau,tgt:SY.tgt}},ap:function(){return SU.count()}};
+})();
+</script>

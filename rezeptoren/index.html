@@ -1,0 +1,1359 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="Warum derselbe Botenstoff erregen oder hemmen kann: vier Rezeptoren animiert, Rezeptor-Labor und Selbsttest."><style>body{margin:0}</style><title>Ein Schlüssel, viele Schlösser</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* Schülerfassung Rezeptoren: zuerst fürs Handy gebaut, am Computer zweispaltig mit stehender Abbildung */
+:root{
+  --bg:#F4F7F8;--card:#FFFFFF;--cool:#EEF1F2;--warm:#FBF4E4;--line:#D7DDE0;--fig:#F3F6F7;
+  --ink:#21272B;--sub:#3F484E;--muted:#5B676D;
+  --teal:#0F8C8C;--teal-d:#0A6468;--teal-s:#DDF0EE;--blue:#2F5F96;--blue-s:#E3EAF2;
+  --amber:#E8B33C;--amber-d:#A87A12;--amber-ink:#8A6410;--amber-s:#FBEFD2;--verm:#C8553D;--verm-d:#A8432F;
+  --ok:#0A6468;--ok-s:#DDF0EE;--no:#A8432F;--no-s:#F8E4DE;
+  --night:#12171A;
+  --display:"Fraunces",Georgia,serif;--body:"Figtree","Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);--toc-h:50px;--maxw:1180px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-padding-top:calc(var(--toc-h) + 8px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3{text-wrap:balance}
+button{font:inherit;color:inherit}
+svg text{font-family:var(--body)}
+b,strong{font-weight:650}
+.eyebrow{font:600 12.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-d)}
+.topbar{position:fixed;left:0;top:0;right:0;height:3px;z-index:50;pointer-events:none}
+.topbar i{display:block;height:100%;width:0;background:var(--teal)}
+
+/* Kopf */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden;color:#EEF3F4;background:radial-gradient(120% 90% at 70% 10%,#1E2A2E 0%,var(--night) 62%)}
+#net{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero #net{-webkit-mask-image:radial-gradient(130% 95% at 100% 0%,#000 0%,#000 32%,rgba(0,0,0,.16) 72%);mask-image:radial-gradient(130% 95% at 100% 0%,#000 0%,#000 32%,rgba(0,0,0,.16) 72%)}
+.hero-in{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;padding:88px max(20px,env(safe-area-inset-right,0px)) 56px max(20px,env(safe-area-inset-left,0px));display:grid;gap:20px;justify-items:start}
+.hero .eyebrow{color:#7FD0C8}
+.hero h1{font:600 clamp(48px,11.5vw,128px)/.94 var(--display);letter-spacing:-.022em;color:#fff;max-width:12ch}
+.hero .sub{font-size:clamp(18px,2.2vw,23px);max-width:36ch;color:#C9D6D9}
+.goal{display:grid;gap:8px;max-width:640px;background:rgba(255,255,255,.07);border:1.5px solid rgba(127,208,200,.35);border-radius:16px;padding:14px 18px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff}
+.goal b{font:700 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7FD0C8}
+.down{display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:10px 18px;background:var(--teal)}
+.down svg{width:18px;height:18px}
+.down:focus-visible,.toc a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* Ablauf im Kopf: Transmitter, Rezeptor, Wirkung */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font:600 16px/1.2 var(--body)}
+.flow .f{display:inline-flex;align-items:center;gap:6px}
+.flow .f svg{width:18px;height:18px}
+.flow .f.tr{color:#F3CB6E}.flow .f.rc{color:#A9C4E6}.flow .f.ef{color:#fff}
+.flow .f.ef b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.14);font-weight:700}
+.flow .ar{color:#8FA3A8;font-weight:400}
+
+/* Inhaltsleiste */
+.toc{position:sticky;top:0;z-index:40;height:var(--toc-h);display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px;background:rgba(244,247,248,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;color:var(--sub);text-decoration:none;font:600 14px/1 var(--body);padding:9px 12px;border-radius:999px;transition:background .3s,color .3s}
+.toc a.t{color:var(--teal-d)}
+.toc a.on{background:var(--ink);color:#fff}
+@media (min-width:1180px){.toc{justify-content:center}}
+
+/* Abschnitte */
+.sec{padding:64px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));max-width:var(--maxw);margin:0 auto}
+.sec-head{max-width:700px;margin:0 auto 26px;display:grid;gap:10px}
+.sec h2{font:600 clamp(32px,6vw,52px)/1.04 var(--display);letter-spacing:-.012em}
+.lead{font-size:18px;color:var(--sub)}
+.small{font-size:15px;color:var(--muted)}
+.note{max-width:700px;margin:18px auto 0;font-size:16.5px;color:var(--sub);background:var(--cool);border-radius:14px;padding:12px 16px}
+.ask{font-weight:700;color:var(--teal-d)}
+.ask.big{max-width:700px;margin:22px auto 0;padding:14px 18px;border-radius:14px;background:var(--teal-s);font-size:18px}
+strong.ex{color:var(--teal-d)}strong.in{color:var(--blue)}
+
+/* Rätsel: Muskel und Herz */
+.pair{display:grid;gap:16px}
+@media (min-width:760px){.pair{grid-template-columns:1fr 1fr}}
+.pc{position:relative;margin:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px 16px;display:grid;gap:10px;align-content:start}
+.pc>svg{width:100%;height:auto;aspect-ratio:640/520;display:block}
+.pc figcaption{display:grid;gap:4px;font-size:16.5px;color:var(--sub)}
+.pc figcaption b{font:600 21px/1.2 var(--display);color:var(--ink)}
+.replay{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:8px 14px 8px 11px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.replay svg{width:16px;height:16px}
+.replay[hidden]{display:none}
+.pc .replay{top:12px;right:12px;bottom:auto}
+
+/* Botenstoffe */
+.gal{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:720px){.gal{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px 12px;display:grid;gap:4px;align-content:start}
+.mc svg{width:100%;height:auto;aspect-ratio:700/410;display:block}
+.mc b{font:600 18px/1.2 var(--display)}
+.mc p{font-size:14.5px;line-height:1.4;color:var(--sub)}
+.duo2{display:grid;gap:14px;margin-top:18px}
+@media (min-width:760px){.duo2{grid-template-columns:1fr 1fr}}
+.note2{background:var(--cool);border-radius:16px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.note2 h3{font:600 21px/1.2 var(--display)}
+.note2 p{font-size:16.5px;color:var(--sub)}
+
+/* Erregend, hemmend, zwei Wege */
+.duo{display:grid;gap:16px}
+@media (min-width:760px){.duo{grid-template-columns:1fr 1fr}}
+.ep{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.ep h3{font:600 23px/1.15 var(--display)}
+.ep h3 small{display:block;margin-top:4px;font:500 12.5px/1.35 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.ep.e h3{color:var(--teal-d)}.ep.h h3{color:var(--blue)}
+.ep p{font-size:16.5px;color:var(--sub)}
+.ep svg{width:100%;height:auto;display:block;margin-top:4px}
+.ways{display:grid;gap:14px;margin-top:16px}
+@media (min-width:760px){.ways{grid-template-columns:1fr 1fr}}
+.way{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.way h3{font:600 21px/1.2 var(--display)}
+.way p{font-size:16.5px;color:var(--sub)}
+
+/* Scrollytelling */
+.scrolly{position:relative}
+.media{position:sticky;top:var(--toc-h);z-index:1;padding:8px 0}
+.mbox{position:relative;width:100%;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.mbox.rz{display:flex;flex-direction:column}
+.mbox.rz>canvas:first-child{width:100%;height:auto;aspect-ratio:1200/850;display:block;background:var(--fig)}
+.rzbar{display:flex;align-items:center;gap:10px;padding:8px 12px 0;border-top:1px solid var(--line)}
+.rzname{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:600 12px/1.25 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal-d)}
+.rzbar .replay{position:static;flex:none;box-shadow:none;padding:5px 11px 5px 9px;font-size:13px}
+.rzbar .replay svg{width:14px;height:14px}
+@media (max-width:599px){.rzbar .replay{padding:6px}.rzbar .replay span{display:none}}
+.mbox.rz .scope{width:100%;height:84px;display:block}
+.st{flex:none;font:700 14px/1 var(--body);border-radius:999px;padding:5px 10px;background:var(--cool);color:var(--sub);transition:background .3s,color .3s;font-variant-numeric:tabular-nums}
+.st.ex{background:var(--teal-s);color:var(--teal-d)}.st.in{background:var(--blue-s);color:var(--blue)}
+.cards{position:relative;z-index:2;padding:4svh 0 22svh}
+.card{position:relative;max-width:560px;margin:0 auto 64svh;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:0 10px 34px rgba(15,40,45,.12);display:grid;gap:10px;transition:opacity .45s,transform .6s var(--ease)}
+.card:last-child{margin-bottom:8svh}
+.card:not(.on){opacity:.5}
+.card h3{font:600 23px/1.15 var(--display)}
+.card .rno{font:600 12px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
+.card .q{font-weight:700;color:var(--teal-d)}
+.fact{background:var(--warm);border-radius:10px;padding:9px 12px;font-size:15.5px}
+.fact b{color:var(--amber-ink)}
+.verdict{display:inline-flex;align-items:center;gap:9px;justify-self:start;font:700 17px/1 var(--body);border-radius:999px;padding:6px 15px 6px 6px}
+.verdict span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;color:#fff;font:700 20px/1 var(--body)}
+.verdict.ex{background:var(--teal-s);color:var(--teal-d)}.verdict.ex span{background:var(--teal-d)}
+.verdict.in{background:var(--blue-s);color:var(--blue)}.verdict.in span{background:var(--blue)}
+.legend{list-style:none;margin:0;padding:10px 12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;font-size:15px;line-height:1.25;background:var(--cool);border-radius:12px}
+.legend li{display:flex;align-items:center;gap:8px;min-width:0}
+.legend svg{width:24px;height:24px;flex:none}
+@media (max-width:959px){
+  .scrolly[data-scrolly="rz"] .media{z-index:3;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0;background:var(--bg);box-shadow:0 16px 16px -16px rgba(15,40,45,.28)}
+  .scrolly[data-scrolly="rz"] .mbox.rz{border-radius:0;border-left:0;border-right:0}
+  .cards{z-index:1}
+  .card{margin-bottom:40svh}
+}
+@media (max-width:959px) and (max-height:700px){.mbox.rz .scope{height:62px}}
+@media (min-width:960px){
+  body{font-size:18px}
+  .sec{padding-block:96px 56px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+  .scrolly{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);gap:52px;align-items:start}
+  .media{top:calc(var(--toc-h) + 3vh);padding:0}
+  .mbox.rz .scope{height:150px}
+  .rzbar{padding:10px 16px 0}
+  .rzname{font-size:13px}
+  .cards{padding:26vh 0 30vh}
+  .card{margin:0 0 52vh;max-width:none}
+  .card:last-child{margin-bottom:0}
+  .card h3{font-size:26px}
+}
+
+/* Rätsel gelöst */
+.solc{display:grid;gap:12px}
+.sol-top{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:10px;align-items:center}
+.sol-top svg{width:100%;height:auto;aspect-ratio:640/520;display:block}
+.sol-top canvas{width:100%;height:auto;aspect-ratio:800/567;display:block;border-radius:12px;background:var(--fig);border:1px solid var(--line)}
+.solc p{font-size:16.5px;color:var(--sub)}
+.solc p b{color:var(--ink)}
+.sec>.mk{max-width:760px;margin:22px auto 0;background:var(--warm);border-radius:14px;padding:14px 18px;font-weight:650;font-size:18px}
+
+/* Überblick */
+.ov{max-width:920px;margin:0 auto;display:grid;gap:10px}
+.ovh,.ovr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.oh{font:700 15px/1.2 var(--body);text-align:center;border-radius:12px;padding:9px 6px}
+.oh b{display:inline-grid;place-items:center;width:22px;height:22px;margin:0 2px;border-radius:50%;color:#fff;font-weight:700}
+.oh.e{background:var(--teal-s);color:var(--teal-d)}.oh.e b{background:var(--teal-d)}
+.oh.h{background:var(--blue-s);color:var(--blue)}.oh.h b{background:var(--blue)}
+.ol{margin-top:8px;font:600 12.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sub)}
+.oc{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:grid;align-content:start}
+.oc canvas{width:100%;height:auto;aspect-ratio:760/633;display:block;background:var(--fig);border-bottom:1px solid var(--line)}
+.oc>div{padding:10px 12px 12px;display:grid;gap:5px;align-content:start}
+.oc .no{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font:700 13.5px/1 var(--body)}
+.oc b{font:600 17px/1.2 var(--display)}
+.oc>div>span:not(.no){font-size:14.5px;line-height:1.4;color:var(--sub)}
+.oc em{justify-self:start;font-style:normal;font-weight:700;font-size:14px;border-radius:999px;padding:3px 10px}
+.oc em.e{background:var(--teal-s);color:var(--teal-d)}.oc em.e::before{content:"+ "}
+.oc em.h{background:var(--blue-s);color:var(--blue)}.oc em.h::before{content:"− "}
+@media (min-width:760px){.oc{grid-template-columns:minmax(0,.46fr) minmax(0,.54fr);align-items:center}.oc canvas{border-bottom:0;border-right:1px solid var(--line)}.oc>div{padding:12px 16px}.oc b{font-size:19px}.oc>div>span:not(.no){font-size:15.5px}}
+
+/* Fremde Schlüssel */
+.keys{display:grid;gap:14px}
+@media (min-width:760px){.keys{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.key{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid;align-content:start}
+.key canvas{width:100%;height:auto;aspect-ratio:760/633;display:block;background:var(--fig);border-bottom:1px solid var(--line)}
+.key h3{font:600 22px/1.15 var(--display);padding:12px 16px 0}
+.key p{font-size:16px;color:var(--sub);padding:6px 16px 16px}
+
+/* Aufgaben */
+.task .eyebrow{display:inline-block;justify-self:start;background:var(--teal-d);color:#fff;border-radius:999px;padding:6px 11px}
+.lab{max-width:1080px;margin:0 auto 22px;display:grid;gap:14px}
+.lab-ctl{display:grid;gap:8px;align-content:start}
+.lab-l{margin-top:4px;font:600 12px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
+.seg,.keysel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.seg button,.keysel button{display:flex;align-items:center;gap:8px;min-height:48px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 10px;font:600 14.5px/1.2 var(--body);cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
+.seg button:active,.keysel button:active{transform:scale(.98)}
+.seg button span{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--teal-s);color:var(--teal-d);font:700 13px/1 var(--body)}
+.seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.seg button[aria-pressed="true"] span{background:#fff;color:var(--ink)}
+.keysel button .ic{flex:none;display:flex;gap:2px}
+.keysel button .ic svg{width:24px;height:24px;display:block}
+.keysel button .tx{display:grid;gap:2px;min-width:0}
+.keysel button small{font:600 12px/1.2 var(--body);color:var(--muted)}
+.keysel button small:empty{display:none}
+.keysel button small.y{color:var(--teal-d)}.keysel button small.n{color:var(--no)}
+.keysel button[data-lig="gbz"]{grid-column:1/-1}
+.keysel button[aria-pressed="true"]{border:2px solid var(--amber-d);background:var(--amber-s);padding:7px 9px}
+.lab-view{display:grid;gap:10px;align-content:start}
+.lab-out{background:var(--cool);border-radius:14px;padding:12px 14px;font-size:16.5px;min-height:4.8em}
+@media (max-width:899px){
+  .lab-view{order:-1}
+  .lab-out{font-size:15px;line-height:1.45;padding:10px 12px;min-height:calc(4 * 1.45em + 20px)}
+  .mbox.rz.lab-box .scope{height:64px}
+}
+/* am Handy bleibt das Labor-Bild stehen, während man die Knöpfe durchscrollt */
+@media (max-width:899px) and (min-height:720px){
+  .lab-view{position:sticky;top:var(--toc-h);z-index:3;background:var(--bg);padding-block:8px 10px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-shadow:0 16px 16px -16px rgba(15,40,45,.28)}
+}
+.lab-out .wait{color:var(--muted)}
+.lab-count{font-size:14px;color:var(--muted)}
+/* am Computer: Knöpfe und Ergebnis links, Bild rechts */
+@media (min-width:900px){
+  .lab{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);grid-template-areas:"ctl box" "out box";align-items:start}
+  .lab-view{display:contents}
+  .lab-ctl{grid-area:ctl}
+  .lab-box{grid-area:box}
+  .lab-out{grid-area:out;align-self:start}
+  .seg{grid-template-columns:1fr}
+  .mbox.rz.lab-box .scope{height:130px}
+}
+
+.tasks{max-width:760px;margin:0 auto 18px;display:grid;gap:14px}
+.tq{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 16px 58px;display:grid;gap:10px}
+.tq .tn{position:absolute;left:16px;top:15px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 15px/1 var(--body)}
+.tq h3{font:600 18.5px/1.35 var(--body)}
+details{border-radius:12px;background:var(--cool)}
+details summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:650;color:var(--teal-d);display:flex;align-items:center;gap:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"";flex:none;width:7px;height:7px;margin-left:2px;border-right:2.4px solid currentColor;border-bottom:2.4px solid currentColor;transform:rotate(-45deg);transition:transform .25s}
+details[open] summary::before{transform:rotate(45deg)}
+details p{padding:0 12px 12px;font-size:16px;color:var(--sub)}
+details.ans{background:var(--warm)}
+details.ans summary{color:var(--amber-ink)}
+
+.opts{display:grid;gap:6px}
+.opts button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;cursor:pointer;font-size:16px}
+.opts button.ok{border:2px solid var(--ok);background:var(--ok-s)}
+.opts button.no{border:2px solid var(--no);background:var(--no-s)}
+.opts button.ok::after{content:"  ✓";font-weight:700;color:var(--ok)}
+.opts button.no::after{content:"  ✗";font-weight:700;color:var(--no)}
+
+/* Hefteintrag */
+.heftwrap{max-width:1080px;margin:0 auto;display:grid;gap:18px}
+@media (min-width:960px){.heftwrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.skz{margin:0;display:grid;gap:8px}
+.skz canvas{width:100%;height:auto;aspect-ratio:1600/1100;display:block;background:#fff;border:1px solid var(--line);border-radius:14px}
+.skz figcaption{font-size:14.5px;color:var(--muted)}
+.heft{position:relative;width:100%;max-width:820px;margin:0 auto;--row:34px;background-color:#FFFEFA;background-image:repeating-linear-gradient(180deg,transparent 0 calc(var(--row) - 1px),#E3E9EE calc(var(--row) - 1px) var(--row));background-position:0 12px;border:1px solid var(--line);border-radius:14px;padding:12px 18px 14px 50px}
+.heft::before{content:"";position:absolute;left:36px;top:0;bottom:0;border-left:2px solid #E9B9B0}
+.heft h4{font:700 12px/var(--row) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--amber-ink)}
+.heft h3{font:600 23px/var(--row) var(--display)}
+.heft .pre{line-height:var(--row);font-size:16.5px}
+.heft ol{margin:0;padding-left:22px;list-style:none;counter-reset:hf}
+.heft li{counter-increment:hf;position:relative;line-height:var(--row);font-size:16.5px}
+.heft li::before{content:counter(hf);position:absolute;left:-25px;top:7px;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font:700 11.5px/1 var(--body)}
+.heft .mk{margin:0;font-weight:650;color:var(--amber-ink);line-height:var(--row);font-size:16.5px}
+
+/* Selbsttest */
+.quiz{max-width:760px;margin:0 auto;display:grid;gap:14px;counter-reset:qq}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:10px;counter-increment:qq}
+.q h3{font:600 19px/1.3 var(--body);display:flex;gap:10px}
+.q h3::before{content:counter(qq);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--teal-s);color:var(--teal-d);font-size:14px}
+.q .opts button:disabled{cursor:default}
+.q .why{font-size:15.5px;color:var(--sub);background:var(--cool);border-radius:12px;padding:9px 12px}
+.q .why b{color:var(--ink)}
+.q .why[hidden]{display:none}
+.score{max-width:760px;margin:16px auto 0;font:600 20px/1.3 var(--display);text-align:center;min-height:1.3em}
+.score:empty{margin:0;min-height:0}
+#labQuiz,#sleepQuiz{margin-top:22px}
+
+/* Wörter und Zahlen */
+.words{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.word{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.word b{font:600 23px/1.1 var(--display)}
+.word .from{font:600 12.5px/1.35 var(--mono);color:var(--teal-d)}
+.word p{font-size:15.5px;color:var(--sub)}
+.facts-h{font:600 28px/1.1 var(--display);margin:44px 0 14px}
+.facts{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.fct{border-radius:16px;padding:16px;background:var(--ink);color:#E6EEF0;display:grid;gap:6px;align-content:start}
+.fct b{font:600 30px/1.05 var(--display);color:#F3CB6E}
+.fct p{font-size:15.5px}
+.foot{max-width:var(--maxw);margin:40px auto 0;padding:24px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="topbar" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <span class="eyebrow">Biologie · Nervensystem</span>
+    <h1>Ein Schlüssel, viele Schlösser</h1>
+    <p class="sub">Acetylcholin bringt deine Muskeln zum Zucken und bremst dein Herz. Wie kann ein einziger Botenstoff so Gegensätzliches bewirken? Die Antwort steckt im Empfänger, dem Rezeptor.</p>
+    <p class="flow" aria-label="Transmitter, Rezeptor, erregend oder hemmend">
+      <span class="f tr"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="currentColor"/></svg>Transmitter</span><span class="ar" aria-hidden="true">→</span>
+      <span class="f rc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v16H4zM14 4h6v16h-6z" fill="currentColor"/></svg>Rezeptor</span><span class="ar" aria-hidden="true">→</span>
+      <span class="f ef">erregend <b>+</b> oder hemmend <b>−</b></span>
+    </p>
+    <p class="goal"><b>Danach kannst du</b><span>an vier Rezeptortypen erklären, warum derselbe Neurotransmitter erregen oder hemmen kann, und sagen, was Agonisten und Antagonisten tun.</span></p>
+    <a class="down" href="#raetsel">Los geht’s <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</header>
+
+<nav class="toc" id="toc" aria-label="Inhalt">
+  <a href="#raetsel">Rätsel</a><a href="#botenstoffe">Botenstoffe</a><a href="#wirkung">Erregen, hemmen</a><a href="#rezeptoren">Vier Rezeptoren</a><a href="#loesung">Lösung</a><a href="#schluessel">Fremde Schlüssel</a><a href="#labor" class="t">Aufgabe 1</a><a href="#schlaf" class="t">Aufgabe 2</a><a href="#heft">Hefteintrag</a><a href="#test" class="t">Selbsttest</a><a href="#woerter">Wörter</a>
+</nav>
+
+<main>
+
+<section class="sec" id="raetsel">
+  <div class="sec-head"><span class="eyebrow">Ein Rätsel</span><h2>Ein Stoff, zwei Wirkungen</h2>
+    <p class="lead">Otto Loewi hat 1921 gezeigt, dass der Vagusnerv das Herz mit einem Stoff bremst. Heute wissen wir: Es ist Acetylcholin. Derselbe Stoff überträgt aber auch das Signal vom Nerv auf jeden Skelettmuskel, und dort bewirkt er das Gegenteil.</p></div>
+  <div class="pair">
+    <figure class="pc"><svg id="muSvg" role="img" aria-label="Skelettmuskelfaser mit Nerv, die sich bei jedem Impuls zusammenzieht"></svg>
+      <figcaption><b>Am Skelettmuskel</b><span>Kommt Acetylcholin an, zieht sich die Muskelfaser zusammen. Acetylcholin <strong class="ex">erregt</strong>.</span></figcaption></figure>
+    <figure class="pc"><svg id="heSvg" role="img" aria-label="Froschherz mit Vagusnerv, das langsamer schlägt"></svg>
+      <figcaption><b>Am Herz</b><span>Kommt Acetylcholin vom Vagusnerv, schlägt das Herz langsamer. Acetylcholin <strong class="in">hemmt</strong>.</span></figcaption>
+      <button class="replay" id="heReplay" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Nochmal</button></figure>
+  </div>
+  <p class="ask big">Wie kann derselbe Stoff erregen und hemmen? Merk dir deine Vermutung, die Auflösung kommt weiter unten.</p>
+</section>
+
+<section class="sec" id="botenstoffe">
+  <div class="sec-head"><span class="eyebrow">Neurotransmitter</span><h2>Über 100 Botenstoffe</h2>
+    <p class="lead">Die Neurochemie erforscht, welche Stoffe an Synapsen wirken und wie. Bisher kennt man über 100 solcher Neurotransmitter. Fast alle enthalten Stickstoff. Hier siehst du die wichtigsten als Kugelmodell: Kohlenstoff dunkel, Sauerstoff weiß, Stickstoff bernsteinfarben. Wasserstoff ist weggelassen.</p></div>
+  <div class="gal">
+    <div class="mc"><svg data-mol="ach" role="img" aria-label="Molekül Acetylcholin"></svg><b>Acetylcholin</b><p>überträgt vom Nerv auf den Muskel, im Gehirn wichtig für Aufmerksamkeit und Gedächtnis</p></div>
+    <div class="mc"><svg data-mol="dopa" role="img" aria-label="Molekül Dopamin"></svg><b>Dopamin</b><p>Belohnung und Antrieb, steuert auch Bewegungen</p></div>
+    <div class="mc"><svg data-mol="sero" role="img" aria-label="Molekül Serotonin"></svg><b>Serotonin</b><p>beeinflusst Stimmung, Schlaf und Appetit</p></div>
+    <div class="mc"><svg data-mol="nor" role="img" aria-label="Molekül Noradrenalin"></svg><b>Noradrenalin</b><p>macht wach und aufmerksam</p></div>
+    <div class="mc"><svg data-mol="adr" role="img" aria-label="Molekül Adrenalin"></svg><b>Adrenalin</b><p>bei Stress steigen Herzschlag und Blutzucker, bereit für Kampf oder Flucht</p></div>
+    <div class="mc"><svg data-mol="gaba" role="img" aria-label="Molekül GABA"></svg><b>GABA</b><p>der wichtigste hemmende Transmitter im Gehirn, die Bremse</p></div>
+    <div class="mc"><svg data-mol="glu" role="img" aria-label="Molekül Glutamat"></svg><b>Glutamat</b><p>der wichtigste erregende Transmitter im Gehirn, das Gaspedal</p></div>
+    <div class="mc"><svg data-mol="endo" role="img" aria-label="Endorphin als Kette aus 31 Bausteinen"></svg><b>Endorphine</b><p>körpereigene Eiweißstoffe, dämpfen Schmerz</p></div>
+  </div>
+  <div class="duo2">
+    <div class="note2"><h3>Endorphine und Morphin</h3><p>Endorphine sind kurze Eiweißketten, Beta-Endorphin zum Beispiel besteht aus 31 Bausteinen. Der Körper schüttet sie bei starken Schmerzen und großer Belastung aus, sie dämpfen den Schmerz und heben die Stimmung. Sie wirken an denselben Rezeptoren wie Morphin, der Wirkstoff aus dem Milchsaft des Schlafmohns. Daher der Name: Endorphin bedeutet „körpereigenes Morphin“. Chemisch sind Endorphine aber ganz anders gebaut, nur die ersten fünf Bausteine passen in den Rezeptor. In der Abbildung oben sind sie kräftiger gefärbt.</p></div>
+    <div class="note2"><h3>Transmitter oder Hormon?</h3><p>Ein Transmitter wirkt über den winzigen synaptischen Spalt auf die Nachbarzelle. Ein Hormon gelangt mit dem Blut zu Organen im ganzen Körper. Manche Stoffe können beides: Adrenalin, Noradrenalin und die Endorphine wirken als Transmitter und als Hormon. Der Übergang ist fließend.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="wirkung">
+  <div class="sec-head"><span class="eyebrow">Am Rezeptor</span><h2>Erregend oder hemmend?</h2>
+    <p class="lead">Bindet ein Transmitter an seinen Rezeptor, fließen in der nächsten Zelle Ionen. Entscheidend ist, wohin sich dadurch die Spannung verschiebt. In Ruhe ist das Zellinnere negativ, etwa −70 Millivolt. Ab rund −55 Millivolt, der Schwelle, entsteht ein neuer Impuls.</p></div>
+  <div class="duo">
+    <div class="ep e"><h3>EPSP <small>erregendes postsynaptisches Potenzial</small></h3><p>Positive Ionen strömen ein, das Zellinnere wird positiver. Diese <b>Depolarisation</b> bringt die Spannung näher an die Schwelle.</p><svg id="pspE" role="img" aria-label="Spannungskurve: das EPSP steigt Richtung Schwelle"></svg></div>
+    <div class="ep h"><h3>IPSP <small>hemmendes postsynaptisches Potenzial</small></h3><p>Negative Ionen strömen ein oder positive strömen aus, das Zellinnere wird negativer. Diese <b>Hyperpolarisation</b> entfernt die Spannung von der Schwelle.</p><svg id="pspH" role="img" aria-label="Spannungskurve: das IPSP sinkt unter den Ruhewert"></svg></div>
+  </div>
+  <div class="ways">
+    <div class="way"><h3>Weg 1: direkt</h3><p>Der Rezeptor ist selbst ein Ionenkanal. Bindet der Transmitter, öffnet er sich sofort. Das geht sehr schnell, innerhalb von Millisekunden, und ist ebenso schnell wieder vorbei.</p></div>
+    <div class="way"><h3>Weg 2: über ein G-Protein</h3><p>Der Rezeptor ist kein Kanal. Er schaltet an der Innenseite der Membran ein <b>G-Protein</b> ein. Das G-Protein öffnet Kanäle direkt oder über ein Enzym, das sekundäre Botenstoffe bildet. Das dauert länger, wirkt aber auch länger und kann das Signal verstärken.</p></div>
+  </div>
+  <p class="note">Das <b>G</b> steht für Guanosin. GTP, das Guanosintriphosphat, ist ein Molekül ähnlich dem ATP. Im G-Protein dient es als Schalter: Hält das G-Protein GDP, ist es aus. Tauscht es GDP gegen GTP, ist es an.</p>
+</section>
+
+<section class="sec" id="rezeptoren">
+  <div class="sec-head"><span class="eyebrow">Schritt für Schritt</span><h2>Vier Rezeptoren</h2>
+    <p class="lead">Scroll langsam weiter. Die Abbildung zeigt immer, was gerade passiert, das Messgerät darunter die Spannung in der Zelle. Überleg bei jedem Rezeptor zuerst selbst, ob er erregt oder hemmt.</p></div>
+  <div class="scrolly" data-scrolly="rz">
+    <div class="media"><div class="mbox rz">
+      <canvas id="rzCv" role="img" aria-label="Membranausschnitt mit dem gerade besprochenen Rezeptor"></canvas>
+      <div class="rzbar"><span class="rzname" id="rzName">So liest du die Bilder</span><button class="replay" id="rzReplay" type="button" aria-label="Nochmal abspielen" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Nochmal</span></button><b class="st" id="rzSt">−70 mV</b></div>
+      <canvas id="rzSc" class="scope" role="img" aria-label="Spannung in der Zelle"></canvas>
+    </div></div>
+    <div class="cards">
+      <article class="card" data-type="na" data-t="0"><h3>So liest du die Bilder</h3><p>Oben liegt der synaptische Spalt, unten das Innere der nächsten Nervenzelle. Dazwischen siehst du die Membran: eine Doppelschicht aus Lipiden, in der Proteine stecken. Alle Proteine sind blau gezeichnet. Außen ist die Membran positiv geladen, innen negativ.</p>
+        <ul class="legend">
+          <li><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="12" fill="#E8B33C" stroke="#A87A12" stroke-width="2.4"/></svg>Acetylcholin</li>
+          <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 10h28L20 34z" fill="#E8B33C" stroke="#A87A12" stroke-width="2.4" stroke-linejoin="round"/></svg>GABA</li>
+          <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6l10 14-10 14-10-14z" fill="#E8B33C" stroke="#A87A12" stroke-width="2.4" stroke-linejoin="round"/></svg>sekundärer Botenstoff</li>
+          <li><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="11" fill="#fff" stroke="#3F484E" stroke-width="2.4"/><path d="M14 20h12M20 14v12" stroke="#3F484E" stroke-width="2.6" stroke-linecap="round"/></svg>Natriumion Na⁺</li>
+          <li><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="12" fill="#E0E7F0" stroke="#3A4F66" stroke-width="2.4"/><path d="M13 20h14" stroke="#3F484E" stroke-width="2.8" stroke-linecap="round"/></svg>Chloridion Cl⁻</li>
+          <li><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="8" width="24" height="24" rx="6" fill="#B9C0C4" stroke="#4E585E" stroke-width="2.4"/><path d="M14 20h12M20 14v12" stroke="#2B3236" stroke-width="2.6" stroke-linecap="round"/></svg>Kaliumion K⁺</li>
+        </ul>
+        <p class="small">Das Messgerät zeigt die Spannung in der Zelle. In Ruhe liegt sie bei −70 Millivolt. Ein Ion ist in Wirklichkeit viel kleiner als ein Protein, hier ist es vergrößert gezeichnet.</p></article>
+
+      <article class="card" data-type="na" data-t="0"><span class="rno">Rezeptor 1 von 4 · direkt</span><h3>Rezeptor-Natriumkanal</h3><p>Dieser Rezeptor ist selbst ein Ionenkanal: Mehrere Untereinheiten umschließen eine Pore, im Schnitt siehst du zwei davon. Oben trägt er zwei Bindestellen für Acetylcholin. Im Spalt schwimmen viele Natriumionen (Na⁺), in der Zelle nur wenige.</p><p class="ask">Was meinst du: erregend oder hemmend?</p></article>
+      <article class="card" data-type="na" data-t="1"><p>Zwei Moleküle Acetylcholin binden, und sofort öffnet sich der Kanal. Natriumionen strömen in die Zelle, denn außen sind viel mehr davon als innen, und das negative Zellinnere zieht sie zusätzlich an.</p></article>
+      <article class="card" data-type="na" data-t="1"><p class="verdict ex"><span>+</span>erregend</p><p>Positive Ladung kommt herein, das Zellinnere wird weniger negativ: ein <b>EPSP</b>. Der direkte Weg ist schnell und kurz. Solche Rezeptoren sitzen zum Beispiel an jeder Skelettmuskelfaser.</p><p class="fact"><b>Genauer:</b> Der Kanal lässt auch etwas Kalium hinaus. Es strömt aber deutlich mehr Natrium herein.</p></article>
+
+      <article class="card" data-type="cl" data-t="0"><span class="rno">Rezeptor 2 von 4 · direkt</span><h3>Rezeptor-Chloridkanal</h3><p>Auch dieser Rezeptor ist ein Ionenkanal, aber seine Bindestellen haben eine andere Form: Sie passen zu GABA, nicht zu Acetylcholin. Im Spalt sind viele Chloridionen (Cl⁻). Sie sind negativ geladen.</p><p class="ask">Erregend oder hemmend?</p></article>
+      <article class="card" data-type="cl" data-t="1"><p>Zwei Moleküle GABA binden, der Kanal öffnet sich, und Chloridionen strömen in die Zelle.</p></article>
+      <article class="card" data-type="cl" data-t="1"><p class="verdict in"><span>−</span>hemmend</p><p>Mit den Chloridionen kommt negative Ladung herein, das Zellinnere wird noch negativer: ein <b>IPSP</b>. Die Zelle ist jetzt schwerer zu erregen. GABA ist der wichtigste hemmende Transmitter im Gehirn. Rund ein Drittel der Synapsen dort arbeitet damit.</p></article>
+
+      <article class="card" data-type="gk" data-t="0"><span class="rno">Rezeptor 3 von 4 · über G-Protein</span><h3>G-Protein mit Verstärkerkaskade</h3><p>Dieser Rezeptor ist kein Kanal. Er ist eine Proteinkette, die siebenmal durch die Membran läuft. Innen hängt ein G-Protein, daneben sitzen ein Enzym und mehrere Natriumkanäle. Die hellen Rauten sind ein Ausgangsstoff, aus dem das Enzym gleich etwas baut.</p><p class="ask">Erregend oder hemmend?</p></article>
+      <article class="card" data-type="gk" data-t="1"><p>Acetylcholin bindet, und der Rezeptor schaltet das G-Protein ein: Es gibt sein <b>GDP</b> ab und nimmt <b>GTP</b> auf. Dann löst sich der größere Teil des G-Proteins und wandert an der Membran entlang zum Enzym.</p></article>
+      <article class="card" data-type="gk" data-t="2"><p class="verdict ex"><span>+</span>erregend</p><p>Das Enzym baut einen Ausgangsstoff nach dem anderen in einen <b>sekundären Botenstoff</b> um. Die Botenstoffe öffnen die Natriumkanäle von innen, Natrium strömt ein: ein EPSP. Aus einem einzigen Acetylcholin werden viele Botenstoffe und viele offene Kanäle. Diese Lawine heißt Verstärkerkaskade.</p><p class="fact"><b>Übrigens:</b> In echten Zellen schaltet ein Rezeptor nacheinander viele G-Proteine ein, und jedes Enzym bildet Hunderte Botenstoffe. So kann ein einziges Transmittermolekül sehr viele Kanäle beeinflussen.</p></article>
+      <article class="card" data-type="gk" data-t="3"><p>Nach einer Weile spaltet das G-Protein sein GTP in GDP und Phosphat (P) und schaltet sich damit selbst ab. Die Botenstoffe werden abgebaut, die Kanäle schließen sich. Der Weg über ein G-Protein ist langsamer als ein Kanal, der direkt öffnet, wirkt dafür aber länger.</p></article>
+
+      <article class="card" data-type="gp" data-t="0"><span class="rno">Rezeptor 4 von 4 · über G-Protein</span><h3>G-Protein ohne Verstärkung</h3><p>Wieder ein Rezeptor mit sieben Durchgängen und ein G-Protein, diesmal ohne Enzym. Daneben sitzt ein Kaliumkanal. Kaliumionen (K⁺) gibt es vor allem im Zellinneren.</p><p class="ask">Erregend oder hemmend?</p></article>
+      <article class="card" data-type="gp" data-t="1"><p>Acetylcholin bindet, das G-Protein tauscht GDP gegen GTP. Diesmal wandert der kleinere Teil des G-Proteins weiter und öffnet direkt den Kaliumkanal. Kaliumionen strömen aus der Zelle hinaus.</p></article>
+      <article class="card" data-type="gp" data-t="1"><p class="verdict in"><span>−</span>hemmend</p><p>Positive Ladung verlässt die Zelle, das Innere wird negativer: ein <b>IPSP</b>. Weil kein Enzym dazwischen sitzt, wird das Signal nicht verstärkt. Genau so bremst der Vagusnerv das Herz.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="loesung">
+  <div class="sec-head"><span class="eyebrow">Das Rätsel gelöst</span><h2>Der Rezeptor entscheidet</h2>
+    <p class="lead">Acetylcholin ist an Muskel und Herz derselbe Schlüssel. Die Schlösser sind verschieden.</p></div>
+  <div class="pair">
+    <div class="pc solc"><div class="sol-top"><svg id="muSvg2" role="img" aria-label="Skelettmuskelfaser"></svg><canvas class="mini" data-type="na" role="img" aria-label="Rezeptor-Natriumkanal, aktiv"></canvas></div>
+      <p><b>Skelettmuskel: Rezeptor 1.</b> Acetylcholin öffnet den Rezeptor-Natriumkanal, Natrium strömt ein, die Muskelfaser wird erregt und zuckt.</p></div>
+    <div class="pc solc"><div class="sol-top"><svg id="heSvg2" role="img" aria-label="Froschherz"></svg><canvas class="mini" data-type="gp" role="img" aria-label="G-Protein ohne Verstärkung, aktiv"></canvas></div>
+      <p><b>Herz: Rezeptor 4.</b> Acetylcholin schaltet über ein G-Protein Kaliumkanäle in den Schrittmacherzellen des Herzens ein. Kalium strömt aus, die Zellen werden gehemmt, das Herz schlägt langsamer.</p></div>
+  </div>
+  <p class="mk">Merke: Nicht der Transmitter entscheidet über die Wirkung, sondern der Rezeptor.</p>
+</section>
+
+<section class="sec" id="ueberblick">
+  <div class="sec-head"><span class="eyebrow">Zusammengefasst</span><h2>Vier Rezeptoren auf einen Blick</h2></div>
+  <div class="ov">
+    <div class="ovh"><span class="oh e">erregend <b>+</b> EPSP</span><span class="oh h">hemmend <b>−</b> IPSP</span></div>
+    <p class="ol">direkt: Der Rezeptor ist selbst der Ionenkanal.</p>
+    <div class="ovr">
+      <div class="oc"><canvas class="mini" data-type="na" role="img" aria-label="Rezeptor-Natriumkanal"></canvas><div><span class="no">1</span><b>Rezeptor-Natriumkanal</b><span>Acetylcholin: Na⁺ strömt ein</span><em class="e">erregend</em></div></div>
+      <div class="oc"><canvas class="mini" data-type="cl" role="img" aria-label="Rezeptor-Chloridkanal"></canvas><div><span class="no">2</span><b>Rezeptor-Chloridkanal</b><span>GABA: Cl⁻ strömt ein</span><em class="h">hemmend</em></div></div>
+    </div>
+    <p class="ol">über ein G-Protein: Der Rezeptor ist kein Kanal.</p>
+    <div class="ovr">
+      <div class="oc"><canvas class="mini" data-type="gk" role="img" aria-label="G-Protein mit Verstärkerkaskade"></canvas><div><span class="no">3</span><b>G-Protein mit Verstärkung</b><span>Acetylcholin: Enzym, viele Botenstoffe, Na⁺ strömt ein</span><em class="e">erregend</em></div></div>
+      <div class="oc"><canvas class="mini" data-type="gp" role="img" aria-label="G-Protein ohne Verstärkung"></canvas><div><span class="no">4</span><b>G-Protein ohne Verstärkung</b><span>Acetylcholin: K⁺ strömt aus</span><em class="h">hemmend</em></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="schluessel">
+  <div class="sec-head"><span class="eyebrow">Fremde Schlüssel</span><h2>Agonist und Antagonist</h2>
+    <p class="lead">Jeder Stoff, der an einen Rezeptor bindet, heißt <b>Ligand</b>, von lateinisch ligare, binden. Nicht nur körpereigene Transmitter passen in die Schlösser, auch manche Medikamente, Genussmittel und Gifte.</p></div>
+  <div class="keys">
+    <div class="key"><canvas class="mini" data-type="na" data-lig="nic" role="img" aria-label="Nikotin öffnet den Rezeptor-Natriumkanal"></canvas><h3>Agonist</h3><p><b>Nikotin</b> passt in den Rezeptor-Natriumkanal und öffnet ihn wie Acetylcholin. Ein Stoff, der einen Rezeptor so aktiviert, heißt Agonist.</p></div>
+    <div class="key"><canvas class="mini" data-type="cl" data-lig="gbz" role="img" aria-label="Beruhigungsmittel verstärkt GABA am Rezeptor-Chloridkanal"></canvas><h3>Verstärker</h3><p>Viele <b>Beruhigungs- und Narkosemittel</b> setzen sich an eine eigene Stelle des Rezeptor-Chloridkanals. Zusammen mit GABA strömt mehr Chlorid ein, die Zelle wird stärker gehemmt. Oft nennt man auch sie Agonisten.</p></div>
+    <div class="key"><canvas class="mini" data-type="na" data-lig="cur" role="img" aria-label="Curare blockiert den Rezeptor-Natriumkanal"></canvas><h3>Antagonist</h3><p><b>Curare</b>, ein Pfeilgift aus Südamerika, setzt sich in die Bindestellen, öffnet den Kanal aber nicht. Acetylcholin kommt nicht mehr hinein. Ein solcher Blocker heißt Antagonist.</p></div>
+  </div>
+</section>
+
+<section class="sec task" id="labor">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 1</span><h2>Rezeptor-Labor: Welcher Schlüssel passt?</h2>
+    <p class="lead">Wähle einen Rezeptor und probiere die Stoffe aus. Beobachte, was passiert und was das Messgerät anzeigt. Dann beantworte die Fragen darunter.</p></div>
+  <div class="lab">
+    <div class="lab-ctl">
+      <p class="lab-l">Rezeptor</p>
+      <div class="seg" id="labRec" role="group" aria-label="Rezeptor wählen">
+        <button type="button" data-type="na" aria-pressed="true"><span>1</span>Natriumkanal</button><button type="button" data-type="cl" aria-pressed="false"><span>2</span>Chloridkanal</button><button type="button" data-type="gk" aria-pressed="false"><span>3</span>G-Protein mit Verstärkung</button><button type="button" data-type="gp" aria-pressed="false"><span>4</span>G-Protein, Kaliumkanal</button>
+      </div>
+      <p class="lab-l">Stoff</p>
+      <div class="keysel" id="labLig" role="group" aria-label="Stoff wählen">
+        <button type="button" data-lig="ach"><i class="lk ach"></i>Acetylcholin</button><button type="button" data-lig="gaba"><i class="lk gaba"></i>GABA</button><button type="button" data-lig="nic"><i class="lk nic"></i>Nikotin</button><button type="button" data-lig="cur"><i class="lk cur"></i>Curare</button><button type="button" data-lig="bz"><i class="lk bz"></i>Beruhigungsmittel</button><button type="button" data-lig="gbz"><i class="lk gaba"></i><i class="lk bz"></i>GABA und Beruhigungsmittel</button>
+      </div>
+      <p class="lab-count" id="labCount">Getestet: 0 von 24 Kombinationen</p>
+    </div>
+    <div class="lab-view">
+      <div class="mbox rz lab-box"><canvas id="labCv" role="img" aria-label="Rezeptor-Labor: Membranausschnitt"></canvas>
+        <div class="rzbar"><span class="rzname" id="labName">Rezeptor-Natriumkanal</span><b class="st" id="labSt">−70 mV</b></div>
+        <canvas id="labSc" class="scope" role="img" aria-label="Spannung in der Zelle"></canvas></div>
+      <p class="lab-out" id="labOut" aria-live="polite">Wähle einen Stoff.</p>
+    </div>
+  </div>
+  <div class="quiz" id="labQuiz"></div>
+  <p class="score" id="labScore" aria-live="polite"></p>
+</section>
+
+<section class="sec task" id="schlaf">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 2</span><h2>Schlaf, Beruhigungsmittel, Nikotin</h2>
+    <p class="lead">Denk zuerst selbst nach und schreib deine Antwort in ein, zwei Sätzen auf. Dann vergleich mit dem Lösungsvorschlag.</p></div>
+  <div class="tasks">
+    <div class="tq"><span class="tn">a</span><h3>Warum ist GABA für das Einschlafen und das Durchschlafen wichtig?</h3>
+      <details><summary>Tipp</summary><p>Erinnere dich: Wirkt GABA erregend oder hemmend? Was passiert mit Signalen, die gehemmt werden?</p></details>
+      <details class="ans"><summary>Lösungsvorschlag</summary><p>GABA hemmt Nervenzellen. Abends werden im Zwischenhirn Nervenzellen aktiv, die mit GABA die Wachzentren des Gehirns hemmen. So schlafen wir ein. Im Schlaf dämpft GABA die Weiterleitung von Signalen, deshalb dringen Reize von außen kaum durch und wir schlafen weiter.</p></details></div>
+    <div class="tq"><span class="tn">b</span><h3>Narkosemittel und Beruhigungsmittel binden an den Rezeptor-Chloridkanal. Wie wirken sie an der Synapse?</h3>
+      <details><summary>Tipp</summary><p>Probier im Labor den Chloridkanal mit GABA und dann mit GABA und Beruhigungsmittel. Vergleich die Spannung.</p></details>
+      <details class="ans"><summary>Lösungsvorschlag</summary><p>Sie verstärken die Wirkung von GABA. Der Kanal lässt mehr Chloridionen herein, die Nervenzellen werden stärker gehemmt. Das beruhigt und macht schläfrig, in hoher Dosis bewusstlos: Narkose. Viele von ihnen, etwa die Benzodiazepine, setzen sich an eine eigene Stelle des Kanals und wirken nur zusammen mit GABA. Weil sie in dieselbe Richtung wirken wie der Transmitter, nennt man sie oft Agonisten.</p></details></div>
+    <div class="tq"><span class="tn">c</span><h3>Nikotin bindet an den Rezeptor-Natriumkanal. Was bewirkt es dort?</h3>
+      <details><summary>Tipp</summary><p>Teste Nikotin im Labor an allen vier Rezeptoren. Wo passt es?</p></details>
+      <details class="ans"><summary>Lösungsvorschlag</summary><p>Nikotin wirkt am Rezeptor-Natriumkanal wie Acetylcholin: Der Kanal öffnet sich, Natrium strömt ein, die Zelle wird erregt. Nikotin ist also ein Agonist. An den Rezeptoren mit G-Protein wirkt es nicht, denn dort passt es nicht hinein. Im Gehirn erregt Nikotin auf diese Weise auch Nervenzellen, die Dopamin ausschütten, den Botenstoff für Belohnung. Das ist ein Grund, warum Nikotin so schnell süchtig macht.</p></details></div>
+  </div>
+  <div class="quiz" id="sleepQuiz"></div>
+  <p class="score" id="sleepScore" aria-live="polite"></p>
+</section>
+
+<section class="sec" id="heft">
+  <div class="sec-head"><span class="eyebrow">Zum Nachlesen</span><h2>Hefteintrag</h2></div>
+  <div class="heftwrap">
+    <figure class="skz"><canvas id="skzCv" role="img" aria-label="Heftskizze: vier Rezeptoren als Strichzeichnung mit den Nummern 1 bis 4"></canvas><figcaption>Die Skizze bekommst du ausgedruckt zum Einkleben. Die Ionen erkennst du an der Form: Na⁺ rund mit Plus, Cl⁻ rund mit Minus, K⁺ eckig mit Plus.</figcaption></figure>
+    <div class="heft">
+      <h4>Hefteintrag</h4>
+      <h3>Der Rezeptor entscheidet</h3>
+      <p class="pre">Über 100 Neurotransmitter, z. B. Acetylcholin (ACh), GABA, Dopamin, Endorphine.</p>
+      <ol>
+        <li>Rezeptor-Natriumkanal (ACh): Na⁺ strömt ein → erregend</li>
+        <li>Rezeptor-Chloridkanal (GABA): Cl⁻ strömt ein → hemmend</li>
+        <li>G-Protein mit Verstärkung (ACh): viele Botenstoffe öffnen Na⁺-Kanäle → erregend</li>
+        <li>G-Protein ohne Verstärkung (ACh): K⁺-Kanal öffnet, K⁺ strömt aus → hemmend</li>
+      </ol>
+      <p class="mk">Merke: EPSP = innen positiver, IPSP = innen negativer. Der Rezeptor entscheidet.</p>
+      <p class="pre">Agonist: wirkt wie der Transmitter (Nikotin). Antagonist: blockiert (Curare).</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec task" id="test">
+  <div class="sec-head"><span class="eyebrow">Wer fertig ist</span><h2>Selbsttest</h2>
+    <p class="lead">Zehn Fragen. Nach jeder Antwort siehst du sofort, ob sie stimmt, und warum.</p></div>
+  <div class="quiz" id="quiz"></div>
+  <p class="score" id="score" aria-live="polite"></p>
+</section>
+
+<section class="sec" id="woerter">
+  <div class="sec-head"><span class="eyebrow">Latein und Griechisch</span><h2>Wörter mit Geschichte</h2>
+    <p class="lead">Viele Fachwörter verraten schon, was sie bedeuten.</p></div>
+  <div class="words">
+    <div class="word"><b>Ligand</b><span class="from">lateinisch ligare, binden</span><p>Jeder Stoff, der an einen Rezeptor bindet, ob Transmitter, Medikament oder Gift.</p></div>
+    <div class="word"><b>Agonist</b><span class="from">griechisch agonistes, der Wettkämpfer</span><p>Er kämpft sozusagen auf der Seite des Transmitters und aktiviert den Rezeptor.</p></div>
+    <div class="word"><b>Antagonist</b><span class="from">griechisch antagonistes, der Gegenspieler</span><p>Er besetzt den Rezeptor und arbeitet gegen den Transmitter.</p></div>
+    <div class="word"><b>Depolarisation</b><span class="from">lateinisch de, weg, und griechisch polos, Pol</span><p>Der Unterschied zwischen innen und außen wird kleiner. Hyper heißt über: Bei der Hyperpolarisation wird er größer.</p></div>
+    <div class="word"><b>Endorphin</b><span class="from">Kunstwort aus endogen und Morphin</span><p>Endogen heißt im Körper entstanden. Morphin ist nach Morpheus benannt, dem griechischen Gott der Träume.</p></div>
+    <div class="word"><b>Acetylcholin</b><span class="from">lateinisch acetum, Essig, und griechisch chole, Galle</span><p>Cholin wurde zuerst aus Galle gewonnen, der Acetylrest stammt von der Essigsäure.</p></div>
+    <div class="word"><b>GABA</b><span class="from">Gamma-Aminobuttersäure</span><p>Buttersäure kommt von lateinisch butyrum, Butter. Sie riecht nach ranziger Butter.</p></div>
+    <div class="word"><b>Nikotin</b><span class="from">nach Jean Nicot</span><p>Der französische Gesandte schickte um 1560 Tabaksamen von Portugal nach Paris.</p></div>
+  </div>
+  <h3 class="facts-h">Zum Staunen</h3>
+  <div class="facts">
+    <div class="fct"><b>rund 800</b><p>verschiedene Rezeptoren mit G-Protein besitzt der Mensch. Etwa die Hälfte davon sitzt in der Nase und erkennt Gerüche.</p></div>
+    <div class="fct"><b>ein Drittel</b><p>aller zugelassenen Medikamente wirkt an Rezeptoren mit G-Protein.</p></div>
+    <div class="fct"><b>1994</b><p>bekamen Alfred Gilman und Martin Rodbell den Nobelpreis für Medizin für die Entdeckung der G-Proteine.</p></div>
+    <div class="fct"><b>2012</b><p>bekamen Robert Lefkowitz und Brian Kobilka den Nobelpreis für Chemie für die Erforschung dieser Rezeptoren.</p></div>
+  </div>
+</section>
+
+</main>
+<footer class="foot">Alle Abbildungen und Animationen auf dieser Seite sind selbst gezeichnet.</footer>
+
+<nav class="rb-site" aria-label="Biologie-Lernseiten"><div class="rb-in"><span class="rb-wer">Biologie · Stefan Rockenschaub</span><a href="../">Alle Lernseiten</a><a href="../impressum/">Impressum</a></div></nav>
+<style>.rb-site{background:#12171A;color:#C9D6D9;font:500 15px/1.4 "Figtree","Segoe UI",system-ui,sans-serif}.rb-in{max-width:1180px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px}.rb-wer{margin-right:auto;font:600 12px/1.3 "IBM Plex Mono",ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FD0C8}.rb-site a{color:#fff;text-decoration:none;font-weight:600;border-bottom:1.5px solid rgba(127,208,200,.5);padding-bottom:1px}.rb-site a:hover{border-bottom-color:#7FD0C8}.rb-site a:focus-visible{outline:3px solid #E8B33C;outline-offset:3px;border-radius:2px}</style>
+
+<script>
+/* ===== Grafiken der Stunde Rezeptoren: Nervennetz im Titel, Muskelfaser und Froschherz, Moleküle der Botenstoffe, Spannungskurven ===== */
+var FIG=(function(){
+  'use strict';
+  var NS='http://www.w3.org/2000/svg',TAU=Math.PI*2;
+  var ANTH='#21272B',TEAL='#0F8C8C',TEAL_D='#0A6468',BLUE='#2F5F96',AMBER='#E8B33C',AMBER_D='#A87A12',VERM='#C8553D',GREY='#6B757C',SUB='#3F484E';
+  function hx(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+  function mix(h,t){return 'rgb('+hx(h).map(function(v){return Math.round(v+(255-v)*t)}).join(',')+')'}
+  function el(tag,a,p){var e=document.createElementNS(NS,tag);if(a)for(var k in a){if(a[k]!=null)e.setAttribute(k,a[k])}if(p)p.appendChild(e);return e}
+  function tx(p,x,y,s,a){var t=el('text',Object.assign({x:x,y:y},a||{}),p);t.textContent=s;return t}
+  function clamp(x,a,b){return x<a?a:x>b?b:x}
+  function sm(a,b,t){var x=clamp((t-a)/(b-a),0,1);return x*x*(3-2*x)}
+  function lerp(a,b,t){return a+(b-a)*t}
+  function r2(x){return Math.round(x*100)/100}
+  function rng(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+  var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var FONT='Figtree, "Segoe UI", system-ui, sans-serif';
+
+  /* ---------- Nervennetz im Titel (aus der Stunde Synapse) ---------- */
+  function net(cv,opt){
+    opt=opt||{};
+    var c=cv.getContext('2d'),W=0,H=0,dpr=1,N=[],E=[],I=[],P=[],raf=0,run=false,last=0,spawn=0,R=rng(opt.seed||5);
+    function build(){var w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return false;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);W=w;H=h;
+      N=[];var target=clamp(Math.round(w*h/(opt.density||17000)),14,80),minD=Math.sqrt(w*h/target)*.62,tries=0;
+      while(N.length<target&&tries<target*80){tries++;var x=R()*w,y=R()*h,ok=true;
+        for(var i=0;i<N.length;i++)if(Math.hypot(N[i].x-x,N[i].y-y)<minD){ok=false;break}
+        if(!ok)continue;var d=[],k=3+Math.floor(R()*4);for(var j=0;j<k;j++)d.push([R()*TAU,minD*(.22+R()*.38),(R()-.5)*.9]);
+        N.push({x:x,y:y,r:2.6+R()*2.6,d:d,fl:0,out:[]})}
+      E=[];N.forEach(function(n,i){var near=N.map(function(m,j){return {j:j,d:Math.hypot(m.x-n.x,m.y-n.y)}}).filter(function(o){return o.j!==i}).sort(function(a,b){return a.d-b.d}).slice(0,3);
+        var k=1+(R()<.55?1:0);for(var q=0;q<k&&q<near.length;q++){var m=N[near[q].j],off=(R()-.5)*.5,dx=m.x-n.x,dy=m.y-n.y;
+          E.push({a:i,b:near[q].j,cx:(n.x+m.x)/2-dy*off,cy:(n.y+m.y)/2+dx*off,len:near[q].d});n.out.push(E.length-1)}});
+      I=[];P=[];return true}
+    function pt(e,u){var a=N[e.a],b=N[e.b],v=1-u;return [v*v*a.x+2*v*u*e.cx+u*u*b.x,v*v*a.y+2*v*u*e.cy+u*u*b.y]}
+    function fire(i){var n=N[i];if(!n||!n.out.length)return;var e=n.out[Math.floor(R()*n.out.length)];I.push({e:e,u:0,sp:(opt.speed||250)/Math.max(60,E[e].len)})}
+    function puff(x,y){var parts=[];for(var k=0;k<11;k++){var a=R()*TAU,v=10+R()*24;parts.push([Math.cos(a)*v,Math.sin(a)*v])}P.push({x:x,y:y,t:0,parts:parts})}
+    function paint(dt){c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);c.lineCap='round';
+      c.strokeStyle='rgba(63,169,164,.24)';c.lineWidth=1.1;
+      N.forEach(function(n){n.d.forEach(function(d){var x1=n.x+Math.cos(d[0])*d[1],y1=n.y+Math.sin(d[0])*d[1],cx=n.x+Math.cos(d[0]+d[2])*d[1]*.55,cy=n.y+Math.sin(d[0]+d[2])*d[1]*.55;
+        c.beginPath();c.moveTo(n.x,n.y);c.quadraticCurveTo(cx,cy,x1,y1);c.stroke()})});
+      c.strokeStyle='rgba(63,169,164,.36)';c.lineWidth=1.5;
+      E.forEach(function(e){var a=N[e.a],b=N[e.b];c.beginPath();c.moveTo(a.x,a.y);c.quadraticCurveTo(e.cx,e.cy,b.x,b.y);c.stroke()});
+      for(var i=I.length-1;i>=0;i--){var im=I[i],e=E[im.e];im.u+=im.sp*dt;
+        if(im.u>=1){var b=N[e.b];b.fl=1;puff(b.x,b.y);I.splice(i,1);(function(j){setTimeout(function(){if(run&&R()<.8)fire(j)},260+R()*320)})(e.b);continue}
+        for(var k=0;k<9;k++){var u=im.u-k*.02;if(u<0)break;var p=pt(e,u);c.beginPath();c.arc(p[0],p[1],3.6-k*.3,0,TAU);c.fillStyle='rgba(159,227,220,'+((1-k/8)*.95).toFixed(3)+')';c.fill()}
+        var h=pt(e,im.u),g=c.createRadialGradient(h[0],h[1],0,h[0],h[1],22);g.addColorStop(0,'rgba(159,227,220,.6)');g.addColorStop(1,'rgba(159,227,220,0)');c.fillStyle=g;c.beginPath();c.arc(h[0],h[1],22,0,TAU);c.fill()}
+      for(var q=P.length-1;q>=0;q--){var f=P[q];f.t+=dt;if(f.t>1.15){P.splice(q,1);continue}var s=f.t/1.15;
+        f.parts.forEach(function(v){c.beginPath();c.arc(f.x+v[0]*Math.sqrt(s)*1.5,f.y+v[1]*Math.sqrt(s)*1.5,2.6,0,TAU);c.fillStyle='rgba(232,179,60,'+((1-s)*.9).toFixed(3)+')';c.fill()})}
+      N.forEach(function(n){n.fl=Math.max(0,n.fl-dt*1.5);c.beginPath();c.arc(n.x,n.y,n.r+n.fl*3.2,0,TAU);
+        c.fillStyle='rgba('+(63+n.fl*130|0)+','+(169+n.fl*60|0)+','+(164+n.fl*60|0)+','+(.55+n.fl*.4).toFixed(3)+')';c.fill()})}
+    function frame(now){if(!run)return;var dt=Math.min(.05,(now-(last||now))/1000);last=now;spawn-=dt;if(spawn<=0){fire(Math.floor(R()*N.length));spawn=.45+R()*.6}paint(dt);raf=requestAnimationFrame(frame)}
+    function start(){if(!W&&!build())return;if(RM){for(var k=0;k<5;k++){var n=N[Math.floor(R()*N.length)];if(n){n.fl=.8;puff(n.x,n.y);P[P.length-1].t=.3}}paint(0);return}
+      if(run)return;run=true;last=0;raf=requestAnimationFrame(frame)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    window.addEventListener('resize',function(){var was=run;stop();W=0;if(build()){if(was||RM)start()}});
+    return {start:start,stop:stop}}
+
+  /* ---------- Froschherz von vorn (aus der Stunde Synapse): zwei Vorhöfe, eine Kammer, Truncus arteriosus ---------- */
+  function frogHeart(p,x,y){
+    var h=el('g',{transform:'translate('+x+' '+y+')'},p),dark='#93351F',mid=mix(VERM,.42),lite=mix(VERM,.58);
+    var TR='M10 -14C14 -36 22 -52 30 -62';
+    el('path',{d:TR,fill:'none',stroke:dark,'stroke-width':19,'stroke-linecap':'round'},h);
+    el('path',{d:'M30 -62C22 -76 8 -84 -6 -86M30 -62C38 -76 50 -82 62 -82',fill:'none',stroke:dark,'stroke-width':13,'stroke-linecap':'round'},h);
+    el('path',{d:'M30 -62C22 -76 8 -84 -6 -86M30 -62C38 -76 50 -82 62 -82',fill:'none',stroke:lite,'stroke-width':8,'stroke-linecap':'round'},h);
+    el('ellipse',{cx:-26,cy:-26,rx:33,ry:26,fill:lite,stroke:dark,'stroke-width':3},h);
+    el('ellipse',{cx:24,cy:-30,rx:25,ry:20,fill:lite,stroke:dark,'stroke-width':3},h);
+    el('path',{d:TR,fill:'none',stroke:mid,'stroke-width':13,'stroke-linecap':'round'},h);
+    el('path',{d:'M-48 -8C-52 28 -22 62 6 80C28 62 52 28 48 -10C30 -24 -28 -26 -48 -8Z',fill:mid,stroke:dark,'stroke-width':3,'stroke-linejoin':'round'},h);
+    el('path',{d:'M-2 -12C-8 18 -2 48 6 76',fill:'none',stroke:dark,'stroke-width':1.6,opacity:.45},h);
+    el('path',{d:'M-34 4Q-34 -8 -20 -12',fill:'none',stroke:'#fff','stroke-width':5,'stroke-linecap':'round',opacity:.6},h);
+    return h}
+
+  /* ---------- Froschherz mit Vagusnerv: schlägt 60-mal pro Minute, mit Acetylcholin langsamer ---------- */
+  function heart(svg,opt){opt=opt||{};
+    svg.setAttribute('viewBox','0 0 640 520');
+    var g=el('g',{'font-family':FONT},svg);
+    var NERVE='M60 40C120 70 170 120 214 168C244 198 270 222 288 258';
+    el('path',{d:NERVE,fill:'none',stroke:TEAL,'stroke-width':13,'stroke-linecap':'round'},g);
+    el('path',{d:NERVE,fill:'none',stroke:mix(TEAL,.72),'stroke-width':7,'stroke-linecap':'round'},g);
+    var nerveP=el('path',{d:NERVE,fill:'none',stroke:'none'},g),NL=nerveP.getTotalLength();
+    var hg=frogHeart(g,320,318);
+    if(!opt.small){tx(g,100,36,'Vagusnerv',{'font-size':50,'font-weight':600,fill:TEAL_D});tx(g,320,506,'Herz',{'text-anchor':'middle','font-size':46,fill:SUB});tx(g,548,348,'pro Minute',{'text-anchor':'middle','font-size':34,fill:SUB})}
+    var rate=tx(g,opt.small?530:548,300,'',{'text-anchor':'middle','font-size':opt.small?84:72,'font-weight':700,fill:ANTH});
+    var imp=el('circle',{r:9,fill:AMBER,stroke:AMBER_D,'stroke-width':2,opacity:0},g);
+    var puffs=[];for(var i=0;i<8;i++)puffs.push(el('circle',{r:6,fill:AMBER,stroke:AMBER_D,'stroke-width':1.4,opacity:0},g));
+    var on=false,run=false,raf=0,last=0,ph=0,r=60,clk=0,pt=-9,T=0;
+    function beat(p){var f=p%1;return Math.exp(-Math.pow(f*7,2))+.45*Math.exp(-Math.pow((f-.16)*9,2))}
+    function paint(dt){T+=dt;
+      if(on){clk-=dt;if(clk<=0){clk=1.2;pt=0}}
+      if(pt>=0){pt+=dt;var u=pt/.7;if(u<1){var P=nerveP.getPointAtLength(NL*u);imp.setAttribute('cx',r2(P.x));imp.setAttribute('cy',r2(P.y));imp.setAttribute('opacity',1)}else imp.setAttribute('opacity',0);
+        var pf=clamp((pt-.7)/.6,0,1);puffs.forEach(function(c,i){var a=i/puffs.length*TAU,d=6+pf*30;c.setAttribute('cx',r2(290+Math.cos(a)*d));c.setAttribute('cy',r2(256+Math.sin(a)*d*.8));c.setAttribute('opacity',pt>.7&&pf<1?r2(1-pf):0)});if(pt>1.4)pt=-9}
+      var tgt=on?30:60;r+=(tgt-r)*Math.min(1,dt*.55);ph+=dt*r/60;
+      hg.setAttribute('transform','translate(320 318) scale('+r2(1.55*(1+.1*beat(ph)))+')');rate.textContent='♥ '+Math.round(r)}
+    function frame(now){if(!run)return;var dt=Math.min(.05,(now-(last||now))/1000);last=now;paint(dt);raf=requestAnimationFrame(frame)}
+    function start(){if(run)return;if(RM){paint(0);return}run=true;last=0;raf=requestAnimationFrame(frame)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    function set(v){on=!!v;if(!v)clk=0;else if(clk<=0)clk=.2;if(RM){r=on?30:60;paint(0)}}
+    function reset(){r=60;on=false;pt=-9;paint(0)}
+    paint(0);return {start:start,stop:stop,set:set,reset:reset}}
+
+  /* ---------- Skelettmuskelfaser mit motorischer Endplatte: zuckt, wenn Acetylcholin ankommt ---------- */
+  function muscle(svg,opt){opt=opt||{};
+    svg.setAttribute('viewBox','0 0 640 520');
+    var g=el('g',{'font-family':FONT},svg),dark='#93351F',lite=mix(VERM,.6),band=mix(VERM,.44),CX=320;
+    var gF=el('g',null,g);
+    el('rect',{x:40,y:270,width:560,height:124,rx:44,fill:lite,stroke:dark,'stroke-width':3,'vector-effect':'non-scaling-stroke'},gF);
+    var clip=el('clipPath',{id:'mfClip'+(opt.id||'')},g);el('rect',{x:42,y:272,width:556,height:120,rx:42},clip);
+    var gS=el('g',{'clip-path':'url(#mfClip'+(opt.id||'')+')'},gF);
+    for(var x=48;x<600;x+=18){el('rect',{x:x,y:270,width:10,height:124,fill:band},gS);el('line',{x1:x+14,y1:270,x2:x+14,y2:394,stroke:dark,'stroke-width':1.2,opacity:.55,'vector-effect':'non-scaling-stroke'},gS)}
+    [[120,281],[470,281],[250,384],[540,384]].forEach(function(n){el('ellipse',{cx:n[0],cy:n[1],rx:30,ry:7,fill:mix(VERM,.3),stroke:dark,'stroke-width':1.3,'vector-effect':'non-scaling-stroke'},gS)});
+    el('path',{d:'M80 300Q80 284 102 282',fill:'none',stroke:'#fff','stroke-width':5,'stroke-linecap':'round',opacity:.55,'vector-effect':'non-scaling-stroke'},gF);
+    /* Nerv mit Myelin, verzweigt sich auf der Faser zur Endplatte */
+    var NV='M320 0L320 214';
+    el('path',{d:NV,stroke:TEAL,'stroke-width':15,'stroke-linecap':'round',fill:'none'},g);el('path',{d:NV,stroke:mix(TEAL,.72),'stroke-width':9,'stroke-linecap':'round',fill:'none'},g);
+    [[20,86],[104,170]].forEach(function(m){el('rect',{x:308,y:m[0],width:24,height:m[1]-m[0],rx:12,fill:mix(AMBER,.62),stroke:AMBER_D,'stroke-width':2},g)});
+    var BR=['M320 210C300 232 270 240 252 262','M320 210L320 262','M320 210C340 232 370 240 388 262'];
+    BR.forEach(function(d){el('path',{d:d,stroke:TEAL,'stroke-width':10,'stroke-linecap':'round',fill:'none'},g);el('path',{d:d,stroke:mix(TEAL,.72),'stroke-width':5,'stroke-linecap':'round',fill:'none'},g)});
+    [252,320,388].forEach(function(x){el('ellipse',{cx:x,cy:266,rx:17,ry:9,fill:mix(TEAL,.72),stroke:TEAL,'stroke-width':2.6},g)});
+    if(!opt.small){tx(g,344,100,'Nerv',{'font-size':50,'font-weight':600,fill:TEAL_D});tx(g,320,462,'Skelettmuskelfaser',{'text-anchor':'middle','font-size':46,fill:SUB})}
+    var nvP=el('path',{d:NV,fill:'none',stroke:'none'},g);
+    var imp=el('circle',{r:9,fill:AMBER,stroke:AMBER_D,'stroke-width':2,opacity:0},g);
+    var puffs=[];for(var i=0;i<12;i++)puffs.push(el('circle',{r:5.5,fill:AMBER,stroke:AMBER_D,'stroke-width':1.3,opacity:0},g));
+    var on=false,run=false,raf=0,last=0,clk=0,pt=-9;
+    function paint(dt){
+      if(on){clk-=dt;if(clk<=0){clk=2.4;pt=0}}
+      var sx=1;
+      if(pt>=0){pt+=dt;var u=pt/.55;if(u<1){imp.setAttribute('cx',320);imp.setAttribute('cy',r2(214*u));imp.setAttribute('opacity',1)}else imp.setAttribute('opacity',0);
+        var pf=clamp((pt-.55)/.5,0,1);puffs.forEach(function(c,i){var k=i%3,x0=[252,320,388][k],a=(i/12)*Math.PI*2,d=4+pf*16;c.setAttribute('cx',r2(x0+Math.cos(a)*d*1.4));c.setAttribute('cy',r2(274+Math.abs(Math.sin(a))*d*.5));c.setAttribute('opacity',pt>.55&&pf<1?r2(1-pf):0)});
+        var tw=pt-.8;sx=tw<0?1:tw<.22?1-.12*sm(0,.22,tw):1-.12*(1-sm(.22,.8,tw));if(pt>2)pt=-9}
+      gF.setAttribute('transform','translate('+CX+' 0) scale('+r2(sx)+' 1) translate('+(-CX)+' 0)')}
+    function frame(now){if(!run)return;var dt=Math.min(.05,(now-(last||now))/1000);last=now;paint(dt);raf=requestAnimationFrame(frame)}
+    function start(){if(run)return;if(RM){paint(0);return}run=true;last=0;raf=requestAnimationFrame(frame)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    function set(v){on=!!v;if(on&&clk>0.6)clk=.3}
+    function reset(){on=false;pt=-9;paint(0)}
+    paint(0);return {start:start,stop:stop,set:set,reset:reset}}
+
+  /* ---------- Moleküle der Botenstoffe als Kugelmodell ohne Wasserstoff: C dunkel, O weiß, N bernstein ---------- */
+  function hexv(k,r,off){var a=(off||0)+k*Math.PI/3;return [r*Math.cos(a),r*Math.sin(a)]}
+  var MOL=(function(){var M={};
+    M.ach={a:[['C',0,0],['C',.866,.5],['O',.866,1.5],['O',1.732,0],['C',2.598,.5],['C',3.464,0],['N',4.33,.5,'+'],['C',5.196,0],['C',5.196,1],['C',4.33,1.5]],
+      b:[[0,1],[1,2,2],[1,3],[3,4],[4,5],[5,6],[6,7],[6,8],[6,9]]};
+    M.gaba={a:[['N',0,.5],['C',.866,0],['C',1.732,.5],['C',2.598,0],['C',3.464,.5],['O',3.464,1.5],['O',4.33,0]],b:[[0,1],[1,2],[2,3],[3,4],[4,5,2],[4,6]]};
+    M.glu={a:[['O',0,0],['C',.866,.5],['O',.866,1.5],['C',1.732,0],['N',1.732,-1],['C',2.598,.5],['C',3.464,0],['C',4.33,.5],['O',4.33,1.5],['O',5.196,0]],
+      b:[[0,1],[1,2,2],[1,3],[3,4],[3,5],[5,6],[6,7],[7,8,2],[7,9]]};
+    function cat(extra){var a=[],b=[[0,1,2],[1,2],[2,3,2],[3,4],[4,5,2],[5,0]];for(var k=0;k<6;k++){var v=hexv(k,1);a.push(['C',v[0],v[1]])}
+      a.push(['C',1.866,-.5],['C',2.732,0],['N',3.598,-.5],['O',-1,1.732],['O',-2,0]);b.push([0,6],[6,7],[7,8],[2,9],[3,10]);
+      if(extra>0){a.push(['O',1.866,-1.5]);b.push([6,11])}if(extra>1){a.push(['C',4.464,0]);b.push([8,12])}return {a:a,b:b}}
+    M.dopa=cat(0);M.nor=cat(1);M.adr=cat(2);
+    var s=[];for(var k=0;k<6;k++){var v=hexv(k,1,Math.PI/6);s.push(['C',v[0],v[1]])}
+    s.push(['N',1.817,.809],['C',2.405,0],['C',1.817,-.809],['C',2.126,-1.76],['C',2.992,-2.26],['N',3.858,-1.76],['O',-1.732,-1]);
+    M.sero={a:s,b:[[0,1,2],[1,2],[2,3,2],[3,4],[4,5,2],[5,0],[0,6],[6,7],[7,8,2],[8,5],[8,9],[9,10],[10,11],[3,12]]};
+    return M})();
+  function mol(svg,key,opt){opt=opt||{};
+    if(key==='endo')return endo(svg,opt);
+    var M=MOL[key],xs=M.a.map(function(q){return q[1]}),ys=M.a.map(function(q){return q[2]});
+    /* gleicher Maßstab für alle Moleküle: feste Bildgröße 7 x 4 Bindungslängen, Molekül in der Mitte */
+    var cx=(Math.min.apply(null,xs)+Math.max.apply(null,xs))/2,cy=(Math.min.apply(null,ys)+Math.max.apply(null,ys))/2,BW=opt.w||7,BH=opt.h||4.1;
+    svg.setAttribute('viewBox',r2((cx-BW/2)*100)+' '+r2((cy-BH/2)*100)+' '+r2(BW*100)+' '+r2(BH*100));
+    var g=el('g',{'font-family':FONT},svg),gb=el('g',{stroke:'#8A959B','stroke-width':10,'stroke-linecap':'round'},g),rings=[];
+    M.b.forEach(function(b){var A=M.a[b[0]],B=M.a[b[1]],dx=B[1]-A[1],dy=B[2]-A[2],L=Math.hypot(dx,dy),nx=-dy/L*8,ny=dx/L*8;
+      if(b[2]===2){[-1,1].forEach(function(s){el('line',{x1:r2(A[1]*100+s*nx),y1:r2(A[2]*100+s*ny),x2:r2(B[1]*100+s*nx),y2:r2(B[2]*100+s*ny),'stroke-width':7},gb)})}
+      else el('line',{x1:r2(A[1]*100),y1:r2(A[2]*100),x2:r2(B[1]*100),y2:r2(B[2]*100)},gb)});
+    M.a.forEach(function(q){var x=q[1]*100,y=q[2]*100;
+      if(q[0]==='C')el('circle',{cx:r2(x),cy:r2(y),r:22,fill:SUB},g);
+      else if(q[0]==='O'){el('circle',{cx:r2(x),cy:r2(y),r:27,fill:'#FFFFFF',stroke:SUB,'stroke-width':6},g);tx(g,r2(x),r2(y+11),'O',{'text-anchor':'middle','font-size':31,'font-weight':700,fill:SUB})}
+      else{var ring=el('circle',{cx:r2(x),cy:r2(y),r:46,fill:'none',stroke:AMBER_D,'stroke-width':6,opacity:0},g);rings.push(ring);
+        el('circle',{cx:r2(x),cy:r2(y),r:34,fill:AMBER,stroke:AMBER_D,'stroke-width':6},g);tx(g,r2(x),r2(y+13),q[3]?'N⁺':'N',{'text-anchor':'middle','font-size':q[3]?34:38,'font-weight':700,fill:'#3B2A05'})}});
+    return {hi:function(p){rings.forEach(function(r){r.setAttribute('opacity',r2(p));r.setAttribute('r',r2(46+10*p))})}}}
+  /* Endorphin: eine Kette aus 31 Bausteinen (Aminosäuren); der Anfang passt in denselben Rezeptor wie Morphin */
+  function endo(svg,opt){svg.setAttribute('viewBox','-30 -60 1060 300');var g=el('g',null,svg),pts=[];
+    for(var i=0;i<31;i++){var t=i/30,x=t*1000,y=60+60*Math.sin(t*Math.PI*2.4)+18*Math.sin(t*Math.PI*9);pts.push([x,y])}
+    el('polyline',{points:pts.map(function(p){return r2(p[0])+','+r2(p[1])}).join(' '),fill:'none',stroke:'#8A959B','stroke-width':8,'stroke-linejoin':'round'},g);
+    pts.forEach(function(p,i){el('circle',{cx:r2(p[0]),cy:r2(p[1]),r:24,fill:i<5?AMBER:mix(AMBER,.7),stroke:AMBER_D,'stroke-width':5},g)});
+    return {hi:function(){}}}
+
+  /* ---------- Kleine Spannungskurven: EPSP und IPSP, Ruhe −70, Schwelle −55 ---------- */
+  function psp(svg,kind){svg.setAttribute('viewBox','0 0 700 330');
+    var g=el('g',{'font-family':FONT},svg);function Y(v){return 30+(-45-v)/40*270}
+    el('line',{x1:96,y1:20,x2:96,y2:300,stroke:'#AEB8BD','stroke-width':2},g);
+    tx(g,108,46,'mV',{'font-size':34,fill:SUB});
+    el('line',{x1:96,y1:Y(-70),x2:690,y2:Y(-70),stroke:'#9AA6AB','stroke-width':2,'stroke-dasharray':'6 8'},g);
+    el('line',{x1:96,y1:Y(-55),x2:690,y2:Y(-55),stroke:AMBER_D,'stroke-width':2.6,'stroke-dasharray':'12 8'},g);
+    tx(g,84,r2(Y(-70)+12),'−70',{'text-anchor':'end','font-size':34,fill:SUB});tx(g,84,r2(Y(-55)+12),'−55',{'text-anchor':'end','font-size':34,fill:SUB});
+    tx(g,690,r2(Y(-55)-14),'Schwelle',{'text-anchor':'end','font-size':34,'font-weight':600,fill:AMBER_D});
+    var pts=[],N=120;for(var i=0;i<=N;i++){var u=i/N,d=kind==='e'?8:-6,v=-70;if(u>.18){var x=(u-.18)/.82*9;v=-70+d*(x/1.6)*Math.exp(1-x/1.6)}pts.push(r2(100+u*580)+' '+r2(Y(v)))}
+    var line=el('path',{d:'M'+pts.join('L'),fill:'none',stroke:kind==='e'?TEAL:BLUE,'stroke-width':7,'stroke-linecap':'round','stroke-linejoin':'round'},g);
+    var L=line.getTotalLength();line.setAttribute('stroke-dasharray',L+' '+L);
+    var note=tx(g,480,kind==='e'?142:282,kind==='e'?'EPSP':'IPSP',{'font-size':40,'font-weight':700,fill:kind==='e'?TEAL_D:BLUE});
+    function set(p){line.setAttribute('stroke-dashoffset',r2(L*(1-p)));note.setAttribute('opacity',r2(sm(.45,.7,p)))}
+    set(1);return {set:set}}
+
+  return {net:net,heart:heart,muscle:muscle,mol:mol,psp:psp,sm:sm,RM:RM}
+})();
+
+/* ===== Rezeptoren im feinen Abbildungsstil =====
+   Vier Membranausschnitte nach Abb. 20.1 des Buchs, fachlich neu gezeichnet:
+     na  Rezeptor-Natriumkanal: Acetylcholin öffnet den Kanal direkt, Na⁺ strömt ein (erregend)
+     cl  Rezeptor-Chloridkanal: GABA öffnet den Kanal direkt, Cl⁻ strömt ein (hemmend)
+     gk  G-Protein-gekoppelter Rezeptor mit Verstärkerkaskade: das G-Protein tauscht GDP gegen GTP, schaltet ein Enzym ein,
+         das viele sekundäre Botenstoffe bildet; sie öffnen Na⁺-Kanäle (erregend)
+     gp  G-Protein-gekoppelter Rezeptor ohne Verstärkung: ein Teil des G-Proteins öffnet direkt einen K⁺-Kanal, K⁺ strömt aus (hemmend)
+   Jede Szene ist eine reine Funktion des Ablaufs t. na, cl, gp: 0 Ruhe, 1 aktiv (gehalten), 2 wieder Ruhe.
+   gk: 0 Ruhe, 1 G-Protein eingeschaltet, 2 Kaskade aktiv (gehalten), 3 wieder Ruhe.
+   Bild 1200 x 850, oben der synaptische Spalt, Membran y 316 bis 412, unten das Zellinnere.
+   Palette wie im Abbildungsprojekt: Zellen türkis, alle Proteine tiefblau, Botenstoffe bernstein.
+   Strichfassung (ink): schwarze Linien, weiße Flächen zum Ausmalen, ohne Beschriftung. */
+var REZ=(function(){
+  'use strict';
+  var TAU=Math.PI*2,W=1200,H=850,MT=316,MB=412,MID=364;
+  var ANTH='#21272B',TEAL='#0F8C8C',BLUE='#2F5F96',AMBER='#E8B33C',AMBER_D='#A87A12',VERM='#C8553D',GREY='#6B757C',SUB='#3F484E';
+  function hx(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+  function mix(h,t){return 'rgb('+hx(h).map(function(v){return Math.round(v+(255-v)*t)}).join(',')+')'}
+  function rgba(h,a){return 'rgba('+hx(h).join(',')+','+Math.max(0,Math.min(1,a)).toFixed(3)+')'}
+  function clamp(x,a,b){return x<a?a:x>b?b:x}
+  function sm(a,b,t){var x=clamp((t-a)/(b-a),0,1);return x*x*(3-2*x)}
+  function lerp(a,b,t){return a+(b-a)*t}
+  function mixp(p,q,t){return [p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t]}
+  function frac(x){return x-Math.floor(x)}
+  function rng(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+  function cub(a,b,c,d,t){var u=1-t;return [u*u*u*a[0]+3*u*u*t*b[0]+3*u*t*t*c[0]+t*t*t*d[0],u*u*u*a[1]+3*u*u*t*b[1]+3*u*t*t*c[1]+t*t*t*d[1]]}
+  function jit(p,ph,now,a){a=a==null?2.6:a;return [p[0]+a*Math.sin(now*1.5+ph),p[1]+a*.85*Math.cos(now*1.2+ph*1.3)]}
+  var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* ---------- Farben: Bildschirm und Strichfassung ---------- */
+  var PC={bg:'#F3F6F7',cyto:mix(TEAL,.82),band:mix(TEAL,.72),tail:mix(TEAL,.48),head:'#FFFFFF',headS:mix(TEAL,.22),
+    prot:mix(BLUE,.74),prot2:mix(BLUE,.6),prot3:mix(BLUE,.86),protS:BLUE,
+    amb:AMBER,ambS:AMBER_D,ambP:mix(AMBER,.74),ink:ANTH,sub:SUB,cat:'#5B676D',
+    na:'#FFFFFF',naS:SUB,k:mix(GREY,.62),kS:'#4E585E',kSign:'#2B3236',cl:mix(BLUE,.88),clS:'#3A4F66',sign:SUB,
+    nic:'#C9D0D4',nicS:GREY,cur:mix(VERM,.5),curS:'#9C3F2C',bzA:'#FFFFFF',bzB:mix(GREY,.42),bzS:'#4E585E',
+    gdp:'#E3E8EB',gdpS:GREY,gdpT:SUB,gtp:'#F6DE9C',gtpS:AMBER_D,gtpT:'#5C4206',pP:'#FFFFFF'};
+  var PK={};for(var key in PC)PK[key]='#FFFFFF';
+  ['protS','ambS','ink','sub','cat','naS','kS','kSign','clS','sign','nicS','curS','bzS','gdpS','gdpT','gtpS','gtpT','headS','tail'].forEach(function(k){PK[k]='#000000'});
+  var P=PC,INK=false,FONT='Figtree, "Segoe UI", system-ui, sans-serif';
+
+  /* ---------- Zeichenbausteine ---------- */
+  function rr(c,x,y,w,h,r){r=Math.min(r,w/2,h/2);c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+  function fs(c,f,s,lw){if(f){c.fillStyle=f;c.fill()}if(s){c.lineWidth=lw||2;c.strokeStyle=s;c.stroke()}}
+  function disc(c,x,y,r,f,s,lw){c.beginPath();c.arc(x,y,r,0,TAU);fs(c,f,s,lw)}
+  function ell(c,x,y,rx,ry,f,s,lw){c.beginPath();c.ellipse(x,y,rx,ry,0,0,TAU);fs(c,f,s,lw)}
+  function sign(c,x,y,r,neg,col,lw){c.strokeStyle=col||P.sign;c.lineWidth=lw||2.8;c.lineCap='round';c.beginPath();c.moveTo(x-r,y);c.lineTo(x+r,y);if(!neg){c.moveTo(x,y-r);c.lineTo(x,y+r)}c.stroke()}
+  function text(c,s,x,y,size,w,col,al){c.font=(w||500)+' '+size+'px '+FONT;c.fillStyle=col||P.ink;c.textAlign=al||'left';c.textBaseline='alphabetic';c.fillText(s,x,y)}
+  function cat(c,s,x,y){if(INK)return;c.save();c.font='600 30px "IBM Plex Mono", ui-monospace, monospace';try{c.letterSpacing='3px'}catch(e){}c.fillStyle=P.cat;c.textAlign='left';c.fillText(s,x,y);c.restore()}
+  /* Beschriftung mit Hinweislinie und Punkt auf der Struktur; die Linie verlässt den Text an dem Ende, das dem Ziel näher liegt,
+     oder oben bzw. unten, wenn das Ziel genau unter oder über dem Text liegt */
+  function tag(c,s,at,to,a,al,w){if(INK||a<.01||!to)return;c.globalAlpha=a;c.font=(w||600)+' 44px '+FONT;var tw=c.measureText(s).width,right=al==='right',
+      x0=right?at[0]-tw:at[0],x1=right?at[0]:at[0]+tw,ly=at[1]-14,lx=Math.abs(to[0]-x0)<Math.abs(to[0]-x1)?x0-12:x1+12;
+    if(to[0]>x0-6&&to[0]<x1+6){lx=clamp(to[0],x0+10,x1-10);ly=to[1]>at[1]?at[1]+12:at[1]-48}
+    c.strokeStyle=P.ink;c.lineWidth=2.2;c.beginPath();c.moveTo(lx,ly);c.lineTo(to[0],to[1]);c.stroke();disc(c,to[0],to[1],4.6,P.ink);
+    text(c,s,at[0],at[1],44,w||600,P.ink,right?'right':'left');c.globalAlpha=1}
+  function nearest(list,at,now){var b=null,bd=1e9;list.forEach(function(n){var d=Math.hypot(n.p[0]-at[0],n.p[1]-at[1]);if(d<bd){bd=d;b=n}});return b?jit(b.p,b.ph,now):null}
+
+  /* Membran als Lipid-Doppelschicht: Köpfe weiß, Schwänze als feine Linien */
+  function membrane(c){c.fillStyle=P.band;c.fillRect(-600,MT,W+1200,MB-MT);
+    if(INK){c.strokeStyle='#000';c.lineWidth=2.4;c.beginPath();c.moveTo(-600,MT);c.lineTo(W+600,MT);c.moveTo(-600,MB);c.lineTo(W+600,MB);c.stroke();return}
+    c.strokeStyle=P.tail;c.lineWidth=1.8;c.lineCap='round';c.beginPath();
+    for(var x=-594;x<W+626;x+=26){c.moveTo(x-4,MT+22);c.lineTo(x-4,MID-5);c.moveTo(x+4,MT+22);c.lineTo(x+4,MID-5);
+      c.moveTo(x+9,MB-22);c.lineTo(x+9,MID+5);c.moveTo(x+17,MB-22);c.lineTo(x+17,MID+5)}
+    c.stroke();
+    for(x=-594;x<W+626;x+=26){disc(c,x,MT+11,10.5,P.head,P.headS,1.5);disc(c,x+13,MB-11,10.5,P.head,P.headS,1.5)}}
+  function bgFill(c){c.fillStyle=P.bg;c.fillRect(-2000,-2000,W+4000,MT+2000);c.fillStyle=P.cyto;c.fillRect(-2000,MB,W+4000,H+2000)}
+  /* Ladungen an der Membran: außen positiv, innen negativ; e > 0 macht innen weniger negativ, e < 0 noch negativer */
+  function charges(c,skip,e){if(INK)return;
+    for(var x=66;x<W;x+=128){var bad=false;skip.forEach(function(s){if(x>s[0]&&x<s[1])bad=true});if(bad)continue;
+      c.globalAlpha=.45;sign(c,x,MT-28,8,false,P.sub,2.6);
+      c.globalAlpha=clamp(.48-.32*e,.14,.95);sign(c,x,MB+30,8,true,P.sub,e<0?2.6-1.6*e:2.6)}
+    c.globalAlpha=1}
+  function glow(c,x,amt){if(INK||Math.abs(amt)<.01)return;var col=amt>0?AMBER:BLUE,a=Math.min(1,Math.abs(amt)),y=MB+50;
+    var g=c.createRadialGradient(x,y,10,x,y,400);g.addColorStop(0,rgba(col,(amt>0?.34:.24)*a));g.addColorStop(1,rgba(col,0));
+    c.save();c.beginPath();c.rect(0,MB,W,H-MB);c.clip();c.fillStyle=g;c.fillRect(x-400,MB,800,H-MB);c.restore()}
+
+  /* Ionen: Form und Zeichen unterscheiden sie, nicht nur die Farbe */
+  function ion(c,k,x,y,a){if(a<.01)return;c.globalAlpha=a;
+    if(k==='na'){disc(c,x,y,16,P.na,P.naS,2.4);sign(c,x,y,8.5,false,P.sign,3)}
+    else if(k==='k'){rr(c,x-17,y-17,34,34,8);fs(c,P.k,P.kS,2.4);sign(c,x,y,8.5,false,P.kSign,3)}
+    else{disc(c,x,y,19,P.cl,P.clS,2.4);sign(c,x,y,9.5,true,P.sign,3.2)}
+    c.globalAlpha=1}
+  /* Liganden: Acetylcholin rund, GABA dreieckig; Nikotin hat den runden Kopf, aber einen Anhang;
+     Curare ist ein sperriger Sechskant, das Beruhigungsmittel eine Kapsel */
+  function lig(c,k,x,y,a){if(a<.01)return;c.globalAlpha=a;c.lineJoin='round';
+    if(k==='ach')disc(c,x,y,26,P.amb,P.ambS,2.6);
+    else if(k==='gaba'){c.beginPath();c.moveTo(x-31,y-19);c.lineTo(x+31,y-19);c.lineTo(x,y+32);c.closePath();fs(c,P.amb,P.ambS,2.6)}
+    else if(k==='nic'){c.strokeStyle=P.nicS;c.lineWidth=2.8;c.beginPath();c.moveTo(x+14,y-19);c.lineTo(x+24,y-35);c.stroke();rr(c,x+15,y-60,27,27,6);fs(c,P.nic,P.nicS,2.6);disc(c,x,y,26,P.nic,P.nicS,2.6)}
+    else if(k==='cur'){c.beginPath();for(var i=0;i<6;i++){var an=i*TAU/6+Math.PI/6;c[i?'lineTo':'moveTo'](x+35*Math.cos(an),y+35*Math.sin(an))}c.closePath();fs(c,P.cur,P.curS,2.6);disc(c,x,y,10,null,P.curS,2)}
+    else if(k==='bz'){rr(c,x-17,y-38,34,76,17);fs(c,P.bzA,null);c.save();c.beginPath();c.rect(x-20,y,40,42);c.clip();rr(c,x-17,y-38,34,76,17);fs(c,P.bzB,null);c.restore();
+      rr(c,x-17,y-38,34,76,17);fs(c,null,P.bzS,2.6);c.beginPath();c.moveTo(x-17,y);c.lineTo(x+17,y);c.lineWidth=2;c.stroke()}
+    c.globalAlpha=1}
+  function dia(c,x,y,s,k,a){if(a<.01)return;c.globalAlpha=a;c.beginPath();c.moveTo(x,y-s);c.lineTo(x+s*.8,y);c.lineTo(x,y+s);c.lineTo(x-s*.8,y);c.closePath();
+    if(k==='pre'||k==='dead'){fs(c,P.ambP,null);c.setLineDash([5,5]);c.lineWidth=2.2;c.strokeStyle=P.ambS;c.stroke();c.setLineDash([])}
+    else fs(c,P.amb,P.ambS,2.4);c.globalAlpha=1}
+  function pill(c,x,y,k,a){if(a<.01)return;c.globalAlpha=a;var w=k==='p'?66:132,h=64;rr(c,x-w/2,y-h/2,w,h,h/2);
+    fs(c,k==='gtp'?P.gtp:k==='gdp'?P.gdp:P.pP,k==='gtp'?P.gtpS:P.gdpS,2.6);
+    if(!INK)text(c,k==='p'?'P':k.toUpperCase(),x,y+16,46,700,k==='gtp'?P.gtpT:P.gdpT,'center');c.globalAlpha=1}
+
+  /* Ionenkanal aus zwei Untereinheiten; o = Öffnung. Bindestellen: oben rund oder spitz (Transmitter),
+     unten rautenförmig (sekundärer Botenstoff), seitlich eine Kapsel (Beruhigungsmittel).
+     Die offene Pore zeigt oben den Spalt und unten das Zellinnere, die sie verbindet. */
+  function gapOf(q,o){return lerp(q.g0,q.g1,o)}
+  function sites(x,q,o){var g=gapOf(q,o);return [x-g/2-q.sw/2,x+g/2+q.sw/2]}
+  function chan(c,x,o,q){var g=gapOf(q,o),sw=q.sw,top=q.top,bot=q.bot,h=bot-top,gl=x-g/2,gr=x+g/2;
+    if(o>.01){c.globalAlpha=clamp(o*2,0,1);c.fillStyle=P.bg;c.fillRect(gl-.5,top+14,g+1,MID-top-14);c.fillStyle=P.cyto;c.fillRect(gl-.5,MID,g+1,bot-14-MID);c.globalAlpha=1}
+    if(o<.99){c.globalAlpha=1-o;rr(c,gl-3,MT-12,g+6,MB-MT+24,3);fs(c,P.prot3,null);c.globalAlpha=1}
+    for(var i=0;i<2;i++){var sx=i?gr:gl-sw,px=sx+sw/2;
+      rr(c,sx,top,sw,h,Math.min(30,sw*.38));fs(c,P.prot,P.protS,2.6);
+      if(q.pocket==='round'){disc(c,px,top,30,P.bg,null);c.beginPath();c.arc(px,top,30,0,Math.PI);c.lineWidth=2.6;c.strokeStyle=P.protS;c.stroke()}
+      else if(q.pocket==='v'){c.beginPath();c.moveTo(px-37,top-4);c.lineTo(px+37,top-4);c.lineTo(px,top+50);c.closePath();fs(c,P.bg,null);
+        c.beginPath();c.moveTo(px-34,top);c.lineTo(px,top+46);c.lineTo(px+34,top);c.lineWidth=2.6;c.strokeStyle=P.protS;c.stroke()}
+      if(q.inner){c.beginPath();c.moveTo(px-25,bot+4);c.lineTo(px,bot-27);c.lineTo(px+25,bot+4);c.closePath();fs(c,P.cyto,null);
+        c.beginPath();c.moveTo(px-23,bot);c.lineTo(px,bot-24);c.lineTo(px+23,bot);c.lineWidth=2.6;c.strokeStyle=P.protS;c.stroke()}
+      if(q.side&&i===1){var cx=sx+sw,cy=top+56;rr(c,cx-18,cy-39,36,78,18);fs(c,P.bg,null);
+        c.beginPath();c.moveTo(cx,cy-39);c.arc(cx,cy-21,18,-Math.PI/2,-Math.PI,true);c.lineTo(cx-18,cy+21);c.arc(cx,cy+21,18,Math.PI,Math.PI/2,true);c.lineWidth=2.6;c.strokeStyle=P.protS;c.stroke()}}}
+  function sideSite(x,q,o){var g=gapOf(q,o);return [x+g/2+q.sw,q.top+56]}
+
+  /* G-Protein-gekoppelter Rezeptor: sieben Helices quer durch die Membran, die Bindetasche ist ein Schacht oben in der Mitte.
+     a = aktiviert: die letzten zwei Helices rücken innen auseinander, dort koppelt das G-Protein an. */
+  var GT=[-78,-90,-82,-96,-86,-78,-72],GB=[74,84,80,90,82,92,76];
+  function gpcr(c,x,a){var X=[],T=[],B=[],i;
+    for(i=0;i<7;i++){X[i]=x+(i-3)*31+(i===5?11*a:i===6?17*a:0);T[i]=MT+GT[i];B[i]=MB+GB[i]}
+    c.lineWidth=3.2;c.strokeStyle=P.protS;c.lineCap='round';
+    /* die obere Schleife zwischen der dritten und vierten Helix läge im Schacht der Bindetasche und entfällt */
+    for(i=0;i<6;i++){if(i===2)continue;var x0=X[i],x1=X[i+1];c.beginPath();
+      if(i%2===0){var yt=Math.min(T[i],T[i+1]);c.moveTo(x0,T[i]+12);c.bezierCurveTo(x0,yt-38,x1,yt-38,x1,T[i+1]+12)}
+      else{var yb=Math.max(B[i],B[i+1]);c.moveTo(x0,B[i]-12);c.bezierCurveTo(x0,yb+36,x1,yb+36,x1,B[i+1]-12)}c.stroke()}
+    c.beginPath();c.moveTo(X[6],B[6]-12);c.bezierCurveTo(X[6]+8,B[6]+36,X[6]+46,B[6]+30,X[6]+68,B[6]+54);c.stroke();
+    for(i=0;i<7;i++){rr(c,X[i]-14,T[i],28,B[i]-T[i],14);fs(c,P.prot,P.protS,2.4)}
+    var py=MT-52;c.fillStyle=P.bg;c.fillRect(x-30,MT-140,60,py-MT+140);disc(c,x,py,30,P.bg,null);
+    c.beginPath();c.moveTo(x-30,T[2]+2);c.lineTo(x-30,py);c.arc(x,py,30,Math.PI,0,true);c.lineTo(x+30,T[4]+2);c.lineWidth=2.6;c.strokeStyle=P.protS;c.stroke()}
+  function gpPocket(x){return [x,MT-52]}
+
+  /* G-Protein aus drei Teilen: der größere Teil hält GDP (aus) oder GTP (ein), die zwei kleineren hängen zusammen.
+     Zwei Teile sind mit einem Lipidanker an der Membran befestigt. */
+  function gprot(c,A,B,nuc,nA){var Gm=[B[0]-38,B[1]-50];
+    c.strokeStyle=P.protS;c.lineWidth=2.6;c.lineCap='round';
+    c.beginPath();c.moveTo(A[0]-44,A[1]-44);c.quadraticCurveTo(A[0]-56,MB+14,A[0]-50,MB-2);c.stroke();
+    c.beginPath();c.moveTo(Gm[0]-8,Gm[1]-20);c.quadraticCurveTo(Gm[0]-12,MB+10,Gm[0]-6,MB-2);c.stroke();
+    ell(c,B[0],B[1],62,50,P.prot3,P.protS,2.6);
+    ell(c,Gm[0],Gm[1],34,23,P.prot3,P.protS,2.6);
+    ell(c,A[0],A[1],78,55,P.prot2,P.protS,2.6);
+    pill(c,A[0],A[1]+52,nuc,nA==null?1:nA)}
+
+  /* Enzym an der Innenseite der Membran, aktives Zentrum (Kerbe) nach rechts unten */
+  var EANG=.55;
+  function enzyme(c,x,y,e,now){
+    if(e>.01&&!INK){var g=c.createRadialGradient(x,y,36,x,y,150);g.addColorStop(0,rgba(AMBER,.42*e));g.addColorStop(1,rgba(AMBER,0));c.fillStyle=g;c.beginPath();c.arc(x,y,150,0,TAU);c.fill()}
+    rr(c,x-18,MT+4,36,y-MT-32,12);fs(c,P.prot,P.protS,2.4);
+    var m=e>.01&&!RM?.48+.3*Math.abs(Math.sin(now*5.2)):.44;
+    c.beginPath();c.moveTo(x,y);c.arc(x,y,76,EANG+m/2,EANG-m/2+TAU);c.closePath();fs(c,P.prot2,P.protS,2.6)}
+  function mouth(x,y){return [x+60*Math.cos(EANG),y+60*Math.sin(EANG)]}
+
+  /* Strichfassung: dicker Pfeil durch die Pore statt bewegter Ionen */
+  function arrowV(c,x,y0,y1){var d=y1>y0?1:-1;c.strokeStyle='#000';c.fillStyle='#000';c.lineWidth=4;c.lineCap='round';c.beginPath();c.moveTo(x,y0);c.lineTo(x,y1-d*30);c.stroke();
+    c.beginPath();c.moveTo(x-18,y1-d*34);c.lineTo(x,y1);c.lineTo(x+18,y1-d*34);c.closePath();c.fill()}
+  /* Ionen durch die offene Pore: von außen nach innen (Na⁺, Cl⁻) oder von innen nach außen (K⁺) */
+  function flowIons(c,F,x,q,f,now,k,rate,out){if(f<.01)return;
+    var E=[x,q.top+4],X=[x,q.bot-4];
+    F.forEach(function(fi){var u=frac(now*rate+fi.ph),p,S=out?fi.D:fi.S,D=out?fi.S:fi.D,A=out?X:E,Bq=out?E:X;
+      if(u<.36)p=mixp(S,A,sm(0,1,u/.36));else if(u<.62)p=mixp(A,Bq,(u-.36)/.26);else p=mixp(Bq,D,sm(0,1,(u-.62)/.38));
+      ion(c,k,p[0],p[1],f*sm(0,.1,u)*(1-sm(.84,1,u)))})}
+  function cloud(R,n,box,avoid,minD){var pts=[],tries=0;minD=minD||80;
+    while(pts.length<n&&tries<n*500){tries++;var p=[box[0]+R()*(box[2]-box[0]),box[1]+R()*(box[3]-box[1])],ok=true,i;
+      for(i=0;i<pts.length&&ok;i++)if(Math.hypot(pts[i].p[0]-p[0],pts[i].p[1]-p[1])<minD)ok=false;
+      for(i=0;avoid&&i<avoid.length&&ok;i++){var A=avoid[i];if(p[0]>A[0]&&p[0]<A[2]&&p[1]>A[1]&&p[1]<A[3])ok=false}
+      if(ok)pts.push({p:p,ph:R()*TAU})}
+    return pts}
+  function flowSet(R,n,x,q,spread,inner){var F=[];for(var i=0;i<n;i++)F.push({ph:i/n+(R()-.5)*.05,
+      S:[x+(R()-.5)*(spread||280),q.top-80-R()*(MT-q.top>90?40:90)],D:[x+(R()-.5)*(inner||spread||300)*1.1,q.bot+80+R()*(H-q.bot-150)]});return F}
+  /* Annäherung eines Liganden auf geschwungener Bahn */
+  function path(S,D,u,ph){var c1=[S[0]+(D[0]-S[0])*.15+60*Math.sin(ph),S[1]+140],c2=[D[0]+50*Math.cos(ph),D[1]-170],p=cub(S,c1,c2,D,u),w=4*u*(1-u);
+    return [p[0]+14*w*Math.sin(u*13+ph),p[1]+8*w*Math.cos(u*10+ph)]}
+  /* passt nicht: heran, kurz rütteln, abprallen */
+  function bounce(S,D,u,ph){var Hh=[D[0],D[1]-90];if(u<.55)return {p:path(S,Hh,sm(0,1,u/.55),ph),a:1};
+    if(u<.68){var s=(u-.55)/.13;return {p:[Hh[0]+9*Math.sin(s*TAU*3),Hh[1]-5*Math.sin(s*Math.PI)],a:1}}
+    var v=sm(.68,1,u),E=[Hh[0]+(Hh[0]>600?170:-170),Hh[1]-280];return {p:[lerp(Hh[0],E[0],v),lerp(Hh[1],E[1],v)-40*Math.sin(v*Math.PI)],a:1-sm(.82,1,u)}}
+
+  /* ---------- Was passt wohin ---------- */
+  var DEF={na:'ach',cl:'gaba',gk:'ach',gp:'ach'};
+  var FIT={na:{ach:'open',nic:'open',cur:'block',gaba:'bounce',bz:'bounce',gbz:'bounce'},
+    cl:{gaba:'open',gbz:'plus',bz:'mod',ach:'bounce',nic:'bounce',cur:'bounce'},
+    gk:{ach:'open',nic:'bounce',cur:'bounce',gaba:'bounce',bz:'bounce',gbz:'bounce'},
+    gp:{ach:'open',nic:'bounce',cur:'bounce',gaba:'bounce',bz:'bounce',gbz:'bounce'}};
+  var KIND={ach:'ach',nic:'nic',cur:'cur',gaba:'gaba',bz:'bz',gbz:'gaba'};
+  var NAME={ach:'Acetylcholin',nic:'Nikotin',cur:'Curare',gaba:'GABA',bz:'Beruhigungsmittel',gbz:'GABA'};
+  function mode(type,l){return (FIT[type]||{})[l||DEF[type]]||'bounce'}
+  var PH={na:2,cl:2,gk:3,gp:2},HOLD={na:1,cl:1,gk:2,gp:1};
+
+  /* ---------- Szenen: direkt geöffnete Kanäle (na, cl) ---------- */
+  var DQ={na:{sw:88,top:MT-100,bot:MB+104,g0:8,g1:56,pocket:'round'},cl:{sw:88,top:MT-100,bot:MB+104,g0:8,g1:56,pocket:'v',side:true}};
+  var DX=600,R=rng(41),AVO=[[400,90,800,330],[0,0,640,190],[900,0,1200,130],[930,160,1200,330]],AVI=[[400,440,840,850],[0,760,560,850],[640,470,1200,700]];
+  var DS={na:{out:cloud(R,13,[30,110,1170,280],AVO),inn:cloud(R,3,[60,520,1150,800],AVI),acc:cloud(R,4,[440,580,760,760],null,84)},
+    cl:{out:cloud(R,11,[30,110,1170,280],AVO,90),inn:cloud(R,3,[60,520,1150,800],AVI),acc:cloud(R,4,[440,580,760,760],null,88)}};
+  var DF={na:flowSet(R,7,DX,DQ.na),cl:flowSet(R,7,DX,DQ.cl),clp:flowSet(R,11,DX,DQ.cl)};
+  var LS=[[330,-60],[950,-60]];
+  function sceneDirect(c,type,t,now,o){
+    var q=DQ[type],l=o.lig||DEF[type],md=mode(type,l),k=KIND[l],ik=type==='na'?'na':'cl',S=DS[type];
+    var op=0,f=0;
+    if(md==='open'||md==='plus'){op=sm(.42,.58,t)-sm(1.14,1.38,t);f=sm(.5,.72,t)-sm(1.12,1.36,t)}
+    var e=(type==='na'?1:-1)*f*(md==='plus'?1.35:1),st=sites(DX,q,op);
+    bgFill(c);
+    glow(c,DX,e);membrane(c);charges(c,[[DX-q.g1/2-q.sw-34,DX+q.g1/2+q.sw+34]],e);
+    if(!o.print){
+      S.out.forEach(function(n){var p=jit(n.p,n.ph,now);ion(c,ik,p[0],p[1],1)});
+      S.inn.forEach(function(n){var p=jit(n.p,n.ph,now);ion(c,ik,p[0],p[1],1)});
+      S.acc.forEach(function(n,i){var p=jit(n.p,n.ph,now,1.8);ion(c,ik,p[0],p[1],sm(.62+.06*i,.9+.06*i,t)*(1-sm(1.5,1.9,t)))})}
+    chan(c,DX,op,q);
+    if(!o.print)flowIons(c,md==='plus'?DF.clp:DF[type],DX,q,f,now,ik,md==='plus'?.6:.42,false);
+    /* Liganden */
+    var tagTo=null,tagA=0,tagS=NAME[l],bz=null;
+    function leave(p,i,t0){var v=sm(t0+.04*i,t0+.42+.04*i,t);return {p:[p[0]+(i?150:-150)*v,p[1]-340*v],a:1-sm(.7,1,v)}}
+    if(md==='open'||md==='plus'||md==='block'){
+      var nm=md==='plus'?['gaba','gaba']:[k,k];
+      nm.forEach(function(kk,i){var a0=md==='plus'?.14:.04,u=sm(a0+.04*i,a0+.38+.04*i,t),D=[st[i],q.top+(kk==='gaba'?10:kk==='cur'?-8:0)],p=path(LS[i],D,u,i*2.1+.6),a=1,L;
+        if(md==='block'){if(t>1){L=leave(D,i,1.2);p=L.p;a=L.a}}else if(t>1){L=leave(D,i,1.02);p=L.p;a=L.a}
+        if(u<=0)a=0;lig(c,kk,p[0],p[1],a);if(i===0){tagTo=[p[0],p[1]];tagA=a*sm(.02,.12,u)}});
+      if(md==='block'&&!o.print){/* Acetylcholin kommt und findet die Tasche besetzt */
+        [0,1].forEach(function(i){var u=sm(.5+.04*i,.98+.04*i,t);if(u<=0||t>1.3)return;var b=bounce([i?1000:200,-60],[st[i],q.top-40],u,i+1.3);lig(c,'ach',b.p[0],b.p[1],b.a*(1-sm(1.05,1.3,t)))})}}
+    else if(md==='bounce'){var kinds=l==='gbz'?['gaba','bz']:[k];
+      kinds.forEach(function(kk,i){var u=sm(.04+.08*i,.9+.04*i,t),D=type==='cl'&&kk==='bz'?sideSite(DX,q,0):[st[i],q.top];if(u<=0||u>=1)return;
+        var b=bounce(LS[i],kk==='bz'?[D[0]+50,D[1]]:D,u,i+.8);lig(c,kk,b.p[0],b.p[1],b.a);if(i===0){tagTo=b.p;tagA=b.a*sm(0,.1,u);tagS=NAME[l==='gbz'?'gaba':l]}})}
+    if(type==='cl'&&(md==='mod'||md==='plus')){var u2=sm(.02,.34,t),Dz=sideSite(DX,q,op),Sz=[1270,150],pz=path(Sz,Dz,u2,2.4),az=u2>0?1:0;
+      if(t>1){var vz=sm(1.1,1.5,t);pz=[Dz[0]+220*vz,Dz[1]-210*vz];az=1-sm(1.3,1.5,t)}
+      lig(c,'bz',pz[0],pz[1],az);bz={p:pz,a:az*sm(0,.12,u2)}}
+    if(o.print){[[DX-200,150],[DX+200,132],[DX+110,82]].forEach(function(p){ion(c,ik,p[0],p[1],1)});[[DX-190,560],[DX+195,548]].forEach(function(p){ion(c,ik,p[0],p[1],1)});
+      arrowV(c,DX,q.top-34,q.bot+64);return}
+    if(o.labels!==false){cat(c,'AUSSEN · SPALT',24,46);cat(c,'INNEN · ZELLE',24,832);
+      tag(c,type==='na'?'Rezeptor-Natriumkanal':'Rezeptor-Chloridkanal',[1176,640],[DX+q.g0/2+q.sw-10,MB+56],1,'right',500);
+      tag(c,type==='na'?'Na⁺':'Cl⁻',[1176,92],nearest(S.out,[1100,100],now),1,'right');
+      if(md!=='mod')tag(c,tagS,[24,128],tagTo,tagA);
+      if(bz)tag(c,'Beruhigungsmittel',[1176,536],[bz.p[0]+12,bz.p[1]+30],bz.a,'right')}}
+
+  /* ---------- Szene: G-Protein mit Verstärkerkaskade (gk) ---------- */
+  var GK={gx:200,ex:590,ey:MB+94,ch:[766,936,1106],q:{sw:54,top:MT-82,bot:MB+88,g0:6,g1:40,inner:true}};
+  var GA0=[GK.gx-6,MB+88],GB0=[GK.gx+124,MB+100],GA1=[GK.ex-154,GK.ey];
+  var R2=rng(77);
+  var KS={out:cloud(R2,10,[680,110,1170,250],[[0,0,1200,130],[1080,0,1200,300]],78),inn:cloud(R2,2,[700,620,1160,760],null,90),acc:cloud(R2,5,[700,560,1170,720],null,78),
+    pre:cloud(R2,16,[690,580,1020,800],null,58),free:cloud(R2,10,[680,580,1170,760],null,72)};
+  var KF=GK.ch.map(function(x){return flowSet(R2,5,x,GK.q,150,170)});
+  function msgT(j){return 1.04+j*.032}
+  function sceneGK(c,t,now,o){
+    var l=o.lig||'ach',md=mode('gk',l),q=GK.q,gx=GK.gx,ex=GK.ex,ey=GK.ey,act=md==='open';
+    var a1=act?sm(.38,.5,t)-sm(2.45,2.7,t):0,en=act?sm(.95,1.05,t)-sm(2.25,2.45,t):0;
+    var opn=GK.ch.map(function(x,kq){return act?sm(1.32+.06*kq,1.5+.06*kq,t)-sm(2.3,2.55,t):0});
+    var fl=GK.ch.map(function(x,kq){return act?sm(1.4+.06*kq,1.65+.06*kq,t)-sm(2.28,2.5,t):0});
+    var fm=(fl[0]+fl[1]+fl[2])/3;
+    bgFill(c);
+    glow(c,936,fm);membrane(c);charges(c,[[gx-140,gx+140],[ex-50,ex+50],[GK.ch[0]-90,GK.ch[2]+90]],fm);
+    if(!o.print){
+      KS.out.forEach(function(n){var p=jit(n.p,n.ph,now);ion(c,'na',p[0],p[1],1)});
+      KS.inn.forEach(function(n){var p=jit(n.p,n.ph,now);ion(c,'na',p[0],p[1],1)});
+      KS.acc.forEach(function(n,i){var p=jit(n.p,n.ph,now,1.8);ion(c,'na',p[0],p[1],sm(1.62+.06*i,1.92+.06*i,t)*(1-sm(2.5,2.9,t)))})}
+    /* Ausgangsstoff wird im Enzym zum Botenstoff */
+    var M=mouth(ex,ey);
+    if(!o.print)KS.pre.forEach(function(n,j){var te=msgT(j),p=jit(n.p,n.ph,now,2),a=1;
+      if(act&&t>te-.06&&t<2.6){var u=sm(te-.06,te,t);p=mixp(p,M,u);a=1-sm(.85,1,u)}
+      if(act&&t>=2.6)a=sm(2.6+.02*j,2.9+.02*j,t);
+      dia(c,p[0],p[1],19,'pre',a)});
+    GK.ch.forEach(function(x,kq){chan(c,x,opn[kq],q)});
+    gpcr(c,gx,a1);
+    enzyme(c,ex,ey,en,now);
+    /* G-Protein: GDP raus, GTP rein, der große Teil wandert zum Enzym und wieder zurück */
+    var A=GA0,nuc='gdp',nA=1;
+    if(act){var mv=sm(.78,1,t)-sm(2.2,2.5,t);A=mixp(GA0,GA1,mv);
+      if(t>.62&&t<2.12)nuc='gtp';
+      if(t>=.48&&t<.62)nA=1-sm(.48,.56,t);else if(t>=.62&&t<.78)nA=sm(.7,.78,t)}
+    gprot(c,A,GB0,nuc,nA);
+    if(act&&!o.print){var pg=[GA0[0],GA0[1]+52];
+      if(t>.48&&t<.7){var ug=sm(.48,.66,t);pill(c,lerp(pg[0],340,ug),lerp(pg[1],700,ug),'gdp',1-sm(.5,1,ug))}
+      if(t>.56&&t<.78){var uG=sm(.56,.76,t);pill(c,lerp(330,pg[0],uG),lerp(930,pg[1],uG),'gtp',sm(0,.25,uG)*(1-sm(.92,1,uG)))}
+      if(t>2.06&&t<2.45){var up=sm(2.06,2.42,t),P0=[GA1[0]+40,GA1[1]+60];pill(c,lerp(P0[0],P0[0]-120,up),lerp(P0[1],P0[1]+170,up),'p',sm(0,.15,up)*(1-sm(.75,1,up)))}}
+    /* Botenstoffe */
+    var nMsg=0;
+    for(var j=0;j<16;j++){var te=msgT(j);if(!act||t<te)continue;nMsg++;
+      var tgt,bound=j<6;
+      if(bound){var kq=j>>1,sd=j%2,st=sites(GK.ch[kq],q,opn[kq]);tgt=[st[sd],q.bot-4]}else{if(o.print)continue;var fr=KS.free[j-6];tgt=jit(fr.p,fr.ph,now,3.4)}
+      var um=sm(te,te+.26,t),pm=cub(M,[M[0]+70,M[1]+70],[tgt[0]-20,tgt[1]+100],tgt,um),w=4*um*(1-um);
+      pm=[pm[0]+12*w*Math.sin(um*12+j),pm[1]+7*w*Math.cos(um*9+j)];
+      var dead=t>2.25,am=dead?1-sm(2.3+.01*j,2.62+.01*j,t):1;
+      if(dead&&bound)pm=[pm[0],pm[1]+60*sm(2.26,2.6,t)];
+      dia(c,pm[0],pm[1],19,dead?'dead':'msg',am*sm(te,te+.03,t))}
+    if(!o.print)GK.ch.forEach(function(x,kq){flowIons(c,KF[kq],x,q,fl[kq],now,'na',.36,false)});
+    /* Acetylcholin */
+    var Dk=gpPocket(gx),tagTo=null,tagA=0;
+    if(act){var u=sm(.04,.38,t),p=path([gx+100,-60],Dk,u,1.1),a=u>0?1:0;
+      if(t>2.4){var v=sm(2.4,2.75,t);p=[Dk[0]+70*v,Dk[1]-380*v];a=1-sm(2.55,2.75,t)}
+      lig(c,'ach',p[0],p[1],a);tagTo=p;tagA=a*sm(.04,.12,t)}
+    else{var kinds=l==='gbz'?['gaba','bz']:[KIND[l]];kinds.forEach(function(kk,i){var ub=sm(.04+.08*i,.9+.04*i,t);if(ub<=0||ub>=1)return;var b=bounce([gx+60+i*90,-60],Dk,ub,1.4+i);lig(c,kk,b.p[0],b.p[1],b.a);if(!i){tagTo=b.p;tagA=b.a*sm(0,.1,ub)}})}
+    if(o.print){[[GK.ch[0]-10,140],[GK.ch[1]+30,96],[GK.ch[2]-20,150]].forEach(function(p){ion(c,'na',p[0],p[1],1)});ion(c,'na',GK.ch[1]+70,640,1);
+      GK.ch.forEach(function(x){arrowV(c,x,q.top-30,q.bot+56)});return {msg:nMsg,ch:3}}
+    if(o.labels!==false){cat(c,'AUSSEN · SPALT',24,46);cat(c,'INNEN · ZELLE',24,832);
+      tag(c,'Rezeptor',[24,196],[gx-107,MT-30],1);
+      tag(c,'G-Protein',[24,790],[GA0[0]-78,GA0[1]+8],1);
+      tag(c,'Enzym',[520,790],[ex-20,ey+74],1,'left',500);
+      tag(c,'Natriumkanäle',[1176,60],[GK.ch[2]+58,q.top+34],1,'right',500);
+      tag(c,'Na⁺',[640,92],nearest(KS.out,[700,100],now),1,'right');
+      tag(c,NAME[l==='gbz'?'gaba':l],[360,140],tagTo,tagA);
+      if(nMsg>6){var fr0=KS.free[3];tag(c,'Botenstoffe',[1176,826],jit(fr0.p,fr0.ph,now,3.4),sm(1.3,1.45,t)*(1-sm(2.3,2.5,t)),'right')}}
+    return {msg:nMsg,ch:opn.filter(function(v){return v>.5}).length}}
+
+  /* ---------- Szene: G-Protein ohne Verstärkung, Kaliumkanal (gp) ---------- */
+  var GP={gx:280,kx:800,q:{sw:80,top:MT-92,bot:MB+122,g0:8,g1:50}};
+  var PA0=[GP.gx-6,MB+88],PB0=[GP.gx+124,MB+100],PB1=[GP.kx-GP.q.g1/2-GP.q.sw-62,MB+100];
+  var R3=rng(91);
+  var PS={inn:cloud(R3,12,[470,580,1170,800],[[600,500,1000,640],[880,740,1200,850]],86),out:cloud(R3,3,[640,140,1170,280],[[880,150,1200,250]],110),acc:cloud(R3,4,[620,110,1000,270],null,84)};
+  var PF=flowSet(R3,8,GP.kx,GP.q,260,320);
+  function sceneGP(c,t,now,o){
+    var l=o.lig||'ach',md=mode('gp',l),q=GP.q,gx=GP.gx,kx=GP.kx,act=md==='open';
+    var a1=act?sm(.38,.5,t)-sm(1.4,1.65,t):0,op=act?sm(.86,.97,t)-sm(1.3,1.5,t):0,f=act?sm(.9,1,t)-sm(1.28,1.45,t):0;
+    bgFill(c);
+    glow(c,kx,-f);membrane(c);charges(c,[[gx-140,gx+140],[kx-130,kx+130]],-f);
+    if(!o.print){
+      PS.out.forEach(function(n){var p=jit(n.p,n.ph,now);ion(c,'k',p[0],p[1],1)});
+      PS.inn.forEach(function(n){var p=jit(n.p,n.ph,now);ion(c,'k',p[0],p[1],1)});
+      PS.acc.forEach(function(n,i){var p=jit(n.p,n.ph,now,1.8);ion(c,'k',p[0],p[1],sm(.96+.05*i,1.1+.05*i,t)*(1-sm(1.5,1.9,t)))})}
+    chan(c,kx,op,q);
+    gpcr(c,gx,a1);
+    var A=PA0,B=PB0,nuc='gdp',nA=1;
+    if(act){var mv=sm(.7,.9,t)-sm(1.2,1.5,t);B=mixp(PB0,PB1,mv);A=mixp(PA0,[PA0[0]-8,PA0[1]+12],mv);
+      if(t>.62&&t<1.08)nuc='gtp';
+      if(t>=.46&&t<.6)nA=1-sm(.46,.54,t);else if(t>=.6&&t<.72)nA=sm(.64,.72,t)}
+    gprot(c,A,B,nuc,nA);
+    if(act&&!o.print){var pg=[PA0[0],PA0[1]+52];
+      if(t>.46&&t<.66){var ug=sm(.46,.64,t);pill(c,lerp(pg[0],420,ug),lerp(pg[1],700,ug),'gdp',1-sm(.5,1,ug))}
+      if(t>.52&&t<.72){var uG=sm(.52,.7,t);pill(c,lerp(410,pg[0],uG),lerp(930,pg[1],uG),'gtp',sm(0,.25,uG)*(1-sm(.92,1,uG)))}
+      if(t>1.02&&t<1.4){var up=sm(1.02,1.36,t),P0=[A[0]+40,A[1]+60];pill(c,lerp(P0[0],P0[0]+110,up),lerp(P0[1],P0[1]+160,up),'p',sm(0,.15,up)*(1-sm(.75,1,up)))}}
+    if(!o.print)flowIons(c,PF,kx,q,f,now,'k',.42,true);
+    var Dk=gpPocket(gx),tagTo=null,tagA=0;
+    if(act){var u=sm(.04,.38,t),p=path([gx+100,-60],Dk,u,2.2),a=u>0?1:0;
+      if(t>1.35){var v=sm(1.35,1.7,t);p=[Dk[0]+70*v,Dk[1]-380*v];a=1-sm(1.5,1.7,t)}
+      lig(c,'ach',p[0],p[1],a);tagTo=p;tagA=a*sm(.04,.12,t)}
+    else{var kinds=l==='gbz'?['gaba','bz']:[KIND[l]];kinds.forEach(function(kk,i){var ub=sm(.04+.08*i,.9+.04*i,t);if(ub<=0||ub>=1)return;var b=bounce([gx+60+i*90,-60],Dk,ub,1.9+i);lig(c,kk,b.p[0],b.p[1],b.a);if(!i){tagTo=b.p;tagA=b.a*sm(0,.1,ub)}})}
+    if(o.print){[[kx-170,660],[kx+170,620]].forEach(function(p){ion(c,'k',p[0],p[1],1)});[[kx+150,150],[kx-170,176]].forEach(function(p){ion(c,'k',p[0],p[1],1)});
+      arrowV(c,kx,q.bot+60,q.top-40);return}
+    if(o.labels!==false){cat(c,'AUSSEN · SPALT',24,46);cat(c,'INNEN · ZELLE',24,832);
+      tag(c,'Rezeptor',[24,196],[gx-107,MT-30],1);
+      tag(c,'G-Protein',[24,790],[PA0[0]-78,PA0[1]+8],1);
+      tag(c,'Kaliumkanal',[1176,226],[kx+q.g0/2+q.sw-10,q.top+30],1,'right',500);
+      tag(c,'K⁺',[1176,826],nearest(PS.inn,[1120,800],now),1,'right');
+      tag(c,NAME[l==='gbz'?'gaba':l],[440,140],tagTo,tagA)}}
+
+  /* ---------- Spannung innen (mV), Ruhe −70 ---------- */
+  function volt(type,t,l){var md=mode(type,l);if(md!=='open'&&md!=='plus')return -70;
+    if(type==='na')return -70+8*(sm(.5,.72,t)-sm(1.12,1.36,t));
+    if(type==='cl')return -70-(md==='plus'?10:6)*(sm(.5,.72,t)-sm(1.12,1.36,t));
+    if(type==='gk'){var f=0;for(var k=0;k<3;k++)f+=sm(1.4+.06*k,1.65+.06*k,t)-sm(2.28,2.5,t);return -70+7*f/3}
+    return -70-8*(sm(.9,1,t)-sm(1.28,1.45,t))}
+  var LAG={na:3.5,cl:3.5,gk:1.1,gp:1.4};
+
+  /* ---------- Leinwand ---------- */
+  function make(canvas,cfg){cfg=cfg||{};
+    var ctx=canvas.getContext('2d'),dpr=1,ink=!!cfg.ink;if(cfg.font)FONT=cfg.font;
+    if(ink){var LWd=Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype,'lineWidth');
+      Object.defineProperty(ctx,'lineWidth',{configurable:true,get:function(){return LWd.get.call(this)/1.6},set:function(v){LWd.set.call(this,v*1.6)}})}
+    function css(){return [canvas.clientWidth||300,canvas.clientHeight||212]}
+    function resize(){var s=css();dpr=Math.min(window.devicePixelRatio||1,cfg.maxDpr||2);canvas.width=Math.round(s[0]*dpr);canvas.height=Math.round(s[1]*dpr)}
+    function draw(type,t,now,o){o=o||{};P=ink?PK:PC;INK=ink;
+      var s=css(),port=o.port||{x:0,y:0,w:s[0],h:s[1]},view=o.view||{x:0,y:0,w:W,h:H},sc=Math.min(port.w/view.w,port.h/view.h),
+        ox=port.x+(port.w-view.w*sc)/2,oy=port.y+(port.h-view.h*sc)/2,c=ctx,info=null;
+      if(!o.keep){c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,canvas.width,canvas.height)}
+      c.save();c.setTransform(dpr,0,0,dpr,0,0);c.beginPath();c.rect(port.x,port.y,port.w,port.h);c.clip();
+      c.setTransform(dpr*sc,0,0,dpr*sc,dpr*(ox-view.x*sc),dpr*(oy-view.y*sc));
+      if(type==='na'||type==='cl')sceneDirect(c,type,t,now,o);else if(type==='gk')info=sceneGK(c,t,now,o);else sceneGP(c,t,now,o);
+      if(o.after)o.after(c,{ion:ion,lig:lig,dia:dia,pill:pill,disc:disc,sign:sign,text:text,P:P,MT:MT,MB:MB,DX:DX,DQ:DQ,GK:GK,GP:GP,sites:sites,mouth:mouth,gpPocket:gpPocket});
+      c.restore();
+      if(o.num||o.frame){c.save();c.setTransform(dpr,0,0,dpr,0,0);
+        if(o.frame){c.lineWidth=1.2;c.strokeStyle='#000';c.strokeRect(port.x+.5,port.y+.5,port.w-1,port.h-1)}
+        if(o.num){var r=Math.max(10,(o.numR||s[0]*.019)),nx=port.x+r*1.5,ny=port.y+r*1.5;c.beginPath();c.arc(nx,ny,r,0,TAU);c.fillStyle='#000';c.fill();
+          c.font='700 '+Math.round(r*1.3)+'px '+FONT;c.fillStyle='#fff';c.textAlign='center';c.textBaseline='middle';c.fillText(String(o.num),nx,ny+r*.06)}
+        c.restore()}
+      P=PC;INK=false;return info}
+    return {resize:resize,draw:draw,css:css}}
+
+  /* Heftskizze: die vier Rezeptoren als Strichfassung im Raster 2 x 2, nur mit Nummern */
+  var SKV={na:{x:320,y:46,w:560,h:560},cl:{x:320,y:46,w:560,h:560},gk:{x:46,y:66,w:1150,h:620},gp:{x:150,y:100,w:880,h:620}},SKT={na:1,cl:1,gk:2,gp:1};
+  function sketch(canvas,cfg){cfg=cfg||{};var E=make(canvas,{ink:true,font:cfg.font,maxDpr:cfg.maxDpr});
+    /* oben 1 und 2 nebeneinander, unten die breite 3 und die 4 */
+    function draw(){E.resize();var s=E.css(),w=s[0],h=s[1],gap=Math.round(w*.022),h1=Math.round((h-gap)*.47),h2=h-gap-h1,w3=Math.round((w-gap)*.585),cw=(w-gap)/2;
+      var PORT=[{x:0,y:0,w:cw,h:h1},{x:cw+gap,y:0,w:cw,h:h1},{x:0,y:h1+gap,w:w3,h:h2},{x:w3+gap,y:h1+gap,w:w-gap-w3,h:h2}];
+      ['na','cl','gk','gp'].forEach(function(ty,i){var port=PORT[i];
+        E.draw(ty,SKT[ty],1.3,{print:true,labels:false,view:SKV[ty],port:port,keep:i>0,num:i+1,frame:cfg.frame!==false})})}
+    return {draw:draw}}
+
+  /* ---------- Messgerät: Spannung in der Zelle, Ruhe −70 mV, Schwelle −55 mV ---------- */
+  function scope(cv,cfg){cfg=cfg||{};
+    var c=cv.getContext('2d'),w=0,h=0,dpr=1,buf=[],t=0,v=-70,SPAN=cfg.span||9;
+    function resize(){dpr=Math.min(window.devicePixelRatio||1,2);w=cv.clientWidth||300;h=cv.clientHeight||120;cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);draw()}
+    function reset(v0){buf=[];v=v0==null?-70:v0;draw()}
+    function step(dt,target,k){t+=dt;v+=(target-v)*Math.min(1,dt*(k||2));buf.push([t,v]);while(buf.length&&t-buf[0][0]>SPAN+.5)buf.shift();draw();return v}
+    function draw(){if(!w)return;var fz=cfg.fs?cfg.fs(w,h):Math.max(12,Math.min(18,w*.04));c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+      var L=fz*3.1,Rr=w-fz*.5,top=fz*.6,bot=h-fz*.6;function Y(x){return top+(-48-x)/38*(bot-top)}
+      c.font='500 '+fz+'px '+FONT;c.textBaseline='middle';
+      [[-55,'−55',AMBER_D,[9,6],2.2],[-70,'−70','#9AA6AB',[5,6],1.6],[-80,'−80','#E1E7EA',[],1.2]].forEach(function(g){var y=Y(g[0]);c.strokeStyle=g[2];c.lineWidth=g[4];c.setLineDash(g[3]);c.beginPath();c.moveTo(L,y);c.lineTo(Rr,y);c.stroke();c.setLineDash([]);
+        c.textAlign='right';c.fillStyle=SUB;c.fillText(g[1],L-fz*.35,y)});
+      c.textAlign='left';c.fillStyle=AMBER_D;c.font='600 '+fz+'px '+FONT;c.fillText('Schwelle',L+fz*.4,Y(-55)-fz*.72);
+      c.fillStyle=SUB;c.font='500 '+fz+'px '+FONT;c.fillText('Ruhe',L+fz*.4,Y(-70)-fz*.72);
+      c.save();c.beginPath();c.rect(L,0,Rr-L,h);c.clip();c.lineJoin='round';c.lineCap='round';
+      var pw=Rr-L;function X(tt){return Rr-(t-tt)/SPAN*pw}
+      for(var i=1;i<buf.length;i++){var a=buf[i-1],b=buf[i],mid=(a[1]+b[1])/2;c.strokeStyle=mid>-69.6?TEAL:mid<-70.4?BLUE:'#5B676D';c.lineWidth=fz*.24;c.beginPath();c.moveTo(X(a[0]),Y(a[1]));c.lineTo(X(b[0]),Y(b[1]));c.stroke()}
+      c.fillStyle=v>-69.6?TEAL:v<-70.4?BLUE:'#5B676D';c.beginPath();c.arc(Rr-1,Y(v),fz*.32,0,TAU);c.fill();c.restore()}
+    return {resize:resize,reset:reset,step:step,value:function(){return v}}}
+
+  return {make:make,sketch:sketch,scope:scope,volt:volt,mode:mode,LAG:LAG,PH:PH,HOLD:HOLD,NAME:NAME,W:W,H:H,sm:sm,RM:RM}
+})();
+
+/* ===== Schülerfassung: vier Rezeptoren zum Durchscrollen, Rezeptor-Labor, Aufgaben, Selbsttest ===== */
+(function(){
+'use strict';
+function $(id){return document.getElementById(id)}
+var RM=FIG.RM,sm=REZ.sm;
+function clamp(x,a,b){return x<a?a:x>b?b:x}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+var FONT=(getComputedStyle(document.documentElement).getPropertyValue('--body')||'').trim()||'Figtree, sans-serif';
+function wide(){return window.innerWidth>=960}
+function seen(node,cb,th){if(!node)return;if(!('IntersectionObserver' in window)){cb(true);return}
+  new IntersectionObserver(function(es){es.forEach(function(e){cb(e.isIntersecting)})},{threshold:th||0}).observe(node)}
+function mv(v){return (v<-.5?'−':'')+Math.abs(Math.round(v))+' mV'}
+function stat(e,v){if(!e)return;var t=mv(v),c=v>-69.5?'st ex':v<-70.5?'st in':'st';if(e.textContent!==t)e.textContent=t;if(e.className!==c)e.className=c}
+function scopeFs(w){return clamp(w*.03,11,15)}
+var NAMES={na:'Rezeptor-Natriumkanal',cl:'Rezeptor-Chloridkanal',gk:'G-Protein mit Verstärkung',gp:'G-Protein ohne Verstärkung'},NUM={na:1,cl:2,gk:3,gp:4};
+/* kurze Namen für die schmale Leiste am Handy */
+var SHORTN={na:'Natriumkanal',cl:'Chloridkanal',gk:'G-Protein mit Enzym',gp:'G-Protein, K⁺-Kanal'};
+function barName(t){return NUM[t]+' · '+(window.innerWidth>=600?NAMES[t]:SHORTN[t])}
+var RESIZE=[],SPEED=.3;
+
+/* ---------- Kopf ---------- */
+var net=FIG.net($('net'),{density:14000});
+seen($('top'),function(v){if(v)net.start();else net.stop()});
+
+/* ---------- Inhaltsleiste und Fortschritt ---------- */
+var tocA=[].slice.call(document.querySelectorAll('.toc a')),secs=tocA.map(function(a){return $(a.getAttribute('href').slice(1))}),tocOn=-1;
+function tocUpd(){var y=window.innerHeight*.35,k=-1;secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<y)k=i});
+  if(k!==tocOn){tocOn=k;tocA.forEach(function(a,i){a.classList.toggle('on',i===k)});if(k>=0){var a=tocA[k],bar=$('toc');
+    var l=a.offsetLeft-bar.clientWidth/2+a.clientWidth/2;try{bar.scrollTo({left:l,behavior:RM?'auto':'smooth'})}catch(e){bar.scrollLeft=l}}}
+  var max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);$('progress').style.width=(clamp(window.pageYOffset/max,0,1)*100).toFixed(2)+'%'}
+
+/* ---------- Rätsel: Acetylcholin am Skelettmuskel und am Herz ---------- */
+var MU=FIG.muscle($('muSvg'),{id:'a'}),HE=FIG.heart($('heSvg')),heT=0,heFirst=true;MU.set(true);
+function heGo(){HE.reset();clearTimeout(heT);heT=setTimeout(function(){HE.set(true)},RM?0:1400)}
+seen($('raetsel'),function(v){if(v){MU.start();HE.start()}else{MU.stop();HE.stop()}});
+seen($('heSvg'),function(v){if(v&&heFirst){heFirst=false;heGo()}},.6);
+$('heReplay').addEventListener('click',heGo);
+
+/* ---------- Botenstoffe: Stickstoff kurz hervorheben ---------- */
+var MOLS=[].slice.call(document.querySelectorAll('#botenstoffe svg[data-mol]')).map(function(s){return FIG.mol(s,s.dataset.mol)}),molT=-1,molDone=false;
+seen(document.querySelector('#botenstoffe .gal'),function(v){if(v&&!molDone){molDone=true;if(!RM)molT=0}},.35);
+
+/* ---------- EPSP und IPSP ---------- */
+var PE=FIG.psp($('pspE'),'e'),PI=FIG.psp($('pspH'),'h'),psT=-1,psDone=false;if(!RM){PE.set(0);PI.set(0)}
+seen(document.querySelector('#wirkung .duo'),function(v){if(v&&!psDone){psDone=true;if(!RM)psT=0}},.35);
+
+/* ---------- Scrollytelling: vier Rezeptoren mit Messgerät ---------- */
+var CTL={};
+var RZ={cv:$('rzCv'),tau:0,tgt:0,type:'na',k:-1};
+RZ.E=REZ.make(RZ.cv,{font:FONT});RZ.S=REZ.scope($('rzSc'),{fs:scopeFs});
+RESIZE.push(function(){RZ.E.resize();RZ.S.resize()});
+CTL.rz={show:function(){RZ.E.resize();RZ.S.resize()},
+  stop:function(k,card){var ty=card.dataset.type,tg=+card.dataset.t;
+    if(ty!==RZ.type){RZ.type=ty;RZ.tau=0;RZ.S.reset()}
+    if(tg<RZ.tau-1e-3)RZ.tau=tg;else if(tg-RZ.tau>1)RZ.tau=tg-1;
+    RZ.tgt=tg;RZ.k=k;if(RM)RZ.tau=tg;
+    $('rzName').textContent=k===0?'So liest du die Bilder':barName(ty);
+    $('rzReplay').hidden=tg<1},
+  frame:function(now,dt){if(RZ.tau<RZ.tgt)RZ.tau=Math.min(RZ.tgt,RZ.tau+dt*SPEED);
+    RZ.E.draw(RZ.type,RZ.tau,now/1000,{});
+    stat($('rzSt'),RZ.S.step(dt,REZ.volt(RZ.type,RZ.tau),REZ.LAG[RZ.type]))}};
+$('rzReplay').addEventListener('click',function(){RZ.tau=RZ.tgt<=1?0:Math.ceil(RZ.tgt-1e-3)-1;if(RZ.tau===0)RZ.S.reset()});
+RZ.cv.addEventListener('click',function(){if(RZ.tgt>=1)$('rzReplay').click()});
+
+var BLOCKS=[].slice.call(document.querySelectorAll('.scrolly')).map(function(e){return {el:e,id:e.dataset.scrolly,cards:[].slice.call(e.querySelectorAll('.card')),k:-1,vis:false}});
+function blocksUpd(){var vh=window.innerHeight,L=vh*(wide()?.56:.72);
+  BLOCKS.forEach(function(B){var r=B.el.getBoundingClientRect(),vis=r.bottom>0&&r.top<vh,c=CTL[B.id];
+    if(vis!==B.vis){B.vis=vis;if(c){if(vis&&c.show)c.show();if(!vis&&c.hide)c.hide()}}
+    if(!vis&&B.k>=0)return;
+    var k=0;B.cards.forEach(function(x,i){if(x.getBoundingClientRect().top<L)k=i});
+    if(k!==B.k){B.k=k;B.cards.forEach(function(x,i){x.classList.toggle('on',i===k)});if(c&&c.stop)c.stop(k,B.cards[k])}})}
+
+/* ---------- kleine Membranausschnitte, immer im aktiven Zustand ---------- */
+var MV={na:{x:220,y:70,w:760,h:633},cl:{x:220,y:70,w:760,h:633},gk:{x:0,y:0,w:1200,h:850},gp:{x:120,y:60,w:960,h:800}};
+var MV2={na:{x:200,y:60,w:800,h:567},gp:{x:110,y:70,w:1000,h:708}};
+var MINIS=[].slice.call(document.querySelectorAll('canvas.mini')).map(function(cv){
+  var m={type:cv.dataset.type,lig:cv.dataset.lig||undefined,view:(cv.closest('.solc')?MV2:MV)[cv.dataset.type],vis:false,E:REZ.make(cv,{font:FONT,maxDpr:1.5})};
+  m.E.resize();RESIZE.push(function(){m.E.resize()});seen(cv,function(v){m.vis=v;if(v)m.E.resize()});return m});
+function minisFrame(now){MINIS.forEach(function(m){if(m.vis)m.E.draw(m.type,REZ.HOLD[m.type],now/1000,{lig:m.lig,labels:false,view:m.view})})}
+
+/* ---------- Rätsel gelöst ---------- */
+var MU2=FIG.muscle($('muSvg2'),{id:'b',small:true}),HE2=FIG.heart($('heSvg2'),{small:true}),he2First=true;MU2.set(true);
+seen($('loesung'),function(v){if(v){MU2.start();HE2.start()}else{MU2.stop();HE2.stop()}});
+seen($('heSvg2'),function(v){if(v&&he2First){he2First=false;HE2.reset();HE2.set(true)}},.6);
+
+/* ---------- Aufgabe 1: Rezeptor-Labor ---------- */
+var NO='<b>Passt nicht.</b> ';
+var RES={
+  na:{ach:'<b>Passt.</b> Acetylcholin öffnet den Kanal, Na⁺ strömt ein. Die Spannung steigt: <b>erregend</b>, ein EPSP.',
+    nic:'<b>Passt.</b> Nikotin öffnet den Kanal genauso wie Acetylcholin, Na⁺ strömt ein: <b>erregend</b>. Nikotin ist hier ein <b>Agonist</b>.',
+    cur:'<b>Blockiert.</b> Curare besetzt die Bindestellen, öffnet den Kanal aber nicht. Acetylcholin kommt nicht mehr hinein: Curare ist ein <b>Antagonist</b>.',
+    gaba:NO+'GABA hat die falsche Form für diese Bindestellen und prallt ab. Der Kanal bleibt zu.',
+    bz:NO+'Dieser Kanal hat keine Bindestelle für das Beruhigungsmittel. Er bleibt zu.',
+    gbz:NO+'Weder GABA noch das Beruhigungsmittel binden hier. Der Kanal bleibt zu.'},
+  cl:{gaba:'<b>Passt.</b> GABA öffnet den Kanal, Cl⁻ strömt ein. Die Spannung sinkt: <b>hemmend</b>, ein IPSP.',
+    gbz:'<b>Verstärkt.</b> Das Beruhigungsmittel sitzt an seiner eigenen Stelle, GABA öffnet den Kanal. Jetzt strömt mehr Cl⁻ ein als mit GABA allein: <b>stärker hemmend</b>.',
+    bz:'<b>Bindet, öffnet aber nicht.</b> Das Beruhigungsmittel setzt sich an seine eigene Stelle, der Kanal bleibt trotzdem zu. Es wirkt nur zusammen mit GABA.',
+    ach:NO+'Acetylcholin hat die falsche Form für diese Bindestellen und prallt ab.',
+    nic:NO+'Nikotin passt nur in den Rezeptor-Natriumkanal.',
+    cur:NO+'Curare findet hier keine passende Bindestelle.'},
+  gk:{ach:'<b>Passt.</b> Das G-Protein tauscht GDP gegen GTP und schaltet das Enzym ein. Es baut viele Botenstoffe, die drei Na⁺-Kanäle öffnen: <b>erregend</b> und <b>verstärkt</b>.'},
+  gp:{ach:'<b>Passt.</b> Das G-Protein tauscht GDP gegen GTP, sein kleinerer Teil öffnet den Kaliumkanal. K⁺ strömt aus, die Spannung sinkt: <b>hemmend</b>, ohne Verstärkung.'}};
+['gk','gp'].forEach(function(t){
+  RES[t].nic=NO+'Nikotin passt nur in den Rezeptor-Natriumkanal, obwohl Acetylcholin auch hier bindet.';
+  RES[t].cur=NO+'Curare findet hier keine passende Bindestelle.';
+  RES[t].gaba=NO+'Dieser Rezeptor erkennt Acetylcholin, GABA prallt ab.';
+  RES[t].bz=NO+'Das Beruhigungsmittel findet hier keine Bindestelle.';
+  RES[t].gbz=NO+'Weder GABA noch das Beruhigungsmittel binden hier.'});
+var SHORT={open:['öffnet','y'],plus:['verstärkt','y'],block:['blockiert','n'],mod:['öffnet allein nicht','n'],bounce:['passt nicht','n']};
+/* kleine Symbole wie in der Abbildung */
+var ICON={ach:'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="12" fill="#E8B33C" stroke="#A87A12" stroke-width="2.4"/></svg>',
+  gaba:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 11h28L20 34z" fill="#E8B33C" stroke="#A87A12" stroke-width="2.4" stroke-linejoin="round"/></svg>',
+  nic:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M23 18l5-7" stroke="#6B757C" stroke-width="2.4" stroke-linecap="round"/><rect x="25" y="2" width="12" height="12" rx="3" fill="#C9D0D4" stroke="#6B757C" stroke-width="2.2"/><circle cx="17" cy="25" r="11" fill="#C9D0D4" stroke="#6B757C" stroke-width="2.4"/></svg>',
+  cur:'<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5l13 7.5v15L20 35 7 27.5v-15z" fill="#E4AA9E" stroke="#9C3F2C" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="20" r="4" fill="none" stroke="#9C3F2C" stroke-width="2"/></svg>',
+  bz:'<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="4" width="14" height="32" rx="7" fill="#fff"/><path d="M13 20h14v9a7 7 0 0 1-14 0z" fill="#A9AFB3"/><rect x="13" y="4" width="14" height="32" rx="7" fill="none" stroke="#4E585E" stroke-width="2.4"/><path d="M13 20h14" stroke="#4E585E" stroke-width="2"/></svg>'};
+var LAB={cv:$('labCv'),type:'na',lig:null,md:null,plan:null,tau:0,tgt:0,holdT:0,held:false,shown:true,vis:false,done:{}};
+LAB.E=REZ.make(LAB.cv,{font:FONT});LAB.S=REZ.scope($('labSc'),{fs:scopeFs});
+RESIZE.push(function(){LAB.E.resize();LAB.S.resize()});
+seen($('labor'),function(v){LAB.vis=v;if(v){LAB.E.resize();LAB.S.resize()}});
+var recBtns=[].slice.call(document.querySelectorAll('#labRec button')),ligBtns=[].slice.call(document.querySelectorAll('#labLig button'));
+ligBtns.forEach(function(b){var ks=[].slice.call(b.querySelectorAll('i.lk')).map(function(i){return i.classList.contains('bz')?'bz':i.classList.contains('nic')?'nic':i.classList.contains('cur')?'cur':i.classList.contains('gaba')?'gaba':'ach'}),
+  label=b.textContent.trim();b.innerHTML='<span class="ic">'+ks.map(function(k){return ICON[k]}).join('')+'</span><span class="tx"><span>'+label+'</span><small></small></span>';b.setAttribute('aria-pressed','false')});
+function plan(md,type){if(md==='open'||md==='plus')return {tgt:REZ.PH[type],hold:REZ.HOLD[type],reveal:REZ.HOLD[type]};
+  return {tgt:1,hold:0,reveal:md==='block'?.95:md==='mod'?.6:.9}}
+function badges(){ligBtns.forEach(function(b){var md=LAB.done[LAB.type+':'+b.dataset.lig],s=b.querySelector('small');
+  if(md){s.textContent=SHORT[md][0];s.className=SHORT[md][1]}else{s.textContent='';s.className=''}});
+  var n=Object.keys(LAB.done).length;$('labCount').textContent=n>=24?'Alle 24 Kombinationen getestet. Stark!':'Getestet: '+n+' von 24 Kombinationen'}
+function labRec(type){LAB.type=type;LAB.lig=null;LAB.md=null;LAB.tau=0;LAB.tgt=0;LAB.shown=true;LAB.S.reset();
+  recBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.type===type))});
+  ligBtns.forEach(function(b){b.setAttribute('aria-pressed','false')});
+  $('labName').textContent=barName(type);$('labOut').innerHTML='Wähle einen Stoff.';badges()}
+function labLig(lig){var md=REZ.mode(LAB.type,lig);LAB.lig=lig;LAB.md=md;LAB.plan=plan(md,LAB.type);
+  LAB.tau=0;LAB.holdT=0;LAB.held=false;LAB.shown=false;LAB.tgt=LAB.plan.hold||LAB.plan.tgt;LAB.S.reset();
+  if(RM)LAB.tau=LAB.tgt;
+  ligBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lig===lig))});
+  $('labOut').innerHTML='<span class="wait">Beobachte die Abbildung und das Messgerät …</span>'}
+recBtns.forEach(function(b){b.addEventListener('click',function(){labRec(b.dataset.type)})});
+ligBtns.forEach(function(b){b.addEventListener('click',function(){labLig(b.dataset.lig)})});
+function labFrame(now,dt){
+  if(LAB.lig){
+    if(LAB.tau<LAB.tgt)LAB.tau=Math.min(LAB.tgt,LAB.tau+dt*SPEED);
+    else if(LAB.plan.hold&&!LAB.held&&!RM){LAB.holdT+=dt;if(LAB.holdT>2.6){LAB.held=true;LAB.tgt=LAB.plan.tgt}}
+    if(!LAB.shown&&LAB.tau>=LAB.plan.reveal-1e-3){LAB.shown=true;$('labOut').innerHTML=RES[LAB.type][LAB.lig];LAB.done[LAB.type+':'+LAB.lig]=LAB.md;badges()}}
+  LAB.E.draw(LAB.type,LAB.tau,now/1000,{lig:LAB.lig||undefined});
+  stat($('labSt'),LAB.S.step(dt,LAB.lig?REZ.volt(LAB.type,LAB.tau,LAB.lig):-70,REZ.LAG[LAB.type]))}
+labRec('na');
+
+/* ---------- Hefteintrag: Skizze als Strichfassung ---------- */
+var SK=REZ.sketch($('skzCv'),{font:FONT});SK.draw();RESIZE.push(function(){SK.draw()});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){SK.draw()});
+
+/* ---------- Fragen mit sofortiger Rückmeldung ---------- */
+function makeQuiz(box,scoreEl,ITEMS){var res=ITEMS.map(function(){return null});
+  ITEMS.forEach(function(Q,i){var d=el('div','q'),h=el('h3',null,Q[0]),op=el('div','opts'),why=el('p','why');why.hidden=true;d.appendChild(h);d.appendChild(op);d.appendChild(why);
+    Q[1].forEach(function(t,j){var b=el('button',null,t);b.type='button';b.addEventListener('click',function(){if(res[i]!=null)return;res[i]=j===Q[2];
+      [].slice.call(op.children).forEach(function(x,m){x.disabled=true;if(m===Q[2])x.classList.add('ok');else if(m===j)x.classList.add('no')});
+      why.hidden=false;why.innerHTML='<b>'+(j===Q[2]?'Richtig. ':'Leider nicht. ')+'</b>'+Q[3];sc()});op.appendChild(b)});
+    box.appendChild(d)});
+  function sc(){var n=res.filter(function(r){return r!=null}).length,ok=res.filter(function(r){return r}).length;
+    scoreEl.textContent=n<ITEMS.length?ok+' von '+n+' richtig':'Geschafft: '+ok+' von '+ITEMS.length+' richtig.'+(ok===ITEMS.length?' Stark!':' Schau dir die Erklärungen noch einmal an.')}}
+
+makeQuiz($('labQuiz'),$('labScore'),[
+  ['Welche Stoffe öffnen den Rezeptor-Natriumkanal?',['nur Acetylcholin','Acetylcholin und Nikotin','Acetylcholin und Curare'],1,'Nikotin passt in dieselbe Bindestelle wie Acetylcholin und öffnet den Kanal: ein Agonist. Curare setzt sich zwar hinein, öffnet aber nicht.'],
+  ['Was macht Curare am Rezeptor-Natriumkanal?',['Es öffnet den Kanal besonders weit.','Es besetzt die Bindestellen, ohne den Kanal zu öffnen. Acetylcholin kommt nicht mehr hinein.','Es baut Acetylcholin im Spalt ab.'],1,'Curare ist ein Antagonist. Sind die Rezeptoren am Muskel blockiert, kann er sich nicht mehr zusammenziehen.'],
+  ['Teste das Beruhigungsmittel allein am Chloridkanal. Was passiert?',['Der Kanal öffnet sich weit.','Es bindet an seine eigene Stelle, aber der Kanal bleibt zu.','Es prallt ab, weil es nicht passt.'],1,'Es braucht GABA. Erst zusammen strömt mehr Chlorid ein als mit GABA allein.'],
+  ['Vergleiche am Chloridkanal GABA allein mit GABA und Beruhigungsmittel. Was zeigt das Messgerät?',['Mit Beruhigungsmittel sinkt die Spannung tiefer.','Beide Male sinkt die Spannung gleich weit.','Mit Beruhigungsmittel steigt die Spannung.'],0,'Es strömen mehr Chloridionen ein, die Zelle wird stärker gehemmt.'],
+  ['Was passiert mit Nikotin an Rezeptor 3 und 4?',['Es öffnet die Kanäle wie Acetylcholin.','Es blockiert die Rezeptoren.','Es passt nicht, nichts passiert.'],2,'Acetylcholin passt in zwei verschiedene Bauarten von Rezeptoren, Nikotin nur in eine: den Rezeptor-Natriumkanal. Deshalb heißt er auch nikotinisch. Die Rezeptoren mit G-Protein heißen muskarinisch, nach dem Muscarin aus dem Fliegenpilz, das nur sie aktiviert.'],
+  ['Bei welchem Rezeptor öffnet ein einziges Acetylcholin die meisten Kanäle?',['Rezeptor 1','Rezeptor 3','Rezeptor 4'],1,'Das Enzym baut viele Botenstoffe, jeder kann einen Kanal öffnen. Das ist die Verstärkerkaskade.']]);
+
+makeQuiz($('sleepQuiz'),$('sleepScore'),[
+  ['Ein Beruhigungsmittel verstärkt GABA. Was folgt für die Nervenzellen im Gehirn?',['Sie werden stärker erregt.','Sie werden stärker gehemmt, man wird ruhig und schläfrig.','Nichts, GABA wirkt nur am Muskel.'],1,'Mehr Chlorid strömt ein, die Zellen sind schwerer zu erregen. Signale werden schwächer weitergeleitet.'],
+  ['Warum wird man bei einer Narkose bewusstlos?',['Das Narkosemittel erregt die Schmerzrezeptoren.','Es verstärkt die Hemmung durch GABA so stark, dass das Gehirn kaum noch Signale weiterleitet.','Es blockiert die Muskeln, damit man stillhält.'],1,'Narkosemittel verstärken die Wirkung von GABA. Bei Operationen bekommt man oft zusätzlich ein Mittel, das wie Curare die Muskeln entspannt.'],
+  ['Nikotin erregt im Gehirn Nervenzellen, die Dopamin ausschütten. Was ist Nikotin dabei?',['ein Antagonist am Rezeptor-Chloridkanal','ein Agonist am Rezeptor-Natriumkanal','ein Enzym, das Dopamin bildet'],1,'Nikotin öffnet wie Acetylcholin den Rezeptor-Natriumkanal und erregt die Zelle.']]);
+
+makeQuiz($('quiz'),$('score'),[
+  ['Was entscheidet, ob Acetylcholin erregt oder hemmt?',['die Menge an Acetylcholin','der Rezeptor, an den es bindet','die Länge des Axons'],1,'Derselbe Schlüssel passt in verschiedene Schlösser. Am Skelettmuskel sitzt Rezeptor 1, am Herz Rezeptor 4.'],
+  ['Was passiert am Rezeptor-Chloridkanal, wenn GABA bindet?',['Na⁺ strömt in die Zelle, sie wird erregt.','Cl⁻ strömt in die Zelle, sie wird gehemmt.','K⁺ strömt aus der Zelle.'],1,'Negative Ladung kommt herein, das Zellinnere wird negativer: ein IPSP.'],
+  ['Ein EPSP ist …',['ein Aktionspotenzial.','eine Verschiebung der Spannung zur Schwelle hin: Das Zellinnere wird positiver.','eine Verschiebung der Spannung weg von der Schwelle.'],1,'Ein einzelnes EPSP erreicht die Schwelle meist nicht. Erst mehrere zusammen lösen einen neuen Impuls aus.'],
+  ['Warum hemmt der Kaliumkanal, obwohl K⁺ positiv geladen ist?',['Weil K⁺ aus der Zelle hinausströmt und positive Ladung mitnimmt.','Weil K⁺ die Natriumkanäle verstopft.','Weil K⁺ im Spalt negativ wird.'],0,'Was zählt, ist die Richtung: Positive Ladung, die hinausgeht, macht das Zellinnere negativer.'],
+  ['Was ist ein G-Protein?',['ein Ionenkanal für Natrium','ein Schalter an der Innenseite der Membran, der mit GTP eingeschaltet wird','ein Neurotransmitter'],1,'Der Rezeptor lässt das G-Protein GDP gegen GTP tauschen. Spaltet es das GTP später, schaltet es sich selbst ab.'],
+  ['Wodurch verstärkt Rezeptor 3 das Signal?',['Ein Enzym bildet viele Botenstoffe, die viele Kanäle öffnen.','Mehrere Acetylcholin binden gleichzeitig.','Der Kanal bleibt für immer offen.'],0,'Aus einem einzigen Acetylcholin werden viele Botenstoffe: die Verstärkerkaskade.'],
+  ['Welcher Weg ist schneller?',['der Weg über ein G-Protein','der direkte Weg über einen Rezeptor, der selbst ein Kanal ist','beide sind gleich schnell'],1,'Der direkte Weg öffnet innerhalb von Millisekunden. Über ein G-Protein dauert es länger, wirkt dafür aber auch länger.'],
+  ['Nikotin ist am Rezeptor-Natriumkanal …',['ein Agonist: Es öffnet ihn wie Acetylcholin.','ein Antagonist: Es blockiert ihn.','wirkungslos.'],0,'Nikotin passt in die Bindestellen für Acetylcholin und öffnet den Kanal.'],
+  ['Ein Pfeil mit Curare trifft ein Tier. Warum wird es gelähmt?',['Curare zerstört die Nerven.','Curare blockiert die Rezeptoren an den Muskeln, Acetylcholin kann sie nicht mehr öffnen.','Curare öffnet die Chloridkanäle der Muskeln.'],1,'Curare ist ein Antagonist am Rezeptor-Natriumkanal. Ohne Signal ziehen sich die Muskeln nicht mehr zusammen, auch die Atemmuskeln nicht.'],
+  ['Wie wirkt ein Beruhigungsmittel am Rezeptor-Chloridkanal?',['Es ersetzt GABA vollständig.','Es verstärkt die Wirkung von GABA, mehr Cl⁻ strömt ein.','Es öffnet Natriumkanäle.'],1,'Es bindet an eine eigene Stelle des Kanals und wirkt nur zusammen mit GABA.']]);
+
+/* ---------- gemeinsamer Takt ---------- */
+var lastT=0,ticking=false;
+function loop(now){var dt=Math.min(.05,(now-(lastT||now))/1000);lastT=now;
+  BLOCKS.forEach(function(B){var c=CTL[B.id];if(B.vis&&c&&c.frame)c.frame(now,dt)});
+  if(LAB.vis)labFrame(now,dt);
+  minisFrame(now);
+  if(psT>=0){psT=Math.min(2,psT+dt/1.6);PE.set(Math.min(1,psT));PI.set(clamp(psT-1,0,1));if(psT>=2)psT=-1}
+  if(molT>=0){molT+=dt;var p=(.5-.5*Math.cos(molT*Math.PI*2/1.3))*(1-sm(3.2,4,molT));MOLS.forEach(function(m){m.hi(p)});if(molT>=4){molT=-1;MOLS.forEach(function(m){m.hi(0)})}}
+  requestAnimationFrame(loop)}
+function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;blocksUpd();tocUpd()})}}
+window.addEventListener('scroll',onScroll,{passive:true});
+/* am Computer die stehende Abbildung senkrecht mittig halten */
+var medias=[].slice.call(document.querySelectorAll('.media'));
+function centerMedia(){var toc=$('toc').offsetHeight||50;medias.forEach(function(m){if(!wide()){m.style.top='';return}var h=m.offsetHeight;m.style.top=Math.round(Math.max(toc+8,(window.innerHeight-toc-h)/2+toc))+'px'})}
+window.addEventListener('resize',function(){centerMedia();RESIZE.forEach(function(f){f()});onScroll()});
+centerMedia();blocksUpd();tocUpd();requestAnimationFrame(loop);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){centerMedia();onScroll()});
+window.__stu={rz:function(){return {k:RZ.k,type:RZ.type,tau:RZ.tau,tgt:RZ.tgt}},lab:function(){return {type:LAB.type,lig:LAB.lig,md:LAB.md,tau:LAB.tau,tgt:LAB.tgt,done:Object.keys(LAB.done).length}},
+  labSet:function(type,lig){labRec(type);if(lig)labLig(lig)}};
+})();
+</script>
