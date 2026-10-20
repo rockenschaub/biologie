@@ -1,0 +1,1153 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="Rückkreuzung: Wie man herausfindet, ob eine violette Erbse reinerbig oder mischerbig ist. Mit Erbsen-Detektiv, Kreuzungen zum Eintragen und Selbsttest."><style>body{margin:0}</style><title>Die Rückkreuzung</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+/* Schülerfassung Sprache der Genetik: zuerst fürs Handy gebaut, am Computer breiter */
+:root{
+  --bg:#F4F7F8;--card:#FFFFFF;--cool:#EEF1F2;--warm:#FBF4E4;--line:#D7DDE0;--fig:#F3F6F7;
+  --ink:#21272B;--sub:#3F484E;--muted:#5B676D;
+  --teal:#0F8C8C;--teal-d:#0A6468;--teal-s:#DDF0EE;--blue:#2F5F96;--blue-s:#E3EAF2;
+  --amber:#E8B33C;--amber-d:#A87A12;--amber-ink:#8A6410;--amber-s:#FBEFD2;--verm:#C8553D;--verm-d:#A8432F;
+  --ok:#0A6468;--ok-s:#DDF0EE;--no:#A8432F;--no-s:#F8E4DE;
+  --night:#12171A;
+  --display:"Fraunces",Georgia,serif;--body:"Figtree","Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);--toc-h:50px;--maxw:1180px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-padding-top:calc(var(--toc-h) + 8px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3{text-wrap:balance}
+button{font:inherit;color:inherit}
+svg text{font-family:var(--body)}
+b,strong{font-weight:650}
+.eyebrow{font:600 12.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal-d)}
+.topbar{position:fixed;left:0;top:0;right:0;height:3px;z-index:50;pointer-events:none}
+.topbar i{display:block;height:100%;width:0;background:var(--teal)}
+
+/* Kopf */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden;color:#EEF3F4;background:radial-gradient(120% 90% at 70% 10%,#1E2A2E 0%,var(--night) 62%)}
+.hero-in{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;padding:88px max(20px,env(safe-area-inset-right,0px)) 56px max(20px,env(safe-area-inset-left,0px));display:grid;gap:20px;justify-items:start}
+.hero .eyebrow{color:#7FD0C8}
+.hero h1{font:600 clamp(48px,11.5vw,128px)/.94 var(--display);letter-spacing:-.022em;color:#fff;max-width:12ch}
+.hero .sub{font-size:clamp(18px,2.2vw,23px);max-width:36ch;color:#C9D6D9}
+.goal{display:grid;gap:8px;max-width:640px;background:rgba(255,255,255,.07);border:1.5px solid rgba(127,208,200,.35);border-radius:16px;padding:14px 18px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff}
+.goal b{font:700 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7FD0C8}
+.down{display:inline-flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:10px 18px;background:var(--teal)}
+.down svg{width:18px;height:18px}
+.down:focus-visible,.toc a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* Ablauf im Kopf: Allele, Genotyp, Phänotyp */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font:600 16px/1.2 var(--body)}
+.flow .f{display:inline-flex;align-items:center;gap:6px}
+.flow .f svg{width:18px;height:18px}
+.flow .ar{color:#8FA3A8;font-weight:400}
+
+/* Inhaltsleiste */
+.toc{position:sticky;top:0;z-index:40;height:var(--toc-h);display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px;background:rgba(244,247,248,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;color:var(--sub);text-decoration:none;font:600 14px/1 var(--body);padding:9px 12px;border-radius:999px;transition:background .3s,color .3s}
+.toc a.t{color:var(--teal-d)}
+.toc a.on{background:var(--ink);color:#fff}
+@media (min-width:1180px){.toc{justify-content:center}}
+
+/* Abschnitte */
+.sec{padding:64px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));max-width:var(--maxw);margin:0 auto}
+.sec-head{max-width:700px;margin:0 auto 26px;display:grid;gap:10px}
+.sec h2{font:600 clamp(32px,6vw,52px)/1.04 var(--display);letter-spacing:-.012em}
+.lead{font-size:18px;color:var(--sub)}
+.small{font-size:15px;color:var(--muted)}
+.note{max-width:700px;margin:18px auto 0;font-size:16.5px;color:var(--sub);background:var(--cool);border-radius:14px;padding:12px 16px}
+.ask{font-weight:700;color:var(--teal-d)}
+.ask.big{max-width:700px;margin:22px auto 0;padding:14px 18px;border-radius:14px;background:var(--teal-s);font-size:18px}
+strong.ex{color:var(--teal-d)}strong.in{color:var(--blue)}
+
+
+/* Aufgaben */
+.task .eyebrow{display:inline-block;justify-self:start;background:var(--teal-d);color:#fff;border-radius:999px;padding:6px 11px}
+
+.tasks{max-width:760px;margin:0 auto 18px;display:grid;gap:14px}
+.tq{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 16px 58px;display:grid;gap:10px}
+.tq .tn{position:absolute;left:16px;top:15px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 15px/1 var(--body)}
+.tq h3{font:600 18.5px/1.35 var(--body)}
+details{border-radius:12px;background:var(--cool)}
+details summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:650;color:var(--teal-d);display:flex;align-items:center;gap:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"";flex:none;width:7px;height:7px;margin-left:2px;border-right:2.4px solid currentColor;border-bottom:2.4px solid currentColor;transform:rotate(-45deg);transition:transform .25s}
+details[open] summary::before{transform:rotate(45deg)}
+details p{padding:0 12px 12px;font-size:16px;color:var(--sub)}
+details.ans{background:var(--warm)}
+details.ans summary{color:var(--amber-ink)}
+
+.opts{display:grid;gap:6px}
+.opts button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;cursor:pointer;font-size:16px}
+.opts button.ok{border:2px solid var(--ok);background:var(--ok-s)}
+.opts button.no{border:2px solid var(--no);background:var(--no-s)}
+.opts button.ok::after{content:"  ✓";font-weight:700;color:var(--ok)}
+.opts button.no::after{content:"  ✗";font-weight:700;color:var(--no)}
+
+
+/* Hefteintrag */
+.heftwrap{max-width:1080px;margin:0 auto;display:grid;gap:18px}
+@media (min-width:960px){.heftwrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.skz{margin:0;display:grid;gap:8px}
+.skz canvas{width:100%;height:auto;aspect-ratio:1600/1100;display:block;background:#fff;border:1px solid var(--line);border-radius:14px}
+.skz figcaption{font-size:14.5px;color:var(--muted)}
+.heft{position:relative;width:100%;max-width:820px;margin:0 auto;--row:34px;background-color:#FFFEFA;background-image:repeating-linear-gradient(180deg,transparent 0 calc(var(--row) - 1px),#E3E9EE calc(var(--row) - 1px) var(--row));background-position:0 12px;border:1px solid var(--line);border-radius:14px;padding:12px 18px 14px 50px}
+.heft::before{content:"";position:absolute;left:36px;top:0;bottom:0;border-left:2px solid #E9B9B0}
+.heft h4{font:700 12px/var(--row) var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--amber-ink)}
+.heft h3{font:600 23px/var(--row) var(--display)}
+.heft .pre{line-height:var(--row);font-size:16.5px}
+.heft ol{margin:0;padding-left:22px;list-style:none;counter-reset:hf}
+.heft li{counter-increment:hf;position:relative;line-height:var(--row);font-size:16.5px}
+.heft li::before{content:counter(hf);position:absolute;left:-25px;top:7px;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font:700 11.5px/1 var(--body)}
+.heft .mk{margin:0;font-weight:650;color:var(--amber-ink);line-height:var(--row);font-size:16.5px}
+
+/* Selbsttest */
+.quiz{max-width:760px;margin:0 auto;display:grid;gap:14px;counter-reset:qq}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:10px;counter-increment:qq}
+.q h3{font:600 19px/1.3 var(--body);display:flex;gap:10px}
+.q h3::before{content:counter(qq);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--teal-s);color:var(--teal-d);font-size:14px}
+.q .opts button:disabled{cursor:default}
+.q .why{font-size:15.5px;color:var(--sub);background:var(--cool);border-radius:12px;padding:9px 12px}
+.q .why b{color:var(--ink)}
+.q .why[hidden]{display:none}
+.score{max-width:760px;margin:16px auto 0;font:600 20px/1.3 var(--display);text-align:center;min-height:1.3em}
+.score:empty{margin:0;min-height:0}
+#labQuiz,#sleepQuiz{margin-top:22px}
+
+/* Wörter und Zahlen */
+.words{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.word{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.word b{font:600 23px/1.1 var(--display)}
+.word .from{font:600 12.5px/1.35 var(--mono);color:var(--teal-d)}
+.word p{font-size:15.5px;color:var(--sub)}
+.facts-h{font:600 28px/1.1 var(--display);margin:44px 0 14px}
+.facts{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.fct{border-radius:16px;padding:16px;background:var(--ink);color:#E6EEF0;display:grid;gap:6px;align-content:start}
+.fct b{font:600 30px/1.05 var(--display);color:#F3CB6E}
+.fct p{font-size:15.5px}
+.foot{max-width:var(--maxw);margin:40px auto 0;padding:24px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== Stunde Rückkreuzung ===== */
+/* Allele als Kärtchen, Keimzellen als Kreise: Unterschied über Buchstabe und Helligkeit, nie nur über Farbe */
+.al{display:inline-grid;place-items:center;box-sizing:border-box;min-width:1.2em;height:1.3em;padding:0 .14em;border-radius:.26em;border:.08em solid transparent;font:700 1em/1 var(--body)}
+.al.dom.t-v{background:#6E3FA0;border-color:#4A2770;color:#fff}.al.rec.t-v{background:#fff;border-color:#7D8A92;color:var(--ink)}
+.al.dom.t-g{background:#F2D057;border-color:#A87A12;color:var(--ink)}.al.rec.t-g{background:#5E9A43;border-color:#2F5A22;color:#fff}
+.al.dom.t-r{background:#3F484E;border-color:#21272B;color:#fff}.al.rec.t-r{background:#fff;border-color:#7D8A92;color:var(--ink)}
+.al.unk{background:#fff;border:.08em dashed #7D8A92;color:var(--muted)}
+.hero .al.unk{background:rgba(255,255,255,.08);border-color:#8FA3A8;color:#C9D6D9}
+.gt{display:inline-flex;gap:.1em;vertical-align:middle}
+.gm{width:1.75em;height:1.75em;min-width:0;padding:0;border-radius:50%}
+.ico{display:block;overflow:visible}
+.cross{font:600 26px/1 var(--display);color:var(--sub)}
+.nr{display:inline-grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font:700 13.5px/1 var(--body)}
+
+/* Kopf mit Doppelhelix: am Computer rechts neben dem Text, am Handy unten in eigenem Platz */
+#helix{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero h1{font-size:clamp(46px,10.5vw,112px);max-width:11ch}
+.flow .f{gap:6px}
+.flow .f svg{width:22px;height:24px}
+.flow .f .gt{font-size:15px}
+.flow .f.fn{color:#F3CB6E}
+@media (min-width:900px){#helix{-webkit-mask-image:linear-gradient(90deg,transparent 46%,#000 70%);mask-image:linear-gradient(90deg,transparent 46%,#000 70%)}}
+@media (max-width:899px){.hero-in{padding-bottom:200px}#helix{-webkit-mask-image:linear-gradient(0deg,#000 0,#000 150px,transparent 200px);mask-image:linear-gradient(0deg,#000 0,#000 150px,transparent 200px)}}
+
+/* Text unter Abbildungen */
+.txt{max-width:700px;margin:22px auto 0;display:grid;gap:12px}
+.txt b{color:var(--teal-d)}
+.note b{color:var(--ink)}
+.lead b{color:var(--ink)}
+
+/* Der Fall: drei violette Pflanzen */
+.fp3{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fpl{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 8px 12px;display:grid;justify-items:center;gap:8px}
+.fpl .fl{width:min(88px,22vw);height:auto;aspect-ratio:60/64}
+.fpl .fg{font-size:22px}
+.fpl>span{font:600 15px/1.1 var(--body);color:var(--sub)}
+.fpl .al.unk{animation:unk 2.6s ease-in-out infinite}
+@keyframes unk{50%{box-shadow:0 0 0 .16em rgba(232,179,60,.55)}}
+
+/* Mit welchem Partner? */
+.pt{max-width:900px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:14px}
+@media (min-width:760px){.pt{padding:20px 24px;grid-template-columns:260px minmax(0,1fr);column-gap:24px;align-items:start}.pt-x,.pt-b{grid-column:1}.pt-rows{grid-column:2;grid-row:1/3}.pt-v{grid-column:1/-1}}
+.pt-x{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.pt-p{display:grid;justify-items:center;align-content:center;gap:6px;background:var(--cool);border-radius:14px;padding:10px 6px;min-height:150px}
+.pt-p .fl,.pt-ph{width:58px;height:62px}
+.pt-ph{display:grid;place-items:center;font:600 40px/1 var(--display);color:#B9C4C9}
+.pt-p .gt{font-size:21px}
+#ptGeno{min-height:28px;display:grid;place-items:center;font:600 18px/1 var(--body);color:#B9C4C9}
+.pt-p small{font:600 13px/1.15 var(--body);color:var(--sub);text-align:center}
+.pt-b{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pt-b button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:12px;font:600 15px/1.1 var(--body);cursor:pointer}
+.pt-b button .ico{width:26px;height:28px}
+.pt-b button b{letter-spacing:.04em}
+.pt-b button[aria-pressed="true"]{border:2px solid var(--ink);box-shadow:0 0 0 3px var(--teal-s)}
+.pt-rows{display:grid;gap:10px;align-content:start}
+.pt-r{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"if res" "k k";align-items:center;gap:8px 12px;border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-height:96px}
+@media (min-width:1000px){.pt-r{grid-template-columns:118px minmax(0,1fr) 92px;grid-template-areas:"if k res"}}
+.pt-if{grid-area:if;display:flex;align-items:center;gap:6px;font:600 15px/1.2 var(--body);color:var(--sub);white-space:nowrap}
+.pt-if .gt{font-size:17px}
+.pt-k{grid-area:k;display:flex;flex-wrap:wrap;gap:4px;min-height:40px}
+.pt-res{grid-area:res;font:600 17px/1.15 var(--display);text-align:right}
+.pt-v{font:600 19px/1.3 var(--display);text-align:center;color:var(--teal-d);min-height:1.3em}
+.pt-v.same{color:var(--muted)}
+.pt-v.hint{font:500 15.5px/1.4 var(--body);color:var(--muted)}
+/* Nachkommen: jede Pflanze einzeln, nacheinander */
+.kid{display:inline-grid;place-items:center;opacity:0;transform:translateY(6px) scale(.85);transition:opacity .45s ease,transform .6s var(--ease);transition-delay:calc(var(--i,0)*.1s)}
+.kid.on{opacity:1;transform:none}
+.kid .fl{width:34px;height:36px}
+.kid .pea{width:30px;height:30px}
+
+/* Die Rückkreuzung: zwei Kombinationsquadrate */
+.rk{max-width:980px;margin:0 auto;display:grid;gap:14px}
+@media (min-width:860px){.rk{grid-template-columns:1fr 1fr}}
+.rkb{margin:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:10px;justify-items:center}
+.rkb figcaption{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;font:600 16px/1.2 var(--body);color:var(--sub)}
+.rx{display:inline-flex;align-items:center;gap:6px;font-size:19px;margin-left:4px}
+.rx .cross{font-size:22px}
+.sq{display:grid;grid-template-columns:52px repeat(2,minmax(0,124px));gap:6px;width:100%;max-width:320px}
+.sq .c0{position:relative;min-height:52px;border-radius:12px;background:linear-gradient(to top right,transparent calc(50% - 1px),#B9C4C9 calc(50% - 1px),#B9C4C9 calc(50% + 1px),transparent calc(50% + 1px))}
+.sq .c0 i{position:absolute;font:700 17px/1 var(--body);font-style:normal;color:var(--sub)}
+.sq .c0 .ma{right:6px;top:4px}.sq .c0 .fe{left:6px;bottom:4px}
+.sq .h{display:grid;place-items:center;min-height:52px;border:2.5px solid var(--ink);border-radius:12px;background:#fff;font-size:18px}
+.sq .c{display:flex;align-items:center;justify-content:center;gap:6px;min-height:66px;border:2px solid #B9C4C9;border-radius:12px;background:#fff;font-size:17px}
+.sq .c .fl{width:34px;height:36px}
+.sq .c .pea{width:30px;height:30px}
+.rres{font-size:16.5px;text-align:center}
+.rres b{color:var(--ink)}
+
+/* So wird gekreuzt */
+.px{list-style:none;margin:0 auto;padding:0;max-width:1080px;display:grid;gap:12px;counter-reset:px}
+@media (min-width:600px){.px{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.px{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.pxc{position:relative;counter-increment:px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px 16px;display:grid;gap:8px;align-content:start}
+.pxc::before{content:counter(px);position:absolute;left:12px;top:12px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--teal-d);color:#fff;font:700 14px/1 var(--body)}
+.pxi{height:96px;display:flex;align-items:center;justify-content:center;gap:6px;padding-left:22px}
+.pxi .fl{width:60px;height:64px}
+.pxi .tool{width:48px;height:48px;flex:none}
+.pxi .pod{width:100%;max-width:220px;height:auto}
+.pxk{display:grid;grid-template-columns:repeat(3,auto);justify-content:center;gap:2px 8px}
+.pxk .kid{opacity:1;transform:none}
+.pxk .fl{width:34px;height:36px}
+.pxc h3{font:600 20px/1.15 var(--display)}
+.pxc p{font-size:15.5px;color:var(--sub)}
+.pxc p b{color:var(--ink)}
+.quote{max-width:760px;margin:20px auto 0;background:var(--warm);border-radius:16px;padding:16px 20px;display:grid;gap:8px}
+.quote p{font:italic 500 18px/1.5 var(--display);color:var(--ink)}
+.quote cite{font:600 12.5px/1.3 var(--mono);font-style:normal;letter-spacing:.06em;color:var(--amber-ink)}
+.note.mk{background:var(--warm);max-width:760px}
+
+/* Wie sicher ist sicher? */
+.sh{max-width:900px;margin:0 auto;display:grid;gap:14px}
+@media (min-width:760px){.sh{grid-template-columns:minmax(0,1fr) 300px;align-items:stretch}}
+.sh-l{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:12px;align-content:start}
+.sh-lab{font:600 16px/1.3 var(--body);color:var(--sub)}
+.sh-lab b{font:600 22px/1 var(--display);color:var(--ink)}
+.sh input[type=range]{width:100%;accent-color:var(--teal-d);height:28px}
+.sh-k{display:flex;flex-wrap:wrap;gap:4px;min-height:40px}
+.sh-k .kid{opacity:1;transform:none}
+.sh-r{background:var(--ink);color:#E6EEF0;border-radius:18px;padding:18px 20px;display:grid;gap:10px;align-content:center}
+.sh-cap{font-size:15.5px;line-height:1.4;color:#C9D6D9}
+.sh-cap b{color:#fff}
+.sh-big{font:600 64px/1 var(--display);color:#F3CB6E;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sh-bar{display:block;height:12px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
+.sh-bar i{display:block;height:100%;width:50%;background:var(--amber);border-radius:999px;transition:width .5s var(--ease)}
+.sh-f{font:600 15.5px/1.3 var(--body);color:#E6EEF0}
+
+/* Wozu? */
+.wz{max-width:1080px;margin:0 auto;display:grid;gap:12px}
+@media (min-width:860px){.wz{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.wzc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.wzi{height:74px;display:flex;align-items:center;gap:6px}
+.wzi .fl{width:52px;height:56px}
+.wzi .ped{width:120px;height:64px}
+.wzn{font:600 48px/1 var(--display);color:var(--amber-ink);letter-spacing:-.02em}
+.wzc h3{font:600 23px/1.1 var(--display)}
+.wzc p{font-size:16px;color:var(--sub)}
+
+/* Aufgabe 1: Erbsen-Detektiv */
+.dk{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:12px}
+@media (min-width:760px){.dk{padding:20px 24px}}
+.dk-pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.dk-pick button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:6px 8px;border:1px solid var(--line);background:#fff;border-radius:12px;font:600 14.5px/1.2 var(--body);cursor:pointer}
+.dk-pick button .ico{width:24px;height:24px;flex:none}
+.dk-pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+@media (max-width:440px){.dk-pick button{flex-direction:column;gap:4px;font-size:13px}}
+.dk-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.dk-case{font:600 22px/1.1 var(--display)}
+.dk-score{font:600 14px/1.3 var(--body);color:var(--sub)}
+.dk-x{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;max-width:520px;width:100%;justify-self:center}
+.dk-p{display:grid;justify-items:center;align-content:center;gap:6px;background:var(--cool);border-radius:14px;padding:12px 8px;min-height:148px;text-align:center}
+.dk-p .fl{width:58px;height:62px}.dk-p .pea{width:46px;height:46px}
+.dk-p .gt{font-size:21px}
+.dk-p small{font:600 13px/1.2 var(--body);color:var(--sub)}
+.dk-p .ph0{font:600 40px/1 var(--display);color:#B9C4C9}
+.dk-p.solved{box-shadow:inset 0 0 0 2px var(--teal-d)}
+.dk-b{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:520px;width:100%;justify-self:center}
+.dk-b button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:12px;font:600 15px/1.1 var(--body);cursor:pointer}
+.dk-b button .ico{width:26px;height:28px}
+.dk-b button[aria-pressed="true"]{border:2px solid var(--ink);box-shadow:0 0 0 3px var(--teal-s)}
+.dk-b button:disabled{opacity:.45;cursor:default}
+.dk-b[hidden]{display:none}
+.dk-harvest{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:0}
+.dk-harvest .pod{width:min(100%,250px);height:auto}
+.dk-harvest .bed{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;background:#F1F5EA;border:1.5px solid #C9D9B8;border-radius:14px;padding:8px 10px;max-width:260px}
+.dk-harvest .new{animation:pop .6s var(--ease)}
+@keyframes pop{0%{opacity:0;transform:translateY(8px) scale(.94)}100%{opacity:1;transform:none}}
+.dk-count{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.dk-count span{display:inline-flex;align-items:center;gap:6px;background:var(--cool);border-radius:999px;padding:5px 12px 5px 6px;font:600 15px/1.2 var(--body)}
+.dk-count .ico{width:24px;height:24px}
+.dk-count b{font:600 20px/1 var(--display)}
+.dk-prob{font-size:16px;line-height:1.45;color:var(--sub);text-align:center;max-width:620px;justify-self:center;min-height:1.45em}
+.dk-prob b{color:var(--ink)}
+.dk-prob.proof{color:var(--teal-d);font-weight:600}
+.dk-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.btn.dec{border-width:2px;border-color:var(--ink)}
+.dk-msg{font-size:16.5px;line-height:1.45;min-height:1.45em;text-align:center;max-width:680px;justify-self:center}
+.dk-msg b{font-weight:700}
+.dk-msg.ok b{color:var(--ok)}.dk-msg.no b{color:var(--no)}
+
+/* Aufgabe 2: Rückkreuzungen eintragen (Werkzeug wie beim Kreuzen) */
+.xr{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:14px}
+@media (min-width:760px){.xr{padding:22px 24px}}
+.xr-pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.xr-pick button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:6px 8px;border:1px solid var(--line);background:#fff;border-radius:12px;font:600 14.5px/1.2 var(--body);cursor:pointer}
+.xr-pick button .ico{width:24px;height:24px;flex:none}
+.xr-pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+@media (max-width:440px){.xr-pick button{flex-direction:column;gap:4px;font-size:13px}}
+.xr-p{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;background:var(--warm);border-radius:14px;padding:10px 14px;font-size:16px}
+.xr-p .pp{display:inline-flex;align-items:center;gap:6px;font-weight:650}
+.xr-p .pp .ico{width:28px;height:28px}
+.xr-p .gt{font-size:18px}
+.xr-steps{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px;counter-reset:xs}
+.xr-steps li{counter-increment:xs;display:inline-flex;align-items:center;gap:6px;padding:5px 11px 5px 5px;border-radius:999px;background:var(--cool);color:var(--muted);font:600 13px/1.2 var(--body)}
+.xr-steps li::before{content:counter(xs);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--sub);font-size:12px}
+.xr-steps li.cur{background:var(--ink);color:#fff}.xr-steps li.cur::before{color:var(--ink)}
+.xr-steps li.done{background:var(--teal-s);color:var(--teal-d)}.xr-steps li.done::before{content:"✓";background:var(--teal-d);color:#fff}
+.xr-task{font:600 17px/1.4 var(--body);background:#F6DE9C;color:#3B2A05;border-radius:12px;padding:10px 14px}
+.xr-tabs{display:grid;gap:22px}
+@media (min-width:760px){.xr-tabs{grid-template-columns:1fr 1fr}}
+.xt{display:grid;gap:10px;justify-items:center;align-content:start}
+.xt h3{display:flex;align-items:center;gap:8px;font:600 20px/1.2 var(--display);text-align:center}
+.rx-c{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;font:600 15px/1.2 var(--body);color:var(--sub)}
+.rx-c .cross{font-size:22px}
+.rx-cb{position:relative;display:grid;justify-items:center;gap:2px}
+.rx-cb small{font:600 11.5px/1.2 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.rx-cb button{position:relative;min-width:76px;min-height:46px;border:2.5px solid var(--ink);background:#fff;border-radius:12px;display:grid;place-items:center;cursor:pointer;font-size:19px;padding:0 6px}
+.xq{display:grid;grid-template-columns:58px repeat(2,minmax(0,122px));grid-auto-rows:auto;gap:6px}
+.xc0{position:relative;min-height:58px;border-radius:12px;background:linear-gradient(to top right,transparent calc(50% - 1px),#B9C4C9 calc(50% - 1px),#B9C4C9 calc(50% + 1px),transparent calc(50% + 1px))}
+.xc0 i{position:absolute;font:700 18px/1 var(--body);font-style:normal;color:var(--sub)}
+.xc0 .ma{right:7px;top:5px}.xc0 .fe{left:7px;bottom:5px}
+.xh{position:relative;width:100%;min-height:58px;border:2.5px solid var(--ink);background:#fff;border-radius:12px;display:grid;place-items:center;cursor:pointer;font-size:19px;padding:0}
+.xc{display:grid;gap:4px;border:2px solid #B9C4C9;border-radius:12px;padding:4px;background:#fff}
+.xg,.xp{position:relative;min-height:46px;border:1.5px dashed #B9C4C9;border-radius:9px;background:#fff;display:grid;place-items:center;cursor:pointer;font-size:19px;padding:0}
+.xp .ico{width:34px;height:34px}
+.xp .fl{width:32px;height:35px}
+.qm{color:var(--muted);font:600 17px/1 var(--body)}
+.xr button:disabled{cursor:default}
+.xr .set{border-style:solid;border-color:var(--line)}
+.rx-cb button.set{border-color:var(--ink)}
+.xr .bad{border:2.5px solid var(--no)!important;background:var(--no-s)}
+.xr .bad::after{content:"✗";position:absolute;right:4px;top:2px;font:700 13px/1 var(--body);color:var(--no)}
+.xr .good{border-color:var(--ok)!important}
+.xt.idle .xq,.xt.idle .rx-c{opacity:.5}
+.rx-r{display:grid;gap:8px;width:100%}
+.rx-r[hidden]{display:none}
+.rg{display:grid;gap:6px}
+.rl{font:600 12.5px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal-d)}
+.ro{display:flex;flex-wrap:wrap;gap:6px}
+.ro button{min-height:44px;min-width:60px;padding:0 12px;border:1px solid var(--line);background:#fff;border-radius:12px;font:600 15px/1 var(--body);cursor:pointer}
+.ro button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.ro button.bad{border:2.5px solid var(--no);background:var(--no-s);color:var(--ink)}
+.ro button.good{border:2.5px solid var(--ok);background:var(--ok-s);color:var(--ink)}
+.xr-bar{display:flex;flex-wrap:wrap;gap:8px}
+.btn{min-height:46px;padding:0 18px;border:1px solid var(--line);background:#fff;border-radius:999px;font:650 15.5px/1 var(--body);cursor:pointer;color:var(--ink)}
+.btn.solid{background:var(--teal-d);border-color:var(--teal-d);color:#fff}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45;cursor:default}
+.xr-msg{font-size:16.5px;line-height:1.45;min-height:1.45em}
+.xr-msg b{font-weight:700}
+.xr-msg.ok b{color:var(--ok)}.xr-msg.no b{color:var(--no)}
+
+/* Aufgabe 3: Ergebnisse deuten */
+.dc{max-width:860px;margin:0 auto;display:grid;gap:12px;counter-reset:dc}
+.dcc{counter-increment:dc;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:grid;gap:10px}
+.dcc h3{display:flex;align-items:center;gap:10px;font:600 17.5px/1.3 var(--body)}
+.dcc h3::before{content:counter(dc);flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--teal-s);color:var(--teal-d);font-size:14px}
+.dcc h3 .ico{width:26px;height:26px;flex:none}
+.dck{display:flex;flex-wrap:wrap;gap:3px}
+.dck .kid{opacity:1;transform:none}
+.dck .kid .fl{width:28px;height:30px}.dck .kid .pea{width:24px;height:24px}
+.dcn{font:600 15px/1.3 var(--body);color:var(--sub)}
+.dcc .opts{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dcc .opts button{text-align:center;font-weight:600}
+@media (max-width:480px){.dcc .opts{grid-template-columns:1fr}}
+.dcc .why{font-size:15.5px;color:var(--sub);background:var(--cool);border-radius:12px;padding:9px 12px}
+.dcc .why b{color:var(--ink)}
+.dcc .why[hidden]{display:none}
+
+/* Hefteintrag mit Skizze zum Abzeichnen */
+.skz .sketch{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:14px}
+.heft .pre{margin:0}
+
+/* Wer war Mendel? */
+.tl{list-style:none;margin:0 auto;padding:0;max-width:760px;display:grid;gap:0;position:relative}
+.tl::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;border-left:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 18px 44px;display:grid;gap:3px}
+.tl li::before{content:"";position:absolute;left:8px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--teal-d)}
+.tl li:last-child::before{background:var(--teal-d)}
+.tl b{font:600 19px/1.2 var(--display);color:var(--teal-d)}
+.tl p{font-size:16.5px;color:var(--sub)}
+</style>
+<div class="topbar" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="hero" id="top">
+  <canvas id="helix" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <span class="eyebrow">Biologie · Genetik</span>
+    <h1>Die Rückkreuzung</h1>
+    <p class="sub">Zwei Erbsen blühen gleich violett. Ob sie auch gleich vererben, sieht man ihnen nicht an. Hier erfährst du, wie man es trotzdem herausfindet, und spielst danach selbst Erbsen-Detektiv.</p>
+    <p class="flow" aria-label="Violette Erbse mit unbekanntem Genotyp mal weiße Erbse vv, dann Nachkommen zählen">
+      <span class="f fp"><i class="fx" data-fx="fl:d"></i><i class="fx" data-fx="gt:V?"></i></span><span class="ar" aria-hidden="true">×</span>
+      <span class="f fw"><i class="fx" data-fx="fl:r"></i><i class="fx" data-fx="gt:vv"></i></span><span class="ar" aria-hidden="true">→</span>
+      <span class="f fn">Nachkommen zählen</span>
+    </p>
+    <p class="goal"><b>Danach kannst du</b><span>mit einer Rückkreuzung herausfinden, ob ein Lebewesen mit dominantem Merkmal reinerbig oder mischerbig ist, und begründen, wie sicher dein Ergebnis ist.</span></p>
+    <a class="down" href="#fall">Los geht’s <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</header>
+
+<nav class="toc" id="toc" aria-label="Inhalt">
+  <a href="#fall">Der Fall</a><a href="#partner">Mit wem?</a><a href="#rueck">Rückkreuzung</a><a href="#praxis">So geht’s</a><a href="#sicher">Wie sicher?</a><a href="#wozu">Wozu?</a><a href="#detektiv" class="t">Aufgabe 1</a><a href="#eintragen" class="t">Aufgabe 2</a><a href="#deuten" class="t">Aufgabe 3</a><a href="#heft">Hefteintrag</a><a href="#test" class="t">Selbsttest</a><a href="#mendel">Mendel</a><a href="#woerter">Wörter</a>
+</nav>
+
+<main>
+
+<section class="sec" id="fall">
+  <div class="sec-head"><span class="eyebrow">Ein Fall aus der Zucht</span><h2>Gleich violett, gleich vererbt?</h2>
+    <p class="lead">Kreuzt man zwei Mischlinge Vv, blühen in der nächsten Generation drei von vier Pflanzen violett. Eine Züchterin will nur mit reinerbigen weiterarbeiten, denn nur sie geben ihr Merkmal sicher an alle Nachkommen weiter. Aber welche der violetten ist reinerbig?</p></div>
+  <div class="fp3">
+    <div class="fpl"><i class="fx" data-fx="fl:d"></i><i class="fx fg" data-fx="gt:V?"></i><span>Pflanze A</span></div>
+    <div class="fpl"><i class="fx" data-fx="fl:d"></i><i class="fx fg" data-fx="gt:V?"></i><span>Pflanze B</span></div>
+    <div class="fpl"><i class="fx" data-fx="fl:d"></i><i class="fx fg" data-fx="gt:V?"></i><span>Pflanze C</span></div>
+  </div>
+  <div class="txt">
+    <p>Sicher ist nur eines: Jede violette Pflanze trägt mindestens ein <b>V</b>. Das zweite Allel kann V oder v sein, denn das rezessive v wird vom dominanten V überdeckt. Ansehen hilft also nicht weiter.</p>
+    <p>Was hilft, ist ein Blick auf die Nachkommen. Man kreuzt die Pflanze mit einer anderen und schaut, wie ihr Nachwuchs aussieht. Die Frage ist nur: mit welcher?</p>
+  </div>
+</section>
+
+<section class="sec" id="partner">
+  <div class="sec-head"><span class="eyebrow">Die Idee</span><h2>Kreuzen, aber mit wem?</h2>
+    <p class="lead">Wähle einen Partner für die geprüfte Pflanze. Darunter siehst du, welche Nachkommen herauskämen, wenn sie VV wäre, und welche, wenn sie Vv wäre.</p></div>
+  <div class="pt" id="pt">
+    <div class="pt-x">
+      <div class="pt-p"><i class="fx" data-fx="fl:d"></i><i class="fx" data-fx="gt:V?"></i><small>geprüfte Pflanze</small></div>
+      <span class="cross">×</span>
+      <div class="pt-p"><span class="pt-ph" id="ptFig"></span><span id="ptGeno"></span><small>Partner</small></div>
+    </div>
+    <div class="pt-b" role="group" aria-label="Partner wählen"><button type="button" data-p="VV"><i class="fx" data-fx="fl:d"></i>violett <b>VV</b></button><button type="button" data-p="vv"><i class="fx" data-fx="fl:r"></i>weiß <b>vv</b></button></div>
+    <div class="pt-rows">
+      <div class="pt-r"><span class="pt-if">wäre sie <i class="fx" data-fx="gt:VV"></i></span><span class="pt-k" id="ptK0"></span><span class="pt-res" id="ptR0"></span></div>
+      <div class="pt-r"><span class="pt-if">wäre sie <i class="fx" data-fx="gt:Vv"></i></span><span class="pt-k" id="ptK1"></span><span class="pt-res" id="ptR1"></span></div>
+    </div>
+    <p class="pt-v" id="ptV" aria-live="polite"></p>
+  </div>
+  <div class="txt">
+    <p>Mit <b>VV</b> als Partner blühen alle Nachkommen violett, egal welche Allele die geprüfte Pflanze hat: Das V des Partners überdeckt alles. Man erfährt nichts.</p>
+    <p>Mit <b>vv</b> ist das anders. Die weiße Pflanze kann nur v weitergeben, und v überdeckt nichts. Ob ein Nachkomme violett oder weiß blüht, entscheidet also allein das Allel, das er von der geprüften Pflanze bekommt. Jeder Nachkomme zeigt damit eine ihrer Keimzellen.</p>
+  </div>
+</section>
+
+<section class="sec" id="rueck">
+  <div class="sec-head"><span class="eyebrow">Begriff</span><h2>Die Rückkreuzung</h2>
+    <p class="lead">Genau so funktioniert die <b>Rückkreuzung</b>, auch Testkreuzung genannt: Man kreuzt ein Lebewesen mit dominantem Phänotyp mit einem reinerbig rezessiven Partner.</p></div>
+  <div class="rk">
+    <figure class="rkb"><figcaption><span class="nr">1</span>geprüfte Pflanze reinerbig<span class="rx"><i class="fx" data-fx="gt:VV"></i><span class="cross">×</span><i class="fx" data-fx="gt:vv"></i></span></figcaption>
+      <div class="sq" id="sq1"></div><p class="rres">alle <b>Vv</b>, alle violett</p></figure>
+    <figure class="rkb"><figcaption><span class="nr">2</span>geprüfte Pflanze mischerbig<span class="rx"><i class="fx" data-fx="gt:Vv"></i><span class="cross">×</span><i class="fx" data-fx="gt:vv"></i></span></figcaption>
+      <div class="sq" id="sq2"></div><p class="rres"><b>Vv : vv = 1 : 1</b>, violett : weiß = 1 : 1</p></figure>
+  </div>
+  <div class="txt">
+    <p>Im Kombinationsquadrat stehen links die Keimzellen der geprüften Pflanze, oben die des Testpartners. Ist die geprüfte Pflanze <b>VV</b>, bildet sie nur Keimzellen mit V. Alle Nachkommen sind Vv und blühen violett. Ist sie <b>Vv</b>, bildet sie zur Hälfte Keimzellen mit V und zur Hälfte mit v. Dann sind die Nachkommen Vv oder vv, im Verhältnis 1 : 1, und die Hälfte blüht weiß.</p>
+    <p>Woher der Name kommt: Kreuzt man Mischlinge der F1 mit ihrem rezessiven Elternteil aus der P, also Vv × vv, kreuzt man gewissermaßen zurück in die Elterngeneration. Heute nennt man jede Kreuzung mit einem reinerbig rezessiven Partner so, auch wenn er gar nicht aus der Elterngeneration stammt.</p>
+  </div>
+</section>
+
+<section class="sec" id="praxis">
+  <div class="sec-head"><span class="eyebrow">Wie bei Mendel</span><h2>So wird gekreuzt</h2>
+    <p class="lead">Auf dem Papier ist eine Rückkreuzung schnell aufgeschrieben. Im Garten braucht sie eine ruhige Hand und einen Sommer Geduld.</p></div>
+  <ol class="px">
+    <li class="pxc"><div class="pxi"><i class="fx" data-fx="fl:d"></i><svg class="tool" viewBox="0 0 48 48" aria-hidden="true"><path d="M27 3C25 17 19 31 16 44M29 3C32 17 31 31 24 44" fill="none" stroke="#3F484E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 3h4" stroke="#3F484E" stroke-width="4" stroke-linecap="round"/></svg></div>
+      <h3>Staubblätter entfernen</h3><p>Erbsen bestäuben sich selbst, noch bevor sich die Blüte öffnet. Deshalb öffnet man die Knospe der geprüften Pflanze früh und zupft mit einer Pinzette alle Staubblätter heraus.</p></li>
+    <li class="pxc"><div class="pxi"><i class="fx" data-fx="fl:r"></i><svg class="tool brush" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 40L26 20" stroke="#A87A12" stroke-width="4" stroke-linecap="round"/><path d="M26 20l4-4 6 6-4 4z" fill="#6B757C"/><path d="M33 13c5-6 11-5 11-5s1 6-5 11l-3 2-5-5z" fill="#F2D057" stroke="#A87A12" stroke-width="1.6" stroke-linejoin="round"/></svg><i class="fx" data-fx="fl:d"></i></div>
+      <h3>Pollen übertragen</h3><p>Mit einem Pinsel kommt Pollen der weiß blühenden Pflanze <b>vv</b> auf die Narbe der geprüften Blüte.</p></li>
+    <li class="pxc"><div class="pxi"><i class="fx" data-fx="pod:gelb,gelb,gelb,gelb,gelb"></i></div>
+      <h3>Hülsen reifen lassen</h3><p>Aus jeder befruchteten Samenanlage wird ein Samen. Jeder Samen in der Hülse ist ein eigener Nachkomme.</p></li>
+    <li class="pxc"><div class="pxi pxk" id="pxKids"></div>
+      <h3>Nachkommen zählen</h3><p>Für die Blütenfarbe sät man die Samen aus und zählt, wie die neuen Pflanzen blühen.</p></li>
+  </ol>
+  <blockquote class="quote"><p>„Zu diesem Zwecke wird die noch nicht vollkommen entwickelte Knospe geöffnet, das Schiffchen entfernt und jeder Staubfaden mittelst einer Pincette behutsam herausgenommen, worauf dann die Narbe sogleich mit dem fremden Pollen belegt werden kann.“</p><cite>Gregor Mendel, Versuche über Pflanzen-Hybriden, 1866</cite></blockquote>
+  <p class="note"><b>Schneller geht es bei Samenfarbe und Samenform.</b> Im Samen steckt schon der Keimling der nächsten Generation. Die Farbe seiner Keimblätter und die Form des Samens hängen von seinen eigenen Allelen ab. Deshalb sieht man das Ergebnis schon, wenn man die reife Hülse öffnet.</p>
+</section>
+
+<section class="sec" id="sicher">
+  <div class="sec-head"><span class="eyebrow">Statistik</span><h2>Wie sicher ist sicher?</h2>
+    <p class="lead">Ist die geprüfte Pflanze Vv, blüht jeder Nachkomme mit der Wahrscheinlichkeit ½ weiß, wie beim Münzwurf. Es kann also passieren, dass zufällig nur violette Nachkommen entstehen. Zieh am Regler: Wie wahrscheinlich ist das?</p></div>
+  <div class="sh">
+    <div class="sh-l">
+      <label class="sh-lab" for="shR">Nachkommen, alle violett: <b id="shRn">3</b></label>
+      <input type="range" id="shR" min="1" max="10" value="3" step="1">
+      <div class="sh-k" id="shKids" aria-hidden="true"></div>
+    </div>
+    <div class="sh-r" aria-live="polite">
+      <span class="sh-cap">Wäre die Pflanze <b>Vv</b>, käme das mit dieser Wahrscheinlichkeit vor:</span>
+      <span class="sh-big" id="shBig"></span>
+      <span class="sh-bar"><i id="shBar"></i></span>
+      <span class="sh-f" id="shF"></span>
+    </div>
+  </div>
+  <div class="txt">
+    <p>Lauter violette Nachkommen machen VV also nur <b>wahrscheinlich</b>, und zwar umso wahrscheinlicher, je mehr es sind. Ganz sicher ist man nur in die andere Richtung: Ein einziger weißer Nachkomme beweist, dass die geprüfte Pflanze ein v trägt. Ein weißer Nachkomme ist vv, und eines seiner beiden v kann nur von ihr stammen.</p>
+    <p>Auch das Verhältnis 1 : 1 ist nur ein <b>Mittelwert</b>. Bei zehn Nachkommen sind 6 : 4 oder 3 : 7 ganz normal. Erst bei vielen Nachkommen nähert sich das Ergebnis dem Verhältnis 1 : 1.</p>
+  </div>
+</section>
+
+<section class="sec" id="wozu">
+  <div class="sec-head"><span class="eyebrow">Wozu</span><h2>Was bringt die Rückkreuzung?</h2></div>
+  <div class="wz">
+    <div class="wzc"><div class="wzi"><i class="fx" data-fx="fl:d"></i><i class="fx" data-fx="fl:d"></i><i class="fx" data-fx="fl:d"></i></div>
+      <h3>Zucht</h3><p>Wer Pflanzen oder Tiere züchtet, will Eigenschaften sicher weitergeben. Das gelingt nur mit reinerbigen Eltern. Mit der Rückkreuzung findet man sie unter vielen gleich aussehenden heraus.</p></div>
+    <div class="wzc"><div class="wzi wzn">85 : 81</div>
+      <h3>Mendels Probe</h3><p>Mendel vermutete, dass Mischlinge Vv ihre beiden Sorten Keimzellen gleich oft bilden. Eine Rückkreuzung macht das sichtbar, weil jeder Nachkomme eine Keimzelle zeigt. Als er violette Mischlinge mit weiß blühenden Pflanzen kreuzte, blühten 85 Nachkommen violett und 81 weiß.</p></div>
+    <div class="wzc"><div class="wzi"><svg class="ped" viewBox="0 0 120 64" aria-hidden="true"><path d="M30 14H90M60 14V36M30 36H90M30 36V44M90 36V44" fill="none" stroke="#3F484E" stroke-width="2.4"/><rect x="18" y="4" width="20" height="20" rx="2" fill="#fff" stroke="#3F484E" stroke-width="2.4"/><circle cx="92" cy="14" r="10" fill="#3F484E"/><rect x="20" y="44" width="20" height="20" rx="2" fill="#3F484E"/><circle cx="90" cy="54" r="10" fill="#fff" stroke="#3F484E" stroke-width="2.4"/></svg></div>
+      <h3>Beim Menschen</h3><p>Bei Menschen gibt es natürlich keine Versuchskreuzungen. Hier helfen Stammbäume, die zeigen, wie ein Merkmal in einer Familie auftritt, und Gentests, die die Allele direkt lesen. Auch in der Tierzucht ersetzen Gentests heute oft die Testkreuzung.</p></div>
+  </div>
+</section>
+
+<section class="sec task" id="detektiv">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 1</span><h2>Erbsen-Detektiv</h2>
+    <p class="lead">Vor dir steht eine Pflanze mit dominantem Merkmal. Ob sie reinerbig oder mischerbig ist, verrät dir nur ihr Nachwuchs. Wähle den Testpartner, ernte so viele Nachkommen, wie du brauchst, und entscheide dann.</p></div>
+  <div class="dk" id="dk">
+    <div class="dk-pick" role="group" aria-label="Merkmal wählen">
+      <button type="button" data-t="G" aria-pressed="true"><i class="fx" data-fx="pea:gelb"></i>Samenfarbe</button><button type="button" data-t="R" aria-pressed="false"><i class="fx" data-fx="pea:kantig"></i>Samenform</button><button type="button" data-t="V" aria-pressed="false"><i class="fx" data-fx="fl:d"></i>Blütenfarbe</button>
+    </div>
+    <div class="dk-top"><span class="dk-case" id="dkCase"></span><span class="dk-score" id="dkScore"></span></div>
+    <div class="dk-x">
+      <div class="dk-p" id="dkP"></div>
+      <span class="cross">×</span>
+      <div class="dk-p dk-partner" id="dkPartner"></div>
+    </div>
+    <div class="dk-b" id="dkPB" role="group" aria-label="Testpartner wählen"></div>
+    <div class="dk-harvest" id="dkHarvest" aria-live="polite"></div>
+    <div class="dk-count" id="dkCount"></div>
+    <p class="dk-prob" id="dkProb" aria-live="polite"></p>
+    <div class="dk-bar">
+      <button type="button" class="btn solid" id="dkMore"></button>
+      <button type="button" class="btn dec" id="dkHo"></button>
+      <button type="button" class="btn dec" id="dkHe"></button>
+      <button type="button" class="btn ghost" id="dkNew">Neuer Fall</button>
+    </div>
+    <p class="dk-msg" id="dkMsg" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="sec task" id="eintragen">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 2</span><h2>Rückkreuzungen eintragen</h2>
+    <p class="lead">Trag beide Rückkreuzungen selbst ein, wie im Heft: links für eine reinerbige, rechts für eine mischerbige Pflanze. Tippe auf ein Kästchen, um einen Buchstaben einzutragen, und auf eine Erbse oder Blüte, um sie anzumalen. Mit „Prüfen“ siehst du, ob alles stimmt.</p></div>
+  <div class="xr" id="rx">
+    <div class="xr-pick" role="group" aria-label="Merkmal wählen">
+      <button type="button" data-t="G" aria-pressed="true"><i class="fx" data-fx="pea:gelb"></i>Samenfarbe</button><button type="button" data-t="V" aria-pressed="false"><i class="fx" data-fx="fl:d"></i>Blütenfarbe</button><button type="button" data-t="R" aria-pressed="false"><i class="fx" data-fx="pea:kantig"></i>Samenform</button>
+    </div>
+    <div class="xr-p" id="rxP"></div>
+    <ol class="xr-steps" id="rxSteps"><li>Kreuzung</li><li>Keimzellen</li><li>Nachkommen</li><li>Ergebnis</li></ol>
+    <p class="xr-task" id="rxTask"></p>
+    <div class="xr-tabs">
+      <div class="xt"><h3 id="rxH0"></h3><div class="rx-c" id="rxC0"></div><div class="xq" id="rxQ0"></div><div class="rx-r" id="rxR0" hidden></div></div>
+      <div class="xt"><h3 id="rxH1"></h3><div class="rx-c" id="rxC1"></div><div class="xq" id="rxQ1"></div><div class="rx-r" id="rxR1" hidden></div></div>
+    </div>
+    <div class="xr-bar"><button type="button" class="btn solid" id="rxCheck">Prüfen</button><button type="button" class="btn" id="rxShow">Lösung zeigen</button><button type="button" class="btn ghost" id="rxNew">Von vorn</button></div>
+    <p class="xr-msg" id="rxMsg" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="sec task" id="deuten">
+  <div class="sec-head"><span class="eyebrow">Aufgabe 3</span><h2>Was verrät der Nachwuchs?</h2>
+    <p class="lead">Fünf Versuche, fünf Ergebnisse. Ist die geprüfte Pflanze jeweils reinerbig, mischerbig, oder lässt sich das noch nicht sagen?</p></div>
+  <div class="dc" id="dc"></div>
+  <p class="score" id="dcScore" aria-live="polite"></p>
+</section>
+
+<section class="sec" id="heft">
+  <div class="sec-head"><span class="eyebrow">Zum Nachlesen</span><h2>Hefteintrag</h2></div>
+  <div class="heftwrap">
+    <figure class="skz"><i class="fx" data-fx="sk"></i><figcaption>Diese Skizze zeichnest du ins Heft. Die Nummern passen zum Hefteintrag, die Blüten dürfen einfache Kreise sein. Male V und die violetten Blüten an.</figcaption></figure>
+    <div class="heft">
+      <h4>Hefteintrag</h4>
+      <h3>Die Rückkreuzung</h3>
+      <p class="pre">Rückkreuzung (Testkreuzung): Kreuzung mit einem reinerbig rezessiven Partner (vv)</p>
+      <p class="pre">Zweck: Genotyp bei dominantem Phänotyp bestimmen, VV oder Vv?</p>
+      <p class="pre">Warum vv? Bildet nur v, das nichts überdeckt: Jeder Nachkomme zeigt das Allel der geprüften Pflanze</p>
+      <ol>
+        <li>VV × vv → alle Vv, violett → reinerbig</li>
+        <li>Vv × vv → Vv : vv = 1 : 1 (violett : weiß) → mischerbig</li>
+      </ol>
+      <p class="mk">Merke: Ein weißer Nachkomme beweist Vv. Lauter violette: VV nur wahrscheinlich, je mehr Nachkommen, desto sicherer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec task" id="test">
+  <div class="sec-head"><span class="eyebrow">Wer fertig ist</span><h2>Selbsttest</h2>
+    <p class="lead">Zehn Fragen. Nach jeder Antwort siehst du sofort, ob sie stimmt, und warum.</p></div>
+  <div class="quiz" id="quiz"></div>
+  <p class="score" id="score" aria-live="polite"></p>
+</section>
+
+<section class="sec" id="mendel">
+  <div class="sec-head"><span class="eyebrow">Ein Leben in Brünn</span><h2>Wer war Mendel?</h2>
+    <p class="lead">Ein Bauernsohn aus Schlesien, Mönch, Lehrer ohne Lehramtsprüfung und Abt. Seine Versuche mit Erbsen begründeten die Genetik, beachtet wurden sie erst nach seinem Tod.</p></div>
+  <ol class="tl">
+    <li><b>1822</b><p>Johann Mendel kommt in Heinzendorf in Österreichisch-Schlesien zur Welt, heute Hynčice in Tschechien. Seine Eltern sind Bauern.</p></li>
+    <li><b>1843</b><p>Eintritt ins Augustinerkloster St. Thomas in Brünn, heute Brno. Er nimmt den Ordensnamen Gregor an.</p></li>
+    <li><b>1851 bis 1853</b><p>Studium der Naturwissenschaften an der Universität Wien, unter anderem Physik bei Christian Doppler.</p></li>
+    <li><b>ab 1854</b><p>Lehrer für Physik und Naturgeschichte an der Oberrealschule in Brünn. Die Lehramtsprüfung besteht er nie, zweimal fällt er durch.</p></li>
+    <li><b>1856 bis 1863</b><p>Kreuzungsversuche mit Erbsen im Klostergarten, mit vielen Tausend Pflanzen.</p></li>
+    <li><b>1865 und 1866</b><p>Zwei Vorträge im Naturforschenden Verein in Brünn, dann erscheint sein Aufsatz „Versuche über Pflanzen-Hybriden“.</p></li>
+    <li><b>1868</b><p>Mendel wird Abt seines Klosters. Für die Forschung bleibt ihm danach wenig Zeit.</p></li>
+    <li><b>1884</b><p>Mendel stirbt in Brünn. Seine Vererbungsregeln sind kaum bekannt.</p></li>
+    <li><b>1900</b><p>Drei Forscher stoßen unabhängig voneinander auf Mendels Regeln: Hugo de Vries, Carl Correns und der Wiener Erich Tschermak.</p></li>
+  </ol>
+</section>
+
+<section class="sec" id="woerter">
+  <div class="sec-head"><span class="eyebrow">Wortgeschichte</span><h2>Wörter mit Geschichte</h2>
+    <p class="lead">Hinter den Wörtern dieser Seite stecken alte Werkstätten, Mühlen und Staatskanzleien.</p></div>
+  <div class="words">
+    <div class="word"><b>Rückkreuzung</b><span class="from">englisch backcross</span><p>Gemeint ist das Zurückkreuzen der Mischlinge der F1 mit einem Elternteil aus der P, etwa Vv × vv.</p></div>
+    <div class="word"><b>Test</b><span class="from">über altfranz. test von lat. testum, Tongefäß</span><p>In solchen kleinen Tontiegeln prüfte man Gold und Silber. Daraus wurde das Wort für jede Prüfung.</p></div>
+    <div class="word"><b>Hybride</b><span class="from">lat. hybrida, Mischling</span><p>Mendel nannte seine Mischlinge Hybriden. Sein Aufsatz heißt „Versuche über Pflanzen-Hybriden“.</p></div>
+    <div class="word"><b>Pollen</b><span class="from">lat. pollen, feines Mehl</span><p>Der Blütenstaub sieht aus wie feinstes Mehl. Jedes Körnchen bringt die männlichen Keimzellen zur Samenanlage.</p></div>
+    <div class="word"><b>Pinzette</b><span class="from">franz. pincette, kleine Zange</span><p>Mendel schrieb 1866 noch „Pincette“, ganz nach dem französischen Vorbild.</p></div>
+    <div class="word"><b>Statistik</b><span class="from">neulat. statisticus, den Staat betreffend</span><p>Zuerst war Statistik Staatskunde: Man zählte Einwohner, Ernten und Steuern. Heute zählt man auch Erbsen.</p></div>
+  </div>
+  <h3 class="facts-h">Zum Staunen</h3>
+  <div class="facts">
+    <div class="fct"><b>85 : 81</b><p>violette zu weißen Nachkommen zählte Mendel, als er violette Mischlinge mit weiß blühenden Erbsen kreuzte. Fast genau 1 : 1.</p></div>
+    <div class="fct"><b>58 : 52</b><p>gelbe zu grünen Samen fand er, als er Mischlinge Gg mit dem Pollen einer grünsamigen Pflanze gg bestäubte.</p></div>
+    <div class="fct"><b>1 von 1024</b><p>So selten bekommt eine mischerbige Pflanze bei einer Rückkreuzung zehn Nachkommen hintereinander ohne einen rezessiven.</p></div>
+    <div class="fct"><b>über 99 %</b><p>des Erbguts stammen nach sechs Rückkreuzungen mit einer Sorte im Mittel wieder von ihr. So bringen Züchter eine einzelne Eigenschaft, etwa eine Resistenz, in eine bewährte Sorte.</p></div>
+  </div>
+</section>
+
+</main>
+<footer class="foot">Alle Abbildungen und Animationen auf dieser Seite sind selbst gezeichnet. Quellen: Gregor Mendel, Versuche über Pflanzen-Hybriden, 1866, gemeinfrei, <a href="https://www.gutenberg.org/ebooks/40854">online bei Project Gutenberg</a>. Lebensdaten nach der <a href="https://www.deutsche-biographie.de/118580698.html">Neuen Deutschen Biographie</a>. Wortherkunft von „Test“ nach dem <a href="https://www.etymonline.com/word/test">Online Etymology Dictionary</a>.</footer>
+
+<script>
+/* ===== Grafiken der Stunde Rückkreuzung: Doppelhelix im Titel, Blüten, Erbsen, Hülsen, Allele, Heftskizze ===== */
+var FIG=(function(){
+  'use strict';
+  var TAU=Math.PI*2;
+  function clamp(x,a,b){return x<a?a:x>b?b:x}
+  function sm(a,b,t){var x=clamp((t-a)/(b-a),0,1);return x*x*(3-2*x)}
+  function lerp(a,b,t){return a+(b-a)*t}
+  function r2(x){return Math.round(x*100)/100}
+  function rng(seed){var s=seed>>>0;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296}}
+  var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* Merkmale: Buchstaben der Allele und Namen der Merkmalsformen (G gelb, V violett, R rund) */
+  var TRAIT={
+    G:{d:'G',r:'g',merkmal:'Samenfarbe',dn:'gelb',rn:'grün',dk:'gelb',rk:'gruen',ding:'Samen'},
+    V:{d:'V',r:'v',merkmal:'Blütenfarbe',dn:'violett',rn:'weiß',dk:'violett',rk:'weiss',ding:'Blüten'},
+    R:{d:'R',r:'r',merkmal:'Samenform',dn:'rund',rn:'kantig',dk:'rund',rk:'kantig',ding:'Samen'}};
+  /* Farben der Allele am Genort; der Unterschied liegt immer auch in Helligkeit und Buchstabe */
+  var AL={V:{f:'#6E3FA0',s:'#4A2770'},v:{f:'#FFFFFF',s:'#7D8A92'},
+          G:{f:'#F2D057',s:'#A87A12'},g:{f:'#5E9A43',s:'#2F5A22'},
+          R:{f:'#3F484E',s:'#21272B'},r:{f:'#FFFFFF',s:'#7D8A92'}};
+  function traitOf(a){var u=a.toUpperCase();return TRAIT[u]?u:'V'}
+  function isDom(a){return a===a.toUpperCase()}
+  /* Genotyp in der üblichen Schreibweise: gleiche Buchstaben nebeneinander, Großbuchstabe zuerst */
+  function canon(a,b){return isDom(b)&&!isDom(a)?b+a:a+b}
+  function phenoDom(geno){return /[A-Z]/.test(geno)}
+
+  /* ---------- Blüte der Erbse (Fahne, Flügel, Schiffchen) ---------- */
+  var FL={stem:'M30 63C30 58 31 54 30 49',
+    fahne:'M30 41C17 41 6 32 6 20C6 10 15 4 23 7C27 8.5 29 11 30 13C31 11 33 8.5 37 7C45 4 54 10 54 20C54 32 43 41 30 41Z',
+    adern:'M30 38Q22 30 13 22M30 38Q25 28 21 14M30 38Q29 27 28 16M30 38Q31 27 32 16M30 38Q35 28 39 14M30 38Q38 30 47 22',
+    fl1:'M30 45C22 47 13.5 42 14.5 34C15.5 27 23.5 25.5 28.5 30.5C30 32.5 30.6 38.5 30 45Z',
+    fl2:'M30 45C38 47 46.5 42 45.5 34C44.5 27 36.5 25.5 31.5 30.5C30 32.5 29.4 38.5 30 45Z',
+    sch:'M30 47C26.8 45 26.2 39.5 28 36C29 34.3 31 34.3 32 36C33.8 39.5 33.2 45 30 47Z',
+    kelch:'M23.5 45.5Q30 54 36.5 45.5L34.2 47.2L32.2 43.8L30 47.4L27.8 43.8L25.8 47.2Z'};
+  function flowerInner(dom,ink,sw){sw=sw||1.5;
+    if(ink)return '<path d="'+FL.stem+'" fill="none" stroke="#000" stroke-width="'+(sw+.5)+'" stroke-linecap="round"/>'+
+      '<path d="'+FL.fahne+'" fill="#fff" stroke="#000" stroke-width="'+sw+'"/>'+
+      '<path d="'+FL.fl1+'" fill="#fff" stroke="#000" stroke-width="'+sw+'"/><path d="'+FL.fl2+'" fill="#fff" stroke="#000" stroke-width="'+sw+'"/>'+
+      '<path d="'+FL.sch+'" fill="#fff" stroke="#000" stroke-width="'+sw+'"/><path d="'+FL.kelch+'" fill="#fff" stroke="#000" stroke-width="'+(sw*.8)+'" stroke-linejoin="round"/>';
+    var f=dom?{fa:'#A77BCB',fs:'#4A2770',ad:'#5E3388',ao:.5,fl:'#6E3FA0',sc:'#E6DAF1'}:{fa:'#FFFFFF',fs:'#6B757C',ad:'#9AA6AB',ao:.55,fl:'#F3F5F6',sc:'#E4E9EC'};
+    return '<path d="'+FL.stem+'" fill="none" stroke="#6F9A5B" stroke-width="2.6" stroke-linecap="round"/>'+
+      '<path d="'+FL.fahne+'" fill="'+f.fa+'" stroke="'+f.fs+'" stroke-width="1.15"/>'+
+      '<path d="'+FL.adern+'" fill="none" stroke="'+f.ad+'" stroke-width=".9" opacity="'+f.ao+'"/>'+
+      '<path d="'+FL.fl1+'" fill="'+f.fl+'" stroke="'+f.fs+'" stroke-width="1.15"/><path d="'+FL.fl2+'" fill="'+f.fl+'" stroke="'+f.fs+'" stroke-width="1.15"/>'+
+      '<path d="'+FL.sch+'" fill="'+f.sc+'" stroke="'+f.fs+'" stroke-width="1.15"/><path d="'+FL.kelch+'" fill="#6F9A5B"/>'}
+  function flower(dom,opt){opt=opt||{};
+    return '<svg class="ico fl'+(opt.cls?' '+opt.cls:'')+'" viewBox="0 0 60 64" role="img" aria-label="'+(opt.label||('Blüte, '+(dom?'violett':'weiß')))+'">'+flowerInner(dom,opt.ink)+'</svg>'}
+
+  /* ---------- Erbsensamen: gelb, grün, rund, kantig ---------- */
+  var WR=(function(){var p=[],n=72;for(var i=0;i<n;i++){var a=i/n*TAU,r=15*(.87+.07*Math.sin(5*a+.6)+.05*Math.sin(9*a+1.3));p.push(r2(20+r*Math.cos(a))+' '+r2(20+r*Math.sin(a)))}return 'M'+p.join('L')+'Z'})();
+  function peaInner(kind,ink){
+    var green=kind==='gruen',f=green?'#5E9A43':'#F2D057',s=green?'#2F5A22':'#A87A12';
+    if(ink){f='#fff';s='#000'}
+    var body=kind==='kantig'?'<path d="'+WR+'" fill="'+f+'" stroke="'+s+'" stroke-width="1.8" stroke-linejoin="round"/>'+
+        '<path d="M13 25.5Q17.5 22 23 24.2M18.6 12.6Q22.2 16.4 20.6 21.2M25.4 15.8Q28.6 19.8 27.4 25" fill="none" stroke="'+s+'" stroke-width="1.3" stroke-linecap="round" opacity=".75"/>'
+      :'<circle cx="20" cy="20" r="15.4" fill="'+f+'" stroke="'+s+'" stroke-width="1.8"/>';
+    var glint=ink?'':'<path d="M10.6 15.4A10.4 10.4 0 0 1 15.4 10.2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity="'+(green?.55:.8)+'"/>';
+    return body+glint}
+  var PEA_NM={gelb:'gelb',gruen:'grün',rund:'rund',kantig:'kantig'};
+  function pea(kind,opt){opt=opt||{};
+    return '<svg class="ico pea'+(opt.cls?' '+opt.cls:'')+'" viewBox="0 0 40 40" role="img" aria-label="'+(opt.label||('Erbsensamen, '+PEA_NM[kind]))+'">'+peaInner(kind,opt.ink)+'</svg>'}
+
+  /* Erscheinungsbild zu einem Merkmal: dom true oder false */
+  function pheno(trait,dom,opt){var T=TRAIT[trait];
+    if(trait==='V')return flower(dom,opt);
+    return pea(dom?T.dk:T.rk,opt)}
+  function phenoName(trait,dom){var T=TRAIT[trait];return dom?T.dn:T.rn}
+
+  /* ---------- Hülse, aufgeklappt: jeder Samen darin ist ein eigener Nachkomme ---------- */
+  /* kinds: Liste aus 'gelb', 'gruen', 'rund', 'kantig' oder null (Platz noch leer) */
+  function podInner(kinds,W,H,opt){opt=opt||{};var n=kinds.length,o=[],x0=10,x1=W-12,yc=H/2;
+    var outer='M'+x0+' '+(yc+2)+'C'+(x0+14)+' '+(yc-24)+' '+r2(W*.3)+' '+(yc-30)+' '+r2(W*.56)+' '+(yc-29)+
+      'C'+r2(W*.8)+' '+(yc-28)+' '+(x1-6)+' '+(yc-22)+' '+(x1+6)+' '+(yc-14)+
+      'C'+(x1-2)+' '+(yc-4)+' '+r2(W*.82)+' '+(yc+26)+' '+r2(W*.54)+' '+(yc+28)+
+      'C'+r2(W*.28)+' '+(yc+30)+' '+(x0+12)+' '+(yc+22)+' '+x0+' '+(yc+2)+'Z';
+    var inner='M'+(x0+12)+' '+(yc+1)+'C'+(x0+24)+' '+(yc-17)+' '+r2(W*.3)+' '+(yc-22)+' '+r2(W*.56)+' '+(yc-21)+
+      'C'+r2(W*.78)+' '+(yc-20)+' '+(x1-14)+' '+(yc-15)+' '+(x1-6)+' '+(yc-9)+
+      'C'+(x1-12)+' '+(yc+2)+' '+r2(W*.8)+' '+(yc+19)+' '+r2(W*.54)+' '+(yc+20)+
+      'C'+r2(W*.3)+' '+(yc+21)+' '+(x0+22)+' '+(yc+15)+' '+(x0+12)+' '+(yc+1)+'Z';
+    /* Stiel und Kelchblätter an der Ansatzstelle */
+    var bx=x0+1,by=yc+2;
+    o.push('<path d="M'+bx+' '+by+'Q'+(bx-6)+' '+(by-1)+' '+(bx-12)+' '+(by-5)+'" fill="none" stroke="#6F9A5B" stroke-width="3.2" stroke-linecap="round"/>');
+    o.push('<path d="'+outer+'" fill="#9CC47B" stroke="#4F7A3A" stroke-width="1.8" stroke-linejoin="round"/>');
+    o.push('<path d="'+inner+'" fill="#F3F6E8" stroke="#86AE68" stroke-width="1.3"/>');
+    [-42,-16,14,40].forEach(function(dg){var a=dg*Math.PI/180,L=17,w=4.2,ca=Math.cos(a),sa=Math.sin(a);
+      var tx=bx+L*ca,ty=by+L*sa,mx=bx+L*.5*ca,my=by+L*.5*sa;
+      o.push('<path d="M'+bx+' '+by+'Q'+r2(mx-w*sa)+' '+r2(my+w*ca)+' '+r2(tx)+' '+r2(ty)+'Q'+r2(mx+w*sa)+' '+r2(my-w*ca)+' '+bx+' '+by+'Z" fill="#6F9A5B" stroke="#4F7A3A" stroke-width=".9" stroke-linejoin="round"/>')});
+    var a=x0+36,b=x1-46,step=n>1?(b-a)/(n-1):0,S=opt.seed||30;
+    kinds.forEach(function(k,i){var cx=n>1?a+i*step:(a+b)/2,cy=yc+1;
+      o.push('<path d="M'+r2(cx)+' '+r2(cy-S/2+1)+'Q'+r2(cx+3)+' '+r2(cy-S/2-5)+' '+r2(cx+1)+' '+r2(cy-S/2-8)+'" fill="none" stroke="#86AE68" stroke-width="1.6" stroke-linecap="round"/>');
+      if(k)o.push('<svg x="'+r2(cx-S/2)+'" y="'+r2(cy-S/2)+'" width="'+S+'" height="'+S+'" viewBox="0 0 40 40" class="sd sd-'+k+'">'+peaInner(k)+'</svg>');
+      else o.push('<circle cx="'+r2(cx)+'" cy="'+r2(cy)+'" r="'+r2(S*.3)+'" fill="none" stroke="#B9C7A8" stroke-width="1.4" stroke-dasharray="3 3"/>')});
+    return o.join('')}
+  function podW(n){return Math.max(150,n*34+92)}
+  function pod(kinds,opt){opt=opt||{};var W=podW(kinds.length),H=70,cnt={};
+    kinds.forEach(function(k){if(k)cnt[k]=(cnt[k]||0)+1});
+    var lab=opt.label||('Aufgeklappte Hülse mit '+kinds.length+' Samen'+(Object.keys(cnt).length?': '+Object.keys(cnt).map(function(k){return cnt[k]+' '+PEA_NM[k]}).join(', '):''));
+    return '<svg class="ico pod'+(opt.cls?' '+opt.cls:'')+'" viewBox="-4 0 '+(W+8)+' '+H+'" role="img" aria-label="'+lab+'">'+podInner(kinds,W,H,opt)+'</svg>'}
+
+  /* ---------- Allele als Kärtchen, Keimzellen als Kreise (HTML) ---------- */
+  function alCls(a){return a==='?'?'al unk':'al '+(isDom(a)?'dom':'rec')+' t-'+traitOf(a).toLowerCase()}
+  function chip(a){return '<span class="'+alCls(a)+'"'+(a==='?'?' aria-label="unbekanntes Allel"':'')+'>'+a+'</span>'}
+  function geno(g){return '<span class="gt">'+chip(g[0])+chip(g[1])+'</span>'}
+  function gamete(a,cls){return '<span class="gm '+alCls(a)+(cls?' '+cls:'')+'" role="img" aria-label="Keimzelle mit dem Allel '+a+'">'+a+'</span>'}
+
+  /* Nachkommen als Reihe: Liste aus true (dominant) und false (rezessiv) */
+  function kids(trait,list,opt){opt=opt||{};
+    return list.map(function(d,i){return '<span class="kid'+(d?' kd':' kr')+'" style="--i:'+i+'">'+pheno(trait,d)+'</span>'}).join('')}
+
+  /* ---------- Heftskizze: zwei Kombinationsquadrate als Strichfassung, Nummern wie im Hefteintrag ---------- */
+  function sketch(){var W=1000,H=520,o=[];
+    function mark(x,y,n){return '<g><circle cx="'+x+'" cy="'+y+'" r="23" fill="#000"/><text x="'+x+'" y="'+(y+9)+'" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="700" font-size="27" fill="#fff">'+n+'</text></g>'}
+    function txt(x,y,t,sz,w){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="'+(w||700)+'" font-size="'+sz+'" fill="#000">'+t+'</text>'}
+    function gm(x,y,a){return '<circle cx="'+x+'" cy="'+y+'" r="27" fill="#fff" stroke="#000" stroke-width="2.4"/>'+txt(x,y+12,a,34)}
+    function block(x0,n,cross,left){var cw=150,c0=96,top=['v','v'],y0=96;
+      o.push(mark(x0+24,44,n));
+      o.push(txt(x0+150,57,cross,40));
+      o.push('<rect x="'+x0+'" y="'+y0+'" width="'+(c0+2*cw)+'" height="'+(c0+2*cw)+'" fill="#fff" stroke="#000" stroke-width="2.6" rx="6"/>');
+      o.push('<path d="M'+(x0+c0)+' '+y0+'V'+(y0+c0+2*cw)+'M'+(x0+c0+cw)+' '+y0+'V'+(y0+c0+2*cw)+'M'+x0+' '+(y0+c0)+'H'+(x0+c0+2*cw)+'M'+x0+' '+(y0+c0+cw)+'H'+(x0+c0+2*cw)+'" stroke="#000" stroke-width="2.2"/>');
+      o.push('<path d="M'+(x0+4)+' '+(y0+c0-4)+'L'+(x0+c0-4)+' '+(y0+4)+'" stroke="#000" stroke-width="1.6"/>');
+      o.push(txt(x0+c0-25,y0+40,'♂',46,600),txt(x0+26,y0+c0-10,'♀',46,600));
+      top.forEach(function(a,i){o.push(gm(x0+c0+cw*i+cw/2,y0+c0/2,a))});
+      left.forEach(function(b,r){o.push(gm(x0+c0/2,y0+c0+cw*r+cw/2,b));
+        top.forEach(function(a,i){var g=canon(b,a),cx=x0+c0+cw*i+cw/2,cy=y0+c0+cw*r;
+          o.push('<svg x="'+(cx-34)+'" y="'+(cy+12)+'" width="68" height="73" viewBox="0 0 60 64">'+flowerInner(false,true,1.7)+'</svg>');
+          o.push(txt(cx,cy+128,g,36))})})}
+    block(52,1,'VV × vv',['V','V']);
+    block(552,2,'Vv × vv',['V','v']);
+    return '<svg class="sketch" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Heftskizze: zwei Kombinationsquadrate. 1: VV mal vv, alle Nachkommen Vv. 2: Vv mal vv, Nachkommen Vv und vv je zur Hälfte. Blüten zum Ausmalen.">'+o.join('')+'</svg>'}
+
+  /* ---------- Doppelhelix im Titel ---------- */
+  function helix(cv,opt){
+    opt=opt||{};
+    var c=cv.getContext('2d'),W=0,H=0,dpr=1,raf=0,run=false,t=opt.t0||0,last=0,R=rng(opt.seed||7),P=[];
+    var BASE=[['#E8B33C','#0F8C8C'],['#7FA7D9','#C9D6D9'],['#0F8C8C','#E8B33C'],['#C9D6D9','#7FA7D9']];
+    var LET=['V','v','G','g','R','r'];
+    function size(){var w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return false;dpr=Math.min(window.devicePixelRatio||1,2);
+      cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);W=w;H=h;P=[];
+      for(var i=0;i<(opt.letters==null?9:opt.letters);i++)P.push({s:R(),d:(R()-.5)*2,v:.018+R()*.02,l:LET[i%LET.length],z:.6+R()*.6});return true}
+    function geom(){if(opt.layout)return opt.layout(W,H);
+      return {x:W*.5,y:H*.5,len:Math.hypot(W,H)*1.1,ang:Math.PI/2-.34,R:clamp(Math.min(W,H)*.12,26,120)}}
+    function seg(Pt,front,col,lw){c.strokeStyle=col;c.lineWidth=lw;c.lineCap='round';
+      for(var i=1;i<Pt.length;i++){var z=(Pt[i][2]+Pt[i-1][2])/2;if((z>=0)!==front)continue;
+        c.globalAlpha=front?.55+.4*z:.2+.12*(1+z);c.beginPath();c.moveTo(Pt[i-1][0],Pt[i-1][1]);c.lineTo(Pt[i][0],Pt[i][1]);c.stroke()}}
+    function draw(){if(!W&&!size())return;
+      c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);
+      var g=geom(),turn=g.R*2.1,n=Math.ceil(g.len/(g.R*.62)),step=g.len/n,A=[],B=[],k,s,ph;
+      c.save();c.translate(g.x,g.y);c.rotate(g.ang);
+      for(k=0;k<=n*5;k++){s=-g.len/2+k*step/5;ph=s/turn+t*.42;A.push([s,g.R*Math.sin(ph),Math.cos(ph)]);B.push([s,-g.R*Math.sin(ph),-Math.cos(ph)])}
+      seg(A,false,'#7FD0C8',g.R*.15);seg(B,false,'#7FD0C8',g.R*.15);
+      c.lineCap='butt';
+      for(k=0;k<=n;k++){s=-g.len/2+k*step;ph=s/turn+t*.42;var y=g.R*Math.sin(ph),bp=BASE[k%4];
+        c.globalAlpha=.5+.25*Math.abs(Math.cos(ph));c.lineWidth=g.R*.11;
+        c.strokeStyle=bp[0];c.beginPath();c.moveTo(s,y);c.lineTo(s,0);c.stroke();
+        c.strokeStyle=bp[1];c.beginPath();c.moveTo(s,0);c.lineTo(s,-y);c.stroke()}
+      seg(A,true,'#9FE3DC',g.R*.17);seg(B,true,'#9FE3DC',g.R*.17);
+      /* einzelne Allel-Buchstaben treiben langsam an der Helix entlang */
+      c.font='600 '+Math.round(g.R*.42)+'px "IBM Plex Mono", ui-monospace, monospace';c.textAlign='center';c.textBaseline='middle';
+      P.forEach(function(p){var u=((p.s+t*p.v)%1+1)%1,a=sm(0,.18,u)*(1-sm(.82,1,u));
+        c.globalAlpha=.34*a*p.z;c.fillStyle='#BFE9E4';c.fillText(p.l,(u-.5)*g.len,p.d*g.R*2.3)});
+      c.restore();c.globalAlpha=1}
+    function frame(now){if(!run)return;var dt=last?Math.min(.05,(now-last)/1000):0;last=now;t+=dt;draw();raf=requestAnimationFrame(frame)}
+    function start(){if(RM){size();draw();return}if(run)return;run=true;last=0;raf=requestAnimationFrame(frame)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    function resize(){W=0;size();draw()}
+    window.addEventListener('resize',resize);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){draw()});
+    size();draw();
+    return {start:start,stop:stop,resize:resize}}
+
+  /* ---------- Platzhalter füllen: <i class="fx" data-fx="art:wert"> ---------- */
+  function make(spec){var p=spec.split(':'),k=p[0],v=p[1]||'';
+    if(k==='fl')return flower(v==='d');
+    if(k==='pea')return pea(v);
+    if(k==='pod')return pod(v.split(',').map(function(x){return x||null}));
+    if(k==='ch')return chip(v);
+    if(k==='gt')return geno(v);
+    if(k==='gm')return gamete(v);
+    if(k==='sk')return sketch();
+    return ''}
+  function fill(root){[].slice.call((root||document).querySelectorAll('[data-fx]')).forEach(function(ph){
+    var spec=ph.getAttribute('data-fx');
+    var t=document.createElement('template');t.innerHTML=make(spec).trim();var n=t.content.firstElementChild;if(!n)return;
+    [].slice.call(ph.classList).forEach(function(c){if(c!=='fx')n.classList.add(c)});
+    ['data-at','data-until','style','title'].forEach(function(a){if(ph.hasAttribute(a))n.setAttribute(a,ph.getAttribute(a))});
+    ph.parentNode.replaceChild(n,ph)})}
+
+  return {RM:RM,sm:sm,clamp:clamp,lerp:lerp,rng:rng,TRAIT:TRAIT,canon:canon,isDom:isDom,phenoDom:phenoDom,
+    flower:flower,pea:pea,pheno:pheno,phenoName:phenoName,pod:pod,chip:chip,geno:geno,gamete:gamete,alCls:alCls,kids:kids,
+    sketch:sketch,helix:helix,fill:fill}
+})();
+
+/* ===== Schülerfassung: Partner wählen, Rückkreuzung, Wahrscheinlichkeit, Erbsen-Detektiv, Rückkreuzungen eintragen, Ergebnisse deuten, Selbsttest ===== */
+(function(){
+'use strict';
+function $(id){return document.getElementById(id)}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+var RM=FIG.RM,NN='\u202F:\u202F',NB='\u00A0';
+function seen(node,cb,th){if(!node)return;if(!('IntersectionObserver' in window)){cb(true);return}
+  new IntersectionObserver(function(es){es.forEach(function(e){cb(e.isIntersecting)})},{threshold:th||0}).observe(node)}
+function clamp(x,a,b){return x<a?a:x>b?b:x}
+function each(sel,fn){[].slice.call(document.querySelectorAll(sel)).forEach(fn)}
+function rep(v,n){var a=[];for(var i=0;i<n;i++)a.push(v);return a}
+function ri(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+
+/* Wahrscheinlichkeit, dass eine mischerbige Pflanze n dominante Nachkommen hintereinander bekommt */
+var PCT=['100','50','25','12,5','6,25','3,1','1,6','0,8','0,4','0,2','0,1'];
+function pct(n){if(n<=10)return PCT[n]+NB+'%';var p=100/Math.pow(2,n);
+  if(p>=.01)return p.toFixed(2).replace('.',',')+NB+'%';if(p>=.001)return p.toFixed(3).replace('.',',')+NB+'%';return 'unter 0,001'+NB+'%'}
+
+/* ---------- Abbildungen einsetzen ---------- */
+FIG.fill(document);
+
+/* ---------- Kopf: Doppelhelix ---------- */
+var HX=FIG.helix($('helix'),{layout:function(W,H){
+  if(W>=900)return {x:W*.8,y:H*.5,len:Math.hypot(W,H)*1.2,ang:Math.PI/2-.3,R:clamp(W*.06,46,96)};
+  return {x:W*.5,y:H-86,len:W*1.6,ang:-.08,R:30}}});
+seen($('top'),function(v){if(v)HX.start();else HX.stop()});
+
+/* ---------- Inhaltsleiste und Fortschritt ---------- */
+var tocA=[].slice.call(document.querySelectorAll('.toc a')),secs=tocA.map(function(a){return $(a.getAttribute('href').slice(1))}),tocOn=-1;
+function tocUpd(){var y=window.innerHeight*.35,k=-1;secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<y)k=i});
+  if(k!==tocOn){tocOn=k;tocA.forEach(function(a,i){a.classList.toggle('on',i===k)});if(k>=0){var a=tocA[k],bar=$('toc');
+    var l=a.offsetLeft-bar.clientWidth/2+a.clientWidth/2;try{bar.scrollTo({left:l,behavior:RM?'auto':'smooth'})}catch(e){bar.scrollLeft=l}}}
+  var max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);$('progress').style.width=(clamp(window.pageYOffset/max,0,1)*100).toFixed(2)+'%'}
+var ticking=false;
+window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;tocUpd()})}},{passive:true});
+window.addEventListener('resize',tocUpd);
+
+/* Nachkommen einblenden, einer nach dem anderen */
+function showKids(box){var ks=[].slice.call(box.querySelectorAll('.kid'));
+  requestAnimationFrame(function(){requestAnimationFrame(function(){ks.forEach(function(k){k.classList.add('on')})})})}
+
+/* ---------- Mit welchem Partner? ---------- */
+var KP={VV:[[1,1,1,1,1,1],[1,1,1,1,1,1]],vv:[[1,1,1,1,1,1],[1,0,1,1,0,0]]},PTp=null;
+function ptSet(p){PTp=p;
+  $('ptFig').innerHTML=p?FIG.flower(p==='VV'):'?';
+  $('ptGeno').innerHTML=p?FIG.geno(p):'??';
+  each('#pt .pt-b button',function(b){b.setAttribute('aria-pressed',String(b.dataset.p===p))});
+  [0,1].forEach(function(r){var box=$('ptK'+r),res=$('ptR'+r);
+    if(!p){box.innerHTML='';res.textContent='';return}
+    var L=KP[p][r].map(function(x){return !!x}),w=L.filter(function(x){return !x}).length;
+    box.innerHTML=FIG.kids('V',L);res.textContent=w?'halb weiß':'alle violett';showKids(box)});
+  var v=$('ptV');v.className='pt-v'+(!p?' hint':p==='VV'?' same':'');
+  v.textContent=!p?'Tippe oben auf einen Partner.':p==='VV'?'Gleiches Ergebnis: Man erfährt nichts.':'Verschiedene Ergebnisse: Der Nachwuchs verrät es.'}
+each('#pt .pt-b button',function(b){b.addEventListener('click',function(){ptSet(b.dataset.p)})});
+ptSet(null);
+
+/* ---------- Die Rückkreuzung: zwei Kombinationsquadrate ---------- */
+function sq(box,top,left,T){box.innerHTML='';
+  box.appendChild(el('span','c0','<i class="ma" aria-label="männlich">♂</i><i class="fe" aria-label="weiblich">♀</i>'));
+  top.forEach(function(a){box.appendChild(el('span','h',FIG.gamete(a)))});
+  var all=[];
+  left.forEach(function(b){box.appendChild(el('span','h',FIG.gamete(b)));
+    top.forEach(function(a){var g=FIG.canon(b,a),d=FIG.phenoDom(g);all.push(g);box.appendChild(el('span','c',FIG.pheno(T,d)+FIG.geno(g)))})});
+  box.setAttribute('role','img');
+  box.setAttribute('aria-label','Kombinationsquadrat: links die Keimzellen '+left.join(' und ')+', oben '+top.join(' und ')+', Nachkommen '+all.join(', '))}
+sq($('sq1'),['v','v'],['V','V'],'V');sq($('sq2'),['v','v'],['V','v'],'V');
+$('pxKids').innerHTML=FIG.kids('V',[true,false,true,false,false,true]);
+
+/* ---------- Wie sicher ist sicher? ---------- */
+function shSet(n){$('shRn').textContent=n;$('shKids').innerHTML=FIG.kids('V',rep(true,n));
+  $('shBig').textContent=pct(n);$('shBar').style.width=(100/Math.pow(2,n)).toFixed(3)+'%';
+  $('shF').textContent='also 1 von '+Math.pow(2,n)+(n===1?'':', wie '+n+'-mal hintereinander Kopf beim Münzwurf')}
+$('shR').addEventListener('input',function(e){shSet(+e.target.value)});
+shSet(+$('shR').value||3);
+
+/* ---------- Aufgabe 1: Erbsen-Detektiv ---------- */
+var DK=(function(){
+  var T='G',het=false,partner=null,kids=[],decided=false,nCase=0,nOk=0,nDone=0,sumN=0;
+  var REC1={G:'grüner Samen',R:'kantiger Samen',V:'weiß blühender Nachkomme'},REC2={G:'Der grüne Samen',R:'Der kantige Samen',V:'Der weiß blühende Nachkomme'},
+    REC4={G:'grünen Samen',R:'kantigen Samen',V:'weiß blühenden Nachkommen'},DOMALL={G:'alle gelb',R:'alle rund',V:'alle violett'};
+  function Tr(){return FIG.TRAIT[T]}function D(){return Tr().d}function R(){return Tr().r}
+  function msg(t,ok){var m=$('dkMsg');m.className='dk-msg'+(ok==null?'':ok?' ok':' no');m.innerHTML=t}
+  function nRec(){return kids.filter(function(x){return !x}).length}
+  function render(){var tr=Tr(),n=kids.length,nr=nRec(),nd=n-nr;
+    $('dkCase').textContent='Fall '+nCase;
+    $('dkScore').textContent=nDone?nOk+' von '+nDone+' richtig · im Schnitt '+Math.round(sumN/nDone)+' Nachkommen':'';
+    var g=decided?(het?D()+R():D()+D()):D()+'?';
+    $('dkP').innerHTML=FIG.pheno(T,true)+FIG.geno(g)+'<small>geprüfte Pflanze</small>';
+    $('dkP').classList.toggle('solved',decided);
+    $('dkPartner').innerHTML=partner?FIG.pheno(T,false)+FIG.geno(R()+R())+'<small>Testpartner</small>':'<span class="ph0">?</span><small>Testpartner wählen</small>';
+    $('dkPB').hidden=!!partner;
+    $('dkCount').innerHTML=n?'<span>'+FIG.pheno(T,true)+tr.dn+' <b>'+nd+'</b></span><span>'+FIG.pheno(T,false)+tr.rn+' <b>'+nr+'</b></span>':'';
+    var pr=$('dkProb');pr.className='dk-prob';
+    if(!partner)pr.textContent='';
+    else if(!n)pr.textContent=T==='V'?'Säe Samen aus und schau, wie die Nachkommen blühen.':'Öffne eine reife Hülse und schau dir die Samen an.';
+    else if(nr){pr.className='dk-prob proof';pr.textContent='Ein '+REC1[T]+' beweist: Die geprüfte Pflanze trägt '+R()+'. Sie ist mischerbig.'}
+    else pr.innerHTML=n+' Nachkommen, '+DOMALL[T]+'. Wäre die Pflanze <b>'+D()+R()+'</b>, käme das nur mit '+pct(n)+' Wahrscheinlichkeit vor.';
+    var more=$('dkMore');more.textContent=T==='V'?'Samen aussäen':'Hülse öffnen';more.disabled=!partner||decided||n>=60;
+    $('dkHo').innerHTML='reinerbig <b>'+D()+D()+'</b>';$('dkHe').innerHTML='mischerbig <b>'+D()+R()+'</b>';
+    $('dkHo').disabled=$('dkHe').disabled=!n||decided}
+  function newCase(t){if(t)T=t;het=Math.random()<.5;partner=null;kids=[];decided=false;nCase++;
+    each('.dk-pick button',function(b){b.setAttribute('aria-pressed',String(b.dataset.t===T))});
+    var tr=Tr();
+    $('dkPB').innerHTML='<button type="button" data-p="D">'+FIG.pheno(T,true)+tr.dn+' <b>'+D()+D()+'</b></button><button type="button" data-p="R">'+FIG.pheno(T,false)+tr.rn+' <b>'+R()+R()+'</b></button>';
+    $('dkHarvest').innerHTML='';
+    msg('Wähle zuerst den Testpartner.');render()}
+  $('dkPB').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var tr=Tr();
+    if(b.dataset.p==='D'){msg('<b>Lieber nicht.</b> Mit '+D()+D()+' als Partner wären alle Nachkommen '+tr.dn+', ganz gleich, ob die geprüfte Pflanze '+D()+D()+' oder '+D()+R()+' ist. Damit erfährst du nichts. Nimm den reinerbig rezessiven Partner.',false);return}
+    partner='R';msg('<b>Gut.</b> '+R()+R()+' gibt nur '+R()+' weiter. Jeder Nachkomme zeigt jetzt, welches Allel er von der geprüften Pflanze bekommen hat.',true);render()});
+  function harvest(){if(!partner||decided)return;var k=T==='V'?ri(4,6):ri(4,8),L=[];
+    for(var i=0;i<k;i++)L.push(het?Math.random()<.5:true);
+    kids=kids.concat(L);var tr=Tr(),box;
+    if(T==='V'){box=el('div','bed new',FIG.kids('V',L));box.setAttribute('role','img');box.setAttribute('aria-label',k+' Nachkommen: '+L.filter(Boolean).length+' violett, '+L.filter(function(x){return !x}).length+' weiß');
+      [].slice.call(box.querySelectorAll('.kid')).forEach(function(x){x.classList.add('on')})}
+    else{var t=document.createElement('template');t.innerHTML=FIG.pod(L.map(function(d){return d?tr.dk:tr.rk}),{cls:'new'});box=t.content.firstElementChild}
+    $('dkHarvest').insertBefore(box,$('dkHarvest').firstChild);
+    msg('');render()}
+  function decide(ho){if(decided||!kids.length)return;decided=true;var n=kids.length,nr=nRec(),ok=ho?!het:het,tr=Tr();sumN+=n;nDone++;if(ok)nOk++;
+    var t;
+    if(ho&&!het)t='<b>Richtig, sie ist '+D()+D()+'.</b> '+(n>=6?'Nach '+n+' Nachkommen ohne einen '+tr.rn+'en war das gut begründet.':'Aber Vorsicht: Bei nur '+n+' Nachkommen hätte auch eine Pflanze '+D()+R()+' noch so ausgesehen, zu '+pct(n)+'.');
+    else if(ho&&het&&nr)t='<b>Leider nicht, sie ist '+D()+R()+'.</b> Ein '+REC1[T]+' war schon dabei, und der beweist ein '+R()+'.';
+    else if(ho)t='<b>Leider nicht, sie ist '+D()+R()+'.</b> Zufällig war noch kein '+REC1[T]+' dabei. Das passiert bei '+n+' Nachkommen zu '+pct(n)+'. Mit mehr Nachkommen wärst du sicherer gewesen.';
+    else if(het&&nr)t='<b>Richtig, sie ist '+D()+R()+'.</b> '+REC2[T]+' hat es bewiesen.';
+    else if(het)t='<b>Richtig, sie ist '+D()+R()+'.</b> Aber das war geraten: Noch war kein '+REC1[T]+' dabei.';
+    else t='<b>Leider nicht, sie ist '+D()+D()+'.</b> Ohne einen '+REC4[T]+' gibt es keinen Hinweis auf '+R()+'.';
+    msg(t,ok);render()}
+  $('dkMore').addEventListener('click',harvest);
+  $('dkHo').addEventListener('click',function(){decide(true)});
+  $('dkHe').addEventListener('click',function(){decide(false)});
+  $('dkNew').addEventListener('click',function(){newCase()});
+  each('.dk-pick button',function(b){b.addEventListener('click',function(){newCase(b.dataset.t)})});
+  newCase('G');
+  return {state:function(){return {T:T,het:het,partner:partner,kids:kids.slice(),decided:decided,nCase:nCase,nOk:nOk}},
+    force:function(h){het=h},partner:function(p){var b=$('dkPB').querySelector('[data-p="'+p+'"]');if(b)b.click()},
+    harvest:harvest,decide:decide,newCase:newCase}
+})();
+
+/* ---------- Aufgabe 2: Rückkreuzungen eintragen ---------- */
+var RX=(function(){
+  var T='G',step=0,st=null,usedSol=false;
+  var WORD={G:'die Erbsen anmalen',V:'die Blüten anmalen',R:'die Form der Erbsen wählen'};
+  var RAT=['alle gleich','1'+NN+'1','3'+NN+'1','1'+NN+'2'+NN+'1'];
+  function Tr(){return FIG.TRAIT[T]}function D(){return Tr().d}function R(){return Tr().r}
+  function cells(){return [[{g:null,p:null},{g:null,p:null}],[{g:null,p:null},{g:null,p:null}]]}
+  function fresh(){return {cross:[{a:null,b:null},{a:null,b:null}],h:[{top:[null,null],left:[null,null]},{top:[null,null],left:[null,null]}],c:[cells(),cells()],ratio:[{g:null,p:null},{g:null,p:null}]}}
+  function cyc(list,v){var i=list.indexOf(v);return list[(i+1)%list.length]}
+  function gList(){return [null,D()+D(),D()+R(),R()+R()]}
+  function hList(){return [null,D(),R()]}
+  var REF=[{},{}];
+  function qm(){return '<span class="qm" aria-hidden="true">?</span>'}
+  function build(n){var R0={cb:[],top:[],left:[],g:[[],[]],p:[[],[]],ro:[]};
+    var cr=$('rxC'+n);cr.innerHTML='';
+    ['a','b'].forEach(function(k,j){var w=el('span','rx-cb'),b=el('button');b.type='button';b.dataset.n=n;b.dataset.s='x';b.dataset.k=k;
+      w.appendChild(el('small',null,k==='a'?'geprüft':'Testpartner'));w.appendChild(b);cr.appendChild(w);R0.cb.push(b);
+      if(j===0)cr.appendChild(el('span','cross','×'))});
+    var box=$('rxQ'+n);box.innerHTML='';
+    box.appendChild(el('span','xc0','<i class="ma" aria-label="männlich">♂</i><i class="fe" aria-label="weiblich">♀</i>'));
+    [0,1].forEach(function(i){var b=el('button','xh');b.type='button';b.dataset.n=n;b.dataset.s='top';b.dataset.i=i;box.appendChild(b);R0.top.push(b)});
+    [0,1].forEach(function(r){var b=el('button','xh');b.type='button';b.dataset.n=n;b.dataset.s='left';b.dataset.i=r;box.appendChild(b);R0.left.push(b);
+      [0,1].forEach(function(i){var c=el('div','xc'),g=el('button','xg'),p=el('button','xp');g.type=p.type='button';
+        g.dataset.n=p.dataset.n=n;g.dataset.r=p.dataset.r=r;g.dataset.i=p.dataset.i=i;g.dataset.s='g';p.dataset.s='p';
+        c.appendChild(g);c.appendChild(p);box.appendChild(c);R0.g[r].push(g);R0.p[r].push(p)})});
+    var rr=$('rxR'+n);rr.innerHTML='';
+    [['g','Genotypen'],['p','Phänotypen']].forEach(function(x){var gr=el('div','rg'),ro=el('div','ro');ro.dataset.n=n;ro.dataset.k=x[0];ro.setAttribute('role','group');ro.setAttribute('aria-label','Verhältnis der '+x[1]);
+      gr.appendChild(el('span','rl',x[1]));RAT.forEach(function(t){var b=el('button',null,t);b.type='button';ro.appendChild(b)});gr.appendChild(ro);rr.appendChild(gr);R0.ro.push(ro)});
+    REF[n]=R0}
+  var POS=['oben links','oben rechts','unten links','unten rechts'];
+  function render(){var tr=Tr();
+    [0,1].forEach(function(n){var R0=REF[n],x=st.cross[n],h=st.h[n],c=st.c[n];
+      $('rxH'+n).innerHTML='<span class="nr">'+(n+1)+'</span>'+tr.dn+', '+(n?'mischerbig':'reinerbig');
+      R0.cb.forEach(function(b){var v=x[b.dataset.k];b.innerHTML=v?FIG.geno(v):qm();b.disabled=step!==0;b.classList.toggle('set',!!v);
+        b.setAttribute('aria-label',(b.dataset.k==='a'?'geprüfte Pflanze':'Testpartner')+': '+(v||'leer'))});
+      ['top','left'].forEach(function(sd){R0[sd].forEach(function(b,i){var v=h[sd][i];b.innerHTML=v?FIG.gamete(v):qm();b.disabled=step!==1;b.classList.toggle('set',!!v);
+        b.setAttribute('aria-label','Keimzelle '+(sd==='top'?'oben, Testpartner':'links, geprüfte Pflanze')+' '+(i+1)+': '+(v||'leer'))})});
+      [0,1].forEach(function(r){[0,1].forEach(function(i){var y=c[r][i],gb=R0.g[r][i],pb=R0.p[r][i],pos=POS[r*2+i];
+        gb.innerHTML=y.g?FIG.geno(y.g):qm();gb.disabled=step!==2;gb.classList.toggle('set',!!y.g);gb.setAttribute('aria-label','Feld '+pos+', Allele: '+(y.g||'leer'));
+        pb.innerHTML=y.p?FIG.pheno(T,y.p==='d',{label:FIG.phenoName(T,y.p==='d')}):qm();pb.disabled=step!==2;pb.classList.toggle('set',!!y.p);
+        pb.setAttribute('aria-label','Feld '+pos+', Aussehen: '+(y.p?FIG.phenoName(T,y.p==='d'):'leer'))})});
+      $('rxR'+n).hidden=step<3;
+      R0.ro.forEach(function(ro){var k=ro.dataset.k;[].slice.call(ro.children).forEach(function(b,j){b.setAttribute('aria-pressed',String(st.ratio[n][k]===j));b.disabled=step!==3})})});
+    each('#rxSteps li',function(li,i){li.classList.toggle('cur',i===step);li.classList.toggle('done',i<step)});
+    var DD=D()+D(),DR=D()+R(),RR=R()+R();
+    var TASK=['Schritt 1: Welche Pflanzen werden gekreuzt? Tippe auf die Kästchen und trag links die geprüfte Pflanze ein, rechts den Testpartner.',
+      'Schritt 2: Welche Keimzellen bilden die beiden? Links kommen die Keimzellen der geprüften Pflanze hin (♀), oben die des Testpartners (♂).',
+      'Schritt 3: Welche Allele bekommen die Nachkommen? Trag in jedes Feld die Allele ein und '+WORD[T]+'.',
+      'Schritt 4: Zähl aus. In welchem Verhältnis stehen die Genotypen und die Phänotypen der Nachkommen?',
+      'Fertig! Wähl oben ein anderes Merkmal oder fang von vorn an.'];
+    $('rxTask').textContent=TASK[step];
+    $('rxCheck').disabled=$('rxShow').disabled=step>3}
+  function info(){var tr=Tr();
+    $('rxP').innerHTML='<span><b>'+tr.merkmal+':</b> '+tr.dn+' '+FIG.chip(D())+' dominant, '+tr.rn+' '+FIG.chip(R())+' rezessiv</span>'+
+      '<span class="pp">Testpartner: '+FIG.pheno(T,false)+FIG.geno(R()+R())+'</span>'}
+  function msg(t,ok){var m=$('rxMsg');m.className='xr-msg'+(ok==null?'':ok?' ok':' no');m.innerHTML=t}
+  function clearMarks(){each('#rx .bad,#rx .good',function(b){b.classList.remove('bad','good')})}
+  function reset(t){if(t)T=t;step=0;st=fresh();usedSol=false;
+    each('#rx .xr-pick button',function(b){b.setAttribute('aria-pressed',String(b.dataset.t===T))});
+    build(0);build(1);info();clearMarks();msg('');render()}
+  /* Eintragen durch Antippen */
+  $('rx').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||b.disabled||b.dataset.n==null)return;
+    var n=+b.dataset.n,s=b.dataset.s;b.classList.remove('bad','good');
+    if(s==='x'){var x=st.cross[n];x[b.dataset.k]=cyc(gList(),x[b.dataset.k])}
+    else if(s==='top'||s==='left'){var h=st.h[n][s],i=+b.dataset.i;h[i]=cyc(hList(),h[i])}
+    else if(s==='g'||s==='p'){var y=st.c[n][+b.dataset.r][+b.dataset.i];if(s==='g')y.g=cyc(gList(),y.g);else y.p=cyc([null,'d','r'],y.p)}
+    else return;
+    render()});
+  $('rx').addEventListener('click',function(e){var b=e.target.closest('.ro button');if(!b||b.disabled)return;var ro=b.parentNode,n=+ro.dataset.n;
+    st.ratio[n][ro.dataset.k]=[].slice.call(ro.children).indexOf(b);[].slice.call(ro.children).forEach(function(x){x.classList.remove('bad','good')});render()});
+  /* Prüfen */
+  function exp(){return {a:[D()+D(),D()+R()],b:R()+R(),left:[[D(),D()],[D(),R()]],top:[R(),R()],ratio:[{g:0,p:0},{g:1,p:1}]}}
+  function chk0(){var E=exp(),empty=false,badB=false,badA=[];
+    [0,1].forEach(function(n){var x=st.cross[n],R0=REF[n];
+      if(x.a==null||x.b==null)empty=true;
+      R0.cb.forEach(function(b){var k=b.dataset.k,v=x[k],ok=k==='a'?v===E.a[n]:v===E.b;
+        if(v==null){b.classList.add('bad');return}b.classList.add(ok?'good':'bad');if(!ok){if(k==='b')badB=true;else badA.push(n)}})});
+    if(empty)return {ok:false,t:'Trag in beiden Kreuzungen beide Genotypen ein.'};
+    if(badB)return {ok:false,t:'Der Testpartner einer Rückkreuzung ist immer reinerbig rezessiv: '+E.b+'.'};
+    if(badA.length)return {ok:false,t:badA[0]===0?'Links ist die geprüfte Pflanze '+Tr().dn+' und reinerbig, also '+E.a[0]+'.':'Rechts ist die geprüfte Pflanze '+Tr().dn+' und mischerbig, also '+E.a[1]+'.'};
+    return {ok:true,t:'Links '+E.a[0]+' × '+E.b+', rechts '+E.a[1]+' × '+E.b+'. Der Testpartner ist beide Male reinerbig rezessiv.'}}
+  function chk1(){var E=exp(),empty=false,badT=false,badL=[];
+    [0,1].forEach(function(n){var h=st.h[n],R0=REF[n];
+      R0.top.forEach(function(b,i){var v=h.top[i];if(v==null){empty=true;b.classList.add('bad');return}var ok=v===R();b.classList.add(ok?'good':'bad');if(!ok)badT=true});
+      var L=h.left,okL=n===0?L[0]===D()&&L[1]===D():L.indexOf(D())>=0&&L.indexOf(R())>=0;
+      R0.left.forEach(function(b,i){var v=L[i];if(v==null){empty=true;b.classList.add('bad');return}b.classList.add(okL?'good':'bad')});
+      if(!okL&&L[0]!=null&&L[1]!=null)badL.push(n)});
+    if(empty)return {ok:false,t:'Trag in alle schwarzen Kästchen einen Buchstaben ein.'};
+    if(badT)return {ok:false,t:'Der Testpartner '+R()+R()+' bildet nur Keimzellen mit '+R()+'. Oben steht also zweimal '+R()+'.'};
+    if(badL.length)return {ok:false,t:badL[0]===0?'Die reinerbige Pflanze '+D()+D()+' bildet nur Keimzellen mit '+D()+'.':'Die mischerbige Pflanze '+D()+R()+' bildet zwei Sorten Keimzellen, '+D()+' und '+R()+', je zur Hälfte.'};
+    return {ok:true,t:'Der Testpartner gibt nur '+R()+' weiter. Die reinerbige Pflanze gibt nur '+D()+' weiter, die mischerbige '+D()+' oder '+R()+'.'}}
+  function chk2(){var empty=false,badG=false,badP=false,tr=Tr();
+    [0,1].forEach(function(n){var h=st.h[n],c=st.c[n],R0=REF[n];
+      [0,1].forEach(function(r){[0,1].forEach(function(i){var y=c[r][i],e=FIG.canon(h.left[r],h.top[i]),pd=FIG.phenoDom(e)?'d':'r';
+        if(y.g==null){R0.g[r][i].classList.add('bad');empty=true}else if(y.g!==e){R0.g[r][i].classList.add('bad');badG=true}else R0.g[r][i].classList.add('good');
+        if(y.p==null){R0.p[r][i].classList.add('bad');empty=true}else if(y.p!==pd){R0.p[r][i].classList.add('bad');badP=true}else R0.p[r][i].classList.add('good')})})});
+    if(empty)return {ok:false,t:'Füll jedes Feld aus: Allele eintragen und '+WORD[T]+'.'};
+    if(badG)return {ok:false,t:'In jedes Feld kommen die beiden Keimzellen, die sich dort treffen: eine von links und eine von oben. Großbuchstabe zuerst.'};
+    if(badP)return {ok:false,t:'Schau auf die Allele: Ein einziges '+D()+' genügt für '+tr.dn+'. Nur '+R()+R()+' ist '+tr.rn+'.'};
+    return {ok:true,t:'Alle Felder stimmen. Links lauter '+D()+R()+', rechts '+D()+R()+' und '+R()+R()+'.'}}
+  function chk3(){var E=exp(),miss=false,bad=-1,tr=Tr();
+    [0,1].forEach(function(n){var r=st.ratio[n];REF[n].ro.forEach(function(ro){var k=ro.dataset.k;if(r[k]==null){miss=true;return}
+      var ok=r[k]===E.ratio[n][k];ro.children[r[k]].classList.add(ok?'good':'bad');if(!ok&&bad<0)bad=n})});
+    if(miss)return {ok:false,t:'Wähl in beiden Tabellen je ein Verhältnis für die Genotypen und für die Phänotypen.'};
+    if(bad===0)return {ok:false,t:'Zähl links nach: Alle vier Felder sind gleich. Dann ist das Verhältnis „alle gleich“.'};
+    if(bad===1)return {ok:false,t:'Zähl rechts nach: Wie oft steht '+D()+R()+', wie oft '+R()+R()+'? Und wie viele sind '+tr.dn+', wie viele '+tr.rn+'?'};
+    return {ok:true,t:'Reinerbig: alle Nachkommen gleich, alle '+tr.dn+'. Mischerbig: '+D()+R()+NN+R()+R()+' = 1'+NN+'1, '+tr.dn+NN+tr.rn+' = 1'+NN+'1. Genau daran erkennt man den Genotyp.'}}
+  var CHK=[chk0,chk1,chk2,chk3];
+  function solve(){var E=exp();
+    if(step===0){[0,1].forEach(function(n){st.cross[n]={a:E.a[n],b:E.b}})}
+    else if(step===1){[0,1].forEach(function(n){st.h[n].top=E.top.slice();st.h[n].left=E.left[n].slice()})}
+    else if(step===2){[0,1].forEach(function(n){var h=st.h[n];[0,1].forEach(function(r){[0,1].forEach(function(i){var g=FIG.canon(h.left[r],h.top[i]);st.c[n][r][i]={g:g,p:FIG.phenoDom(g)?'d':'r'}})})})}
+    else{[0,1].forEach(function(n){st.ratio[n]={g:E.ratio[n].g,p:E.ratio[n].p}})}}
+  $('rxCheck').addEventListener('click',function(){if(step>3)return;clearMarks();var res=CHK[step]();
+    if(res.ok){step++;render();msg('<b>'+(step>3?'Geschafft!':'Stimmt.')+'</b> '+res.t+(step>3?(usedSol?' Probier es mit einem anderen Merkmal ganz ohne Lösung.':' Probier ein anderes Merkmal!'):''),true)}
+    else msg('<b>Noch nicht.</b> '+res.t,false)});
+  $('rxShow').addEventListener('click',function(){if(step>3)return;clearMarks();usedSol=true;solve();var res=CHK[step]();clearMarks();step++;render();
+    msg('<b>Lösung eingetragen.</b> '+res.t+(step>3?' Probier es mit einem anderen Merkmal ganz ohne Lösung.':' Schau sie dir an und mach beim nächsten Schritt selbst weiter.'),null)});
+  $('rxNew').addEventListener('click',function(){reset()});
+  each('#rx .xr-pick button',function(b){b.addEventListener('click',function(){reset(b.dataset.t)})});
+  reset('G');
+  return {state:function(){return {T:T,step:step,st:JSON.parse(JSON.stringify(st))}},check:function(){$('rxCheck').click()},show:function(){$('rxShow').click()},reset:reset}
+})();
+
+/* ---------- Aufgabe 3: Ergebnisse deuten ---------- */
+var DC=[
+  {t:'G',d:14,r:0,a:0,why:'Bei 14 Samen ohne einen grünen wäre eine Pflanze Gg nur mit 0,006'+NB+'% so ausgefallen. Ganz sicher ist es nie, aber sehr wahrscheinlich ist sie GG.'},
+  {t:'V',d:9,r:11,a:1,why:'Weiße Nachkommen sind vv. Ein v stammt vom Testpartner, das andere muss von der geprüften Pflanze kommen. 9'+NN+'11 liegt nahe bei 1'+NN+'1.'},
+  {t:'R',d:2,r:0,a:2,why:'Zwei runde Samen sagen wenig. Auch eine Pflanze Rr bekäme mit 25'+NB+'% Wahrscheinlichkeit zwei runde hintereinander. Mehr Samen ernten!'},
+  {t:'G',d:5,r:1,a:1,why:'Ein einziger grüner Samen genügt: Er ist gg, und eines seiner beiden g stammt von der geprüften Pflanze. 5'+NN+'1 statt 3'+NN+'3 ist bei so wenigen Samen ganz normal.'},
+  {t:'V',d:10,r:0,a:2,p:'VV',why:'Mit VV als Partner blühen alle Nachkommen violett, egal ob die geprüfte Pflanze VV oder Vv ist. Dieser Versuch kann nichts verraten. Für eine Rückkreuzung braucht es den Partner vv.'}];
+(function(){var box=$('dc'),res=DC.map(function(){return null}),R=FIG.rng(5);
+  DC.forEach(function(c,i){var tr=FIG.TRAIT[c.t],L=[],j,k,tmp;
+    for(j=0;j<c.d;j++)L.push(true);for(j=0;j<c.r;j++)L.push(false);
+    for(j=L.length-1;j>0;j--){k=Math.floor(R()*(j+1));tmp=L[j];L[j]=L[k];L[k]=tmp}
+    var part=c.p?FIG.geno(c.p):FIG.geno(tr.r+tr.r);
+    var d=el('div','dcc');
+    d.innerHTML='<h3>'+FIG.pheno(c.t,true)+'<span>'+(c.p?'Kreuzung mit '+part+' statt '+FIG.geno(tr.r+tr.r):'Rückkreuzung mit '+part)+'</span></h3>'+
+      '<div class="dck" role="img" aria-label="'+c.d+' '+tr.dn+', '+c.r+' '+tr.rn+'">'+FIG.kids(c.t,L)+'</div>'+
+      '<p class="dcn">'+c.d+' '+tr.dn+', '+c.r+' '+tr.rn+'</p>';
+    var op=el('div','opts'),why=el('p','why');why.hidden=true;
+    ['reinerbig','mischerbig','noch unklar'].forEach(function(t,m){var b=el('button',null,t);b.type='button';
+      b.addEventListener('click',function(){if(res[i]!=null)return;res[i]=m===c.a;
+        [].slice.call(op.children).forEach(function(x,q){x.disabled=true;if(q===c.a)x.classList.add('ok');else if(q===m)x.classList.add('no')});
+        why.hidden=false;why.innerHTML='<b>'+(m===c.a?'Richtig. ':'Leider nicht. ')+'</b>'+c.why;
+        var n=res.filter(function(r){return r!=null}).length,ok=res.filter(function(r){return r}).length;
+        $('dcScore').textContent=n<DC.length?ok+' von '+n+' richtig':'Geschafft: '+ok+' von '+DC.length+' richtig.'});op.appendChild(b)});
+    d.appendChild(op);d.appendChild(why);box.appendChild(d)})})();
+
+/* ---------- Selbsttest: Fragen mit sofortiger Rückmeldung ---------- */
+function makeQuiz(box,scoreEl,ITEMS){var res=ITEMS.map(function(){return null});
+  ITEMS.forEach(function(Q,i){var d=el('div','q'),h=el('h3',null,Q[0]),op=el('div','opts'),why=el('p','why');why.hidden=true;d.appendChild(h);d.appendChild(op);d.appendChild(why);
+    Q[1].forEach(function(t,j){var b=el('button',null,t);b.type='button';b.addEventListener('click',function(){if(res[i]!=null)return;res[i]=j===Q[2];
+      [].slice.call(op.children).forEach(function(x,m){x.disabled=true;if(m===Q[2])x.classList.add('ok');else if(m===j)x.classList.add('no')});
+      why.hidden=false;why.innerHTML='<b>'+(j===Q[2]?'Richtig. ':'Leider nicht. ')+'</b>'+Q[3];sc()});op.appendChild(b)});
+    box.appendChild(d)});
+  function sc(){var n=res.filter(function(r){return r!=null}).length,ok=res.filter(function(r){return r}).length;
+    scoreEl.textContent=n<ITEMS.length?ok+' von '+n+' richtig':'Geschafft: '+ok+' von '+ITEMS.length+' richtig.'+(ok===ITEMS.length?' Stark!':' Schau dir die Erklärungen noch einmal an.')}}
+makeQuiz($('quiz'),$('score'),[
+  ['Wozu dient eine Rückkreuzung?',['um eine neue Merkmalsform zu züchten','um den Genotyp eines Lebewesens mit dominantem Phänotyp zu bestimmen','um mischerbige Pflanzen reinerbig zu machen'],1,'Eine violette Erbse kann VV oder Vv sein. Die Rückkreuzung zeigt, welches von beiden zutrifft.'],
+  ['Mit welchem Partner kreuzt man bei einer Rückkreuzung?',['mit einem reinerbig dominanten, zum Beispiel VV','mit einem mischerbigen, zum Beispiel Vv','mit einem reinerbig rezessiven, zum Beispiel vv'],2,'Der Testpartner ist reinerbig rezessiv. Er gibt nur das rezessive Allel weiter.'],
+  ['Warum eignet sich gerade vv als Partner?',['weil v nichts überdeckt: Jeder Nachkomme zeigt das Allel der geprüften Pflanze','weil weiße Pflanzen mehr Samen bilden','weil vv dominant ist'],0,'vv gibt nur v weiter. Ob ein Nachkomme violett oder weiß blüht, entscheidet allein das Allel, das er von der geprüften Pflanze bekommt.'],
+  ['VV wird mit vv gekreuzt. Wie sehen die Nachkommen aus?',['alle Vv, violett','halb Vv, halb vv','alle vv, weiß'],0,'VV gibt nur V weiter, vv nur v. Alle Nachkommen sind Vv und blühen violett.'],
+  ['Vv wird mit vv gekreuzt. In welchem Verhältnis stehen violette und weiße Nachkommen?',['3'+NN+'1','1'+NN+'1','alle violett'],1,'Vv bildet Keimzellen mit V und mit v, je zur Hälfte. Mit dem v des Partners entstehen Vv und vv im Verhältnis 1'+NN+'1.'],
+  ['Bei einer Rückkreuzung blüht ein Nachkomme weiß. Was folgt daraus?',['Die geprüfte Pflanze ist sicher Vv.','Die geprüfte Pflanze ist sicher VV.','Man kann noch nichts sagen.'],0,'Ein weißer Nachkomme ist vv. Ein v kommt vom Partner, das andere muss von der geprüften Pflanze stammen.'],
+  ['Drei Nachkommen, alle violett. Ist die geprüfte Pflanze damit sicher VV?',['Ja, drei sind genug.','Nein, auch eine Pflanze Vv bekommt in 12,5'+NB+'% der Fälle drei violette hintereinander.','Nein, sie ist dann sicher Vv.'],1,'Die Wahrscheinlichkeit ist ½ · ½ · ½ = ⅛, also 12,5'+NB+'%. Erst mit mehr Nachkommen wird VV sehr wahrscheinlich.'],
+  ['Was heißt: 1'+NN+'1 ist ein Mittelwert?',['Es kommen immer genau gleich viele heraus.','Bei wenigen Nachkommen weicht das Ergebnis oft ab, bei vielen nähert es sich 1'+NN+'1.','Man rechnet den Durchschnitt aus Vater und Mutter.'],1,'Jeder Nachkomme ist ein Zufallsergebnis wie ein Münzwurf. 6'+NN+'4 bei zehn Nachkommen ist ganz normal.'],
+  ['Warum entfernt man die Staubblätter der geprüften Erbsenblüte?',['damit sie sich nicht selbst bestäubt','damit sie schneller blüht','damit die Samen größer werden'],0,'Erbsen bestäuben sich selbst, noch bevor sich die Blüte öffnet. Ohne Staubblätter kommt nur der Pollen des Testpartners auf die Narbe.'],
+  ['Warum sieht man die Samenfarbe schon in der reifen Hülse?',['weil die Hülse die Farbe der Mutterpflanze hat','weil jeder Samen schon ein Nachkomme ist: Seine Keimblätter zeigen seine eigenen Allele','weil die Farbe vom Pollen kommt'],1,'Im Samen steckt der Keimling der nächsten Generation. Die Farbe seiner Keimblätter hängt von seinen eigenen Allelen ab.']]);
+
+tocUpd();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(tocUpd);
+window.__stu={dk:DK,rx:RX,pt:ptSet};
+})();
+</script>
